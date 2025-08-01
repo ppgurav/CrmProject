@@ -191,7 +191,7 @@ export default function Sidebar({ isOpen, onClose }) {
             className="text-gray-700 hover:bg-gray-100 group flex items-center px-3 py-3 text-sm font-medium rounded-xl transition-all duration-200"
           >
             <HelpCircle className="mr-3 h-5 w-5" />
-            Help & Support
+            Help & Support.
           </a>
         </div>
       </nav>
