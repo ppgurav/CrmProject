@@ -13,6 +13,8 @@ export default function Header({ onMenuClick }) {
     '/customers': 'Customers',
     '/vender': 'Vendor',
     '/employee': 'Employee Management',
+    '/addemployee': 'Add Employee',
+
 
     // Add more here as needed
   };
