@@ -11,7 +11,7 @@ export default function Header({ onMenuClick }) {
   
   const routeTitles = {
     '/customers': 'Customers',
-    '/vender': 'Vender',
+    '/vender': 'Vendor',
     '/employee': 'Employee Management',
 
     // Add more here as needed

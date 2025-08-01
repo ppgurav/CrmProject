@@ -6,6 +6,7 @@ import Customers from './Pages/Customers';
 import Container from './Component/Container';
 import EmployeeList from './Pages/EmployeeList';
 import Vender from './Pages/Vender';
+import AddEmployee from './Pages/AddEmployee';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/customers" element={<Customers />} />
           <Route path="/employee" element={<EmployeeList />} />
           <Route path="/vender" element={<Vender />} />
+          <Route path="/addemployee" element={<AddEmployee />} />
         </Route>
       </Routes>
     </Router>

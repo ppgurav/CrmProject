@@ -14,6 +14,7 @@ import {
   AlertTriangle,
   PanelLeft,
 } from "lucide-react"
+import { useNavigate } from "react-router-dom";
 
 // Zod schema for employee validation
 const employeeSchema = z.object({
@@ -37,6 +38,11 @@ const employeeSchema = z.object({
 
 export default function EmployeeList() {
   // Sample employee data
+  const navigate = useNavigate();
+
+  const handleAddEmployee = () => {
+    navigate('/addemployee');
+  };
   const [employees, setEmployees] = useState([
     {
       id: 1,
@@ -440,10 +446,13 @@ export default function EmployeeList() {
                 <Download className="inline-block w-5 h-5 mr-2" />
                 Export
               </button>
-              <button className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-cyan-600 text-white rounded-xl hover:from-indigo-700 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 font-medium shadow-lg hover:shadow-xl transform hover:scale-[1.02]">
-                <Plus className="inline-block w-5 h-5 mr-2" />
-                Add Employee
-              </button>
+              <button
+      onClick={handleAddEmployee}
+      className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-cyan-600 text-white rounded-xl hover:from-indigo-700 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 font-medium shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
+    >
+      <Plus className="inline-block w-5 h-5 mr-2" />
+      Add Employee
+    </button>
             </div>
           </div>
         </div>

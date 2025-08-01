@@ -69,7 +69,7 @@ export default function Sidebar({ isOpen, onClose }) {
     //   active: true,
     },
     {
-      name: "Vender",
+      name: "Vendor",
       icon: UserPlus,
       href: "/vender",
     },
