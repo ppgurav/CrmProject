@@ -225,7 +225,7 @@ const Login = () => {
 
     if (data.email === validEmail && data.password === validPassword) {
       localStorage.setItem('token', 'mockToken123'); // Optional, just simulating auth
-      navigate('/customers');
+      navigate('/customersList');
     } else {
       alert('Invalid email or password');
     }

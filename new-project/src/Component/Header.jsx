@@ -1,47 +1,271 @@
 import { useState } from "react"
-import { Menu, Search, Bell, ChevronDown, User, Settings, HelpCircle, LogOut } from "lucide-react"
-import { useLocation } from "react-router-dom";
+import {
+  Menu,
+  Search,
+  Bell,
+  ChevronDown,
+  User,
+  Settings,
+  HelpCircle,
+  LogOut,
+  Plus,
+  UserPlus,
+  PackagePlus,
+  FilePlus2,
+  FileText,
+  UserCog,
+  ArrowBigLeft,
+  Dot,
+  CircleDot,
+  DotIcon,
+  Users
+} from "lucide-react"
+import { useLocation, Link } from "react-router-dom"
 
 export default function Header({ onMenuClick }) {
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false)
+  const location = useLocation()
+  const currentPath = location.pathname
 
-
-  const location = useLocation();
-  const currentPath = location.pathname;
-  
   const routeTitles = {
-    '/customers': 'Customers',
-    '/vender': 'Vendor',
-    '/employee': 'Employee Management',
-    '/addemployee': 'Add Employee',
+    '/customers': {
+      title: 'AddCustomers ',
+      buttonTextColor: 'text-white',
+      iconColor: 'stroke-white',
+    //   pageSubtitle: 'Manage your customers here.',
+    },
+    '/customersList': {
+        title: 'Customers Management',
+        buttonTextColor: 'text-white',
+        iconColor: 'stroke-white',
+        pageSubtitle: 'Manage your customers here.',
+      },
+    '/vender': {
+      title: 'Create Vendor',
+      buttonTextColor: 'text-yellow-100',
+      iconColor: 'stroke-yellow-100',
+    },
+    '/vendorlist': {
+        title: 'Vendor Management',
+        buttonTextColor: 'text-yellow-100',
+        iconColor: 'stroke-yellow-100',
+        pageSubtitle: 'Manage your vendors and their information.',
+      },
+    '/employee': {
+      title: 'Employee Management',
+      buttonTextColor: 'text-green-200',
+      iconColor: 'stroke-green-200',
+    },
+    '/addemployee': {
+      title: 'Add Employee',
+      buttonTextColor: 'text-pink-200',
+      iconColor: 'stroke-pink-200',
+    },
+    '/sale/product-service': {
+      title: 'Add New Product',
+      buttonTextColor: 'text-purple-100',
+      iconColor: 'stroke-purple-100',
+      pageSubtitle:"Fill in the details to add a new product to your inventory"
+    },
+    '/sale/invoice': {
+      title: 'Invoice',
+      pageSubtitle: 'Saturday, August 2, 2025 at 05:29 PM',
+      buttonTextColor: 'text-cyan-200',
+      iconColor: 'stroke-cyan-200',
+    },
+    '/sale/invoice/addInvoice': {
+      title: 'Create Invoice',
+      pageSubtitle: 'Saturday, August 2, 2025 at 05:29 PM',
+      buttonTextColor: 'text-cyan-200',
+      iconColor: 'stroke-cyan-200',
+    //   pageSubtitle:'Generate professional invoices for your clients',
+    },
+    '/ticket/ticket-list': {
+      title: 'Support Tickets',
+      buttonText: 'Create Ticket',
+      buttonHref: '/ticket/ticket-list/create-ticket',
+      buttonIcon: Plus,
+      buttonColor: 'from-indigo-600 to-indigo-400',
+      buttonTextColor: 'text-white',
+      iconColor: 'stroke-white',
+    },
+    '/ticket/ticket-list/create-ticket': {
+      title: 'Create Support Ticket',
+      buttonText: 'Back To Tickets',
+      buttonHref: '/ticket/ticket-list',
+      buttonIcon: ArrowBigLeft,
+      buttonColor: 'from-gray-400 to-gray-400',
+      buttonTextColor: 'text-black',
+      iconColor: 'stroke-black',
+    },
 
+    // '/ticket/ticket-details/:ticketId': {
+    //   title: 'Ticket #',
+    //   buttonTextColor: 'text-white',
+    //   iconColor: 'stroke-white',
+    // },
 
-    // Add more here as needed
-  };
-  
-  const pageTitle = routeTitles[currentPath] || '';
-  
-  
-  
+    '/ticket/assign-ticket': {
+      title: 'Assign Tickets',
+    //   buttonText: 'Back To Tickets',
+    //   buttonHref: '/ticket/ticket-list',
+    //   buttonIcon: ArrowBigLeft,
+      buttonColor: 'from-gray-400 to-gray-400',
+      buttonTextColor: 'text-black',
+      iconColor: 'stroke-black',
+      pageSubtitle: 'Manage and assign support tickets to team members',
+    },
+    '/attendance/markAttendance': {
+      title: 'Mark Attendence',
+      buttonText: 'Ready to Mark IN',
+      buttonHref: '/ticket/ticket-list',
+      buttonIcon: DotIcon,
+      buttonColor: 'from-gray-100 to-gray-100',
+      buttonTextColor: 'text-black',
+      iconColor: 'stroke-green-400',
+      iconSize: 'w-6 h-6',  
+      pageSubtitle: 'Saturday, August 2, 2025 at 05:29 PM',
+    },
+    '/attendance/dashboard': {
+      title: 'Attendance Dashboard',
+    //   buttonText: 'Refresh',
+      buttonHref: '/ticket/ticket-list',
+      buttonIcon: DotIcon,
+      buttonColor: 'from-gray-100 to-gray-100',
+      buttonTextColor: 'text-black',
+      iconColor: 'stroke-green-400',
+      iconSize: 'w-6 h-6',  
+    //   pageSubtitle: 'Saturday, August 2, 2025 at 05:29 PM',
+    },
+
+    '/attendance/daily-report': {
+        title: 'Daily Attendance Sheet ',
+      //   buttonText: 'Refresh',
+        buttonHref: '/ticket/ticket-list',
+        buttonIcon: DotIcon,
+        buttonColor: 'from-gray-100 to-gray-100',
+        buttonTextColor: 'text-black',
+        iconColor: 'stroke-green-400',
+        iconSize: 'w-6 h-6',  
+        pageSubtitle: 'January 8, 2024 - Total: 150 employees',
+      },
+      '/attendance/monthly-report': {
+        title: 'Monthly Attendance Sheet ',
+      //   buttonText: 'Refresh',
+        buttonHref: '/ticket/ticket-list',
+        buttonIcon: DotIcon,
+        buttonColor: 'from-gray-100 to-gray-100',
+        buttonTextColor: 'text-black',
+        iconColor: 'stroke-green-400',
+        iconSize: 'w-6 h-6',  
+        pageSubtitle: 'Track and manage employee attendance records',
+      },
+      '/attendance/wfh-report': {
+        title: 'WFH Approval List ',
+      //   buttonText: 'Refresh',
+        buttonHref: '/ticket/ticket-list',
+        buttonIcon: DotIcon,
+        buttonColor: 'from-gray-100 to-gray-100',
+        buttonTextColor: 'text-black',
+        iconColor: 'stroke-green-400',
+        iconSize: 'w-6 h-6',  
+        pageSubtitle: 'Manage work from home requests and approvals',
+      },
+    //   '/attendance/attendance-entry': {
+    //     title: 'Manual Attendance Entry ',
+    //   //   buttonText: 'Refresh',
+    //   icons:Users,
+    //     buttonHref: '/ticket/ticket-list',
+    //     buttonIcon: DotIcon,
+    //     buttonColor: 'from-gray-100 to-gray-100',
+    //     buttonTextColor: 'text-black',
+    //     iconColor: 'stroke-green-400',
+    //     iconSize: 'w-6 h-6',  
+    //     pageSubtitle: 'Add or edit attendance records manually',
+    //   },
+
+    '/mark-attendance/my-report': {
+        title: 'My Attendance Entry ',
+      //   buttonText: 'Refresh',
+      icons:Users,
+        buttonHref: '/ticket/ticket-list',
+        buttonIcon: DotIcon,
+        buttonColor: 'from-gray-100 to-gray-100',
+        buttonTextColor: 'text-black',
+        iconColor: 'stroke-green-400',
+        iconSize: 'w-6 h-6',  
+        pageSubtitle: 'View your monthly attendance in calendar format',
+      },
+
+      '/leave-management/apply-leave': {
+        title: 'Apply for Leave',
+      //   buttonText: 'Refresh',
+      icons:Users,
+        buttonHref: '/ticket/ticket-list',
+        buttonIcon: DotIcon,
+        buttonColor: 'from-gray-100 to-gray-100',
+        buttonTextColor: 'text-black',
+        iconColor: 'stroke-green-400',
+        iconSize: 'w-6 h-6',  
+        pageSubtitle: 'Submit your leave application with proper documentation',
+      },
+      '/leave-management/leavelist': {
+        title: 'Leave Management',
+      //   buttonText: 'Refresh',
+      icons:Users,
+        buttonHref: '/ticket/ticket-list',
+        // buttonIcon: DotIcon,
+        // buttonColor: 'from-gray-100 to-gray-100',
+        buttonTextColor: 'text-black',
+        iconColor: 'stroke-green-400',
+        iconSize: 'w-6 h-6',  
+        // pageSubtitle: 'Submit your leave application with proper documentation',
+      },
+  }
+
+  const routeData = routeTitles[currentPath] || {}
+  const pageTitle = routeData.title || ''
+  const pageSubtitle = routeData.pageSubtitle || ''
+  const ButtonIcon = routeData.buttonIcon || Plus
+  const buttonText = routeData.buttonText
+  const buttonHref = routeData.buttonHref
+  const buttonColor = routeData.buttonColor || 'from-indigo-600 to-cyan-600'
+  const buttonTextColor = routeData.buttonTextColor || 'text-white'
+  const iconColor = routeData.iconColor || 'stroke-white'
+  const iconSize = routeData.iconSize || 'w-4 h-4'
 
   return (
     <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-30">
-      <div className="flex items-center justify-between h-16 px-6">
+      <div className="flex items-center justify-between h-20 px-6">
         {/* Mobile menu button */}
         <button onClick={onMenuClick} className="lg:hidden p-2 rounded-lg hover:bg-gray-100">
           <Menu className="w-6 h-6 text-gray-600" />
         </button>
 
-        {/* Page Title */}
+        {/* Page Title and Subtitle */}
         <div className="flex-1 lg:flex-none">
-          {/* <h1 className="text-2xl font-bold text-gray-900 ml-4 lg:ml-65">Add Customer</h1> */}
-          <h1 className="text-2xl font-bold text-gray-900 ml-4 lg:ml-64">{pageTitle}</h1>
-
+          <div className="ml-auto lg:ml-64 flex flex-col justify-center">
+            <h1 className="text-2xl font-bold text-gray-900">{pageTitle}</h1>
+            {pageSubtitle && (
+              <p className="text-sm text-gray-600 mt-1">{pageSubtitle}</p>
+            )}
+          </div>
         </div>
 
         {/* Right side */}
         <div className="flex items-center space-x-4">
-          {/* Search */}
+          {/* Show button if buttonText and buttonHref exist */}
+          {buttonText && buttonHref && (
+            <Link
+              to={buttonHref}
+              className={`ml-4 px-4 py-2 bg-gradient-to-r ${buttonColor} rounded-xl hover:opacity-90 transition-all duration-200 text-sm font-medium shadow-md flex items-center ${buttonTextColor}`}
+            >
+              <ButtonIcon className={`${iconSize} mr-2 ${iconColor}`} />
+              {buttonText}
+            </Link>
+          )}
+
+          {/* Search Input */}
           <div className="hidden md:block relative">
             <input
               type="text"

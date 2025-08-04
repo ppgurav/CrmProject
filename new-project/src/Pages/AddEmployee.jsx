@@ -1,4 +1,4 @@
-"use client"
+
 import { useState } from "react"
 import { z } from "zod"
 import { ChevronLeft, ChevronRight, Check, User, Briefcase, CreditCard, CheckCircle } from "lucide-react"
@@ -228,7 +228,7 @@ export default function AddEmployee() {
               <div className="flex items-center">
                 <StepIndicator step={1} isActive={currentStep === 1} isCompleted={currentStep > 1} />
                 <div className="ml-3 hidden sm:block">
-                  <p className="text-sm font-medium text-gray-900">Personal Info</p>
+                  <p className="text-md font-medium text-gray-900">Personal Info</p>
                   <p className="text-xs text-gray-500">Basic details</p>
                 </div>
               </div>
@@ -243,7 +243,7 @@ export default function AddEmployee() {
                   <p className={`text-sm font-medium ${currentStep >= 2 ? "text-gray-900" : "text-gray-500"}`}>
                     Job Details
                   </p>
-                  <p className={`text-xs ${currentStep >= 2 ? "text-gray-500" : "text-gray-400"}`}>Work information</p>
+                  <p className={`text-md ${currentStep >= 2 ? "text-gray-500" : "text-gray-400"}`}>Work information</p>
                 </div>
               </div>
 
@@ -254,7 +254,7 @@ export default function AddEmployee() {
               <div className="flex items-center">
                 <StepIndicator step={3} isActive={currentStep === 3} isCompleted={currentStep > 3} />
                 <div className="ml-3 hidden sm:block">
-                  <p className={`text-sm font-medium ${currentStep >= 3 ? "text-gray-900" : "text-gray-500"}`}>
+                  <p className={`text-md font-medium ${currentStep >= 3 ? "text-gray-900" : "text-gray-500"}`}>
                     Bank Details
                   </p>
                   <p className={`text-xs ${currentStep >= 3 ? "text-gray-500" : "text-gray-400"}`}>Financial info</p>
@@ -268,7 +268,7 @@ export default function AddEmployee() {
               <div className="flex items-center">
                 <StepIndicator step={4} isActive={currentStep === 4} isCompleted={currentStep > 4} />
                 <div className="ml-3 hidden sm:block">
-                  <p className={`text-sm font-medium ${currentStep >= 4 ? "text-gray-900" : "text-gray-500"}`}>
+                  <p className={`text-md font-medium ${currentStep >= 4 ? "text-gray-900" : "text-gray-500"}`}>
                     Status
                   </p>
                   <p className={`text-xs ${currentStep >= 4 ? "text-gray-500" : "text-gray-400"}`}>Final setup</p>

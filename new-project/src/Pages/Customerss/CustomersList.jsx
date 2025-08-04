@@ -1,5 +1,4 @@
 import { useState, useEffect, useMemo } from "react"
-import { z } from "zod"
 import {
   Search,
   Users,
@@ -13,144 +12,129 @@ import {
   X,
   AlertTriangle,
   PanelLeft,
+  MapPin,
+  Phone,
+  Mail,
+  Tag,
 } from "lucide-react"
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
 
-// Zod schema for employee validation
-const employeeSchema = z.object({
-  id: z.number(),
-  name: z.string().min(1, "Name is required"),
-  email: z.string().email("Invalid email format"),
-  phone: z.string().min(10, "Phone number must be at least 10 digits"),
-  department: z.string().min(1, "Department is required"),
-  designation: z.string().min(1, "Designation is required"),
-  joinDate: z.string(),
-  salary: z.number().positive("Salary must be positive"),
-  salaryType: z.enum(["fixed", "hourly", "commission"]),
-  status: z.enum(["active", "inactive"]),
-  address: z.string().min(1, "Address is required"),
-  panNumber: z.string().min(10, "PAN number is required"),
-  aadhaarNumber: z.string().min(12, "Aadhaar number must be 12 digits"),
-  bankName: z.string().min(1, "Bank name is required"),
-  ifscCode: z.string().min(11, "IFSC code is required"),
-  accountNumber: z.string().min(1, "Account number is required"),
-})
-
-export default function EmployeeList() {
-  // Sample employee data
-  const navigate = useNavigate();
-
-  const handleAddEmployee = () => {
-    navigate('/addemployee');
-  };
-  const [employees, setEmployees] = useState([
+export default function CustomersList() {
+  // Sample customer data
+  const [customers, setCustomers] = useState([
     {
       id: 1,
-      name: "Sarah Johnson",
-      email: "sarah.johnson@company.com",
-      phone: "9876543210",
-      department: "Engineering",
-      designation: "Senior Software Engineer",
-      joinDate: "2022-03-15",
-      salary: 85000,
-      salaryType: "fixed",
+      fullName: "Rajesh Kumar",
+      companyName: "Tech Solutions Pvt Ltd",
+      email: "rajesh@techsolutions.com",
+      mobile: "9876543210",
+      alternateNumber: "9876543211",
+      customerType: "client",
+      gstNumber: "27ABCDE1234F1Z5",
+      state: "maharashtra",
+      city: "Mumbai",
+      pincode: "400001",
+      address: "123 Business Park, Andheri East, Mumbai",
+      remarks: "Premium client with multiple projects",
+      tags: ["VIP", "Premium", "Long-term"],
+      createdDate: "2023-01-15",
+      lastContact: "2024-01-20",
       status: "active",
-      address: "123 Tech Street, Bangalore, Karnataka",
-      panNumber: "ABCDE1234F",
-      aadhaarNumber: "123456789012",
-      bankName: "State Bank of India",
-      ifscCode: "SBIN0001234",
-      accountNumber: "12345678901234",
     },
     {
       id: 2,
-      name: "Michael Chen",
-      email: "michael.chen@company.com",
-      phone: "9876543211",
-      department: "Marketing",
-      designation: "Marketing Manager",
-      joinDate: "2021-08-22",
-      salary: 65000,
-      salaryType: "fixed",
+      fullName: "Priya Sharma",
+      companyName: "Digital Marketing Hub",
+      email: "priya@digitalmarketing.com",
+      mobile: "9876543212",
+      alternateNumber: "",
+      customerType: "lead",
+      gstNumber: "",
+      state: "delhi",
+      city: "New Delhi",
+      pincode: "110001",
+      address: "456 Connaught Place, New Delhi",
+      remarks: "Interested in digital marketing services",
+      tags: ["Hot Lead", "Marketing"],
+      createdDate: "2024-01-10",
+      lastContact: "2024-01-25",
       status: "active",
-      address: "456 Marketing Ave, Mumbai, Maharashtra",
-      panNumber: "FGHIJ5678K",
-      aadhaarNumber: "234567890123",
-      bankName: "HDFC Bank",
-      ifscCode: "HDFC0001234",
-      accountNumber: "23456789012345",
     },
     {
       id: 3,
-      name: "Emily Rodriguez",
-      email: "emily.rodriguez@company.com",
-      phone: "9876543212",
-      department: "Design",
-      designation: "UX Designer",
-      joinDate: "2023-01-10",
-      salary: 55000,
-      salaryType: "fixed",
+      fullName: "Amit Patel",
+      companyName: "Gujarat Traders",
+      email: "amit@gujarattraders.com",
+      mobile: "9876543213",
+      alternateNumber: "9876543214",
+      customerType: "reseller",
+      gstNumber: "24FGHIJ5678K1Z9",
+      state: "gujarat",
+      city: "Ahmedabad",
+      pincode: "380001",
+      address: "789 Commercial Street, Ahmedabad",
+      remarks: "Bulk orders, good payment history",
+      tags: ["Bulk", "Reseller", "Reliable"],
+      createdDate: "2022-08-20",
+      lastContact: "2024-01-18",
       status: "active",
-      address: "789 Design Plaza, Pune, Maharashtra",
-      panNumber: "KLMNO9012P",
-      aadhaarNumber: "345678901234",
-      bankName: "ICICI Bank",
-      ifscCode: "ICIC0001234",
-      accountNumber: "34567890123456",
     },
     {
       id: 4,
-      name: "David Kumar",
-      email: "david.kumar@company.com",
-      phone: "9876543213",
-      department: "Sales",
-      designation: "Sales Executive",
-      joinDate: "2022-11-05",
-      salary: 15,
-      salaryType: "commission",
+      fullName: "Sneha Reddy",
+      companyName: "South India Exports",
+      email: "sneha@southindiaexports.com",
+      mobile: "9876543215",
+      alternateNumber: "",
+      customerType: "partner",
+      gstNumber: "36KLMNO9012P1Z3",
+      state: "telangana",
+      city: "Hyderabad",
+      pincode: "500001",
+      address: "321 Export House, Hyderabad",
+      remarks: "Strategic partner for south region",
+      tags: ["Partner", "Export", "Strategic"],
+      createdDate: "2023-03-12",
+      lastContact: "2024-01-22",
       status: "active",
-      address: "321 Sales Street, Delhi, Delhi",
-      panNumber: "QRSTU3456V",
-      aadhaarNumber: "456789012345",
-      bankName: "Axis Bank",
-      ifscCode: "UTIB0001234",
-      accountNumber: "45678901234567",
     },
     {
       id: 5,
-      name: "Lisa Thompson",
-      email: "lisa.thompson@company.com",
-      phone: "9876543214",
-      department: "HR",
-      designation: "HR Specialist",
-      joinDate: "2021-06-18",
-      salary: 50000,
-      salaryType: "fixed",
+      fullName: "Vikram Singh",
+      companyName: "Punjab Industries",
+      email: "vikram@punjabiindustries.com",
+      mobile: "9876543216",
+      alternateNumber: "9876543217",
+      customerType: "vendor",
+      gstNumber: "03QRSTU3456V1Z7",
+      state: "punjab",
+      city: "Ludhiana",
+      pincode: "141001",
+      address: "654 Industrial Area, Ludhiana",
+      remarks: "Raw material supplier",
+      tags: ["Vendor", "Industrial", "Supplier"],
+      createdDate: "2023-06-05",
+      lastContact: "2024-01-15",
       status: "inactive",
-      address: "654 HR Boulevard, Chennai, Tamil Nadu",
-      panNumber: "WXYZAB789C",
-      aadhaarNumber: "567890123456",
-      bankName: "Kotak Mahindra Bank",
-      ifscCode: "KKBK0001234",
-      accountNumber: "56789012345678",
     },
     {
       id: 6,
-      name: "James Wilson",
-      email: "james.wilson@company.com",
-      phone: "9876543215",
-      department: "Finance",
-      designation: "Financial Analyst",
-      joinDate: "2022-09-12",
-      salary: 60000,
-      salaryType: "fixed",
+      fullName: "Kavya Nair",
+      companyName: "Kerala Spices Co",
+      email: "kavya@keralaspices.com",
+      mobile: "9876543218",
+      alternateNumber: "",
+      customerType: "client",
+      gstNumber: "32WXYZAB789C1Z1",
+      state: "kerala",
+      city: "Kochi",
+      pincode: "682001",
+      address: "987 Spice Market, Kochi",
+      remarks: "Regular orders for spice products",
+      tags: ["Regular", "Spices", "Export"],
+      createdDate: "2023-09-18",
+      lastContact: "2024-01-24",
       status: "active",
-      address: "987 Finance Tower, Hyderabad, Telangana",
-      panNumber: "DEFGH4567I",
-      aadhaarNumber: "678901234567",
-      bankName: "Yes Bank",
-      ifscCode: "YESB0001234",
-      accountNumber: "67890123456789",
     },
   ])
 
@@ -158,55 +142,59 @@ export default function EmployeeList() {
   const [currentPage, setCurrentPage] = useState(1)
   const [entriesPerPage, setEntriesPerPage] = useState(10)
   const [searchTerm, setSearchTerm] = useState("")
-  const [departmentFilter, setDepartmentFilter] = useState("")
+  const [customerTypeFilter, setCustomerTypeFilter] = useState("")
   const [statusFilter, setStatusFilter] = useState("")
   const [sortColumn, setSortColumn] = useState("")
   const [sortDirection, setSortDirection] = useState("asc")
-  const [selectedEmployees, setSelectedEmployees] = useState([])
+  const [selectedCustomers, setSelectedCustomers] = useState([])
   const [selectAll, setSelectAll] = useState(false)
 
   // Modal state
-  const [employeeModalOpen, setEmployeeModalOpen] = useState(false)
+  const [customerModalOpen, setCustomerModalOpen] = useState(false)
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
-  const [selectedEmployee, setSelectedEmployee] = useState(null)
-  const [employeeToDelete, setEmployeeToDelete] = useState(null)
+  const [selectedCustomer, setSelectedCustomer] = useState(null)
+  const [customerToDelete, setCustomerToDelete] = useState(null)
 
-  // Filter and sort employees
-  const filteredEmployees = useMemo(() => {
-    const filtered = employees.filter((employee) => {
+  // Filter and sort customers
+  const filteredCustomers = useMemo(() => {
+    const filtered = customers.filter((customer) => {
       const matchesSearch =
-        employee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        employee.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        employee.designation.toLowerCase().includes(searchTerm.toLowerCase())
-      const matchesDepartment = !departmentFilter || employee.department.toLowerCase() === departmentFilter
-      const matchesStatus = !statusFilter || employee.status === statusFilter
-      return matchesSearch && matchesDepartment && matchesStatus
+        customer.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        customer.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        customer.companyName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        customer.mobile.includes(searchTerm)
+
+      const matchesCustomerType = !customerTypeFilter || customer.customerType === customerTypeFilter
+      const matchesStatus = !statusFilter || customer.status === statusFilter
+
+      return matchesSearch && matchesCustomerType && matchesStatus
     })
 
-    // Sort employees
+    // Sort customers
     if (sortColumn) {
       filtered.sort((a, b) => {
         let aValue, bValue
+
         switch (sortColumn) {
-          case "name":
-            aValue = a.name.toLowerCase()
-            bValue = b.name.toLowerCase()
+          case "fullName":
+            aValue = a.fullName.toLowerCase()
+            bValue = b.fullName.toLowerCase()
             break
-          case "department":
-            aValue = a.department.toLowerCase()
-            bValue = b.department.toLowerCase()
+          case "companyName":
+            aValue = a.companyName.toLowerCase()
+            bValue = b.companyName.toLowerCase()
             break
-          case "designation":
-            aValue = a.designation.toLowerCase()
-            bValue = b.designation.toLowerCase()
+          case "customerType":
+            aValue = a.customerType.toLowerCase()
+            bValue = b.customerType.toLowerCase()
             break
-          case "joinDate":
-            aValue = new Date(a.joinDate)
-            bValue = new Date(b.joinDate)
+          case "createdDate":
+            aValue = new Date(a.createdDate)
+            bValue = new Date(b.createdDate)
             break
-          case "salary":
-            aValue = a.salary
-            bValue = b.salary
+          case "lastContact":
+            aValue = new Date(a.lastContact)
+            bValue = new Date(b.lastContact)
             break
           case "status":
             aValue = a.status
@@ -215,32 +203,23 @@ export default function EmployeeList() {
           default:
             return 0
         }
+
         if (aValue < bValue) return sortDirection === "asc" ? -1 : 1
         if (aValue > bValue) return sortDirection === "asc" ? 1 : -1
         return 0
       })
     }
+
     return filtered
-  }, [employees, searchTerm, departmentFilter, statusFilter, sortColumn, sortDirection])
+  }, [customers, searchTerm, customerTypeFilter, statusFilter, sortColumn, sortDirection])
 
   // Pagination
-  const totalPages = Math.ceil(filteredEmployees.length / entriesPerPage)
+  const totalPages = Math.ceil(filteredCustomers.length / entriesPerPage)
   const startIndex = (currentPage - 1) * entriesPerPage
   const endIndex = startIndex + entriesPerPage
-  const currentEmployees = filteredEmployees.slice(startIndex, endIndex)
+  const currentCustomers = filteredCustomers.slice(startIndex, endIndex)
 
   // Helper functions
-  const formatSalary = (amount, type) => {
-    if (type === "fixed") {
-      return `₹${amount.toLocaleString()}/month`
-    } else if (type === "hourly") {
-      return `₹${amount}/hour`
-    } else if (type === "commission") {
-      return `${amount}% commission`
-    }
-    return `₹${amount}`
-  }
-
   const handleSort = (column) => {
     if (sortColumn === column) {
       setSortDirection(sortDirection === "asc" ? "desc" : "asc")
@@ -253,85 +232,89 @@ export default function EmployeeList() {
   const handleSelectAll = (checked) => {
     setSelectAll(checked)
     if (checked) {
-      setSelectedEmployees(currentEmployees.map((emp) => emp.id))
+      setSelectedCustomers(currentCustomers.map((customer) => customer.id))
     } else {
-      setSelectedEmployees([])
+      setSelectedCustomers([])
     }
   }
 
-  const handleSelectEmployee = (id, checked) => {
+  const handleSelectCustomer = (id, checked) => {
     if (checked) {
-      setSelectedEmployees([...selectedEmployees, id])
+      setSelectedCustomers([...selectedCustomers, id])
     } else {
-      setSelectedEmployees(selectedEmployees.filter((empId) => empId !== id))
+      setSelectedCustomers(selectedCustomers.filter((customerId) => customerId !== id))
       setSelectAll(false)
     }
   }
 
-  const viewEmployee = (id) => {
-    const employee = employees.find((emp) => emp.id === id)
-    setSelectedEmployee(employee)
-    setEmployeeModalOpen(true)
+  const viewCustomer = (id) => {
+    const customer = customers.find((cust) => cust.id === id)
+    setSelectedCustomer(customer)
+    setCustomerModalOpen(true)
   }
 
-  const deleteEmployee = (id) => {
-    const employee = employees.find((emp) => emp.id === id)
-    setEmployeeToDelete(employee)
+  const deleteCustomer = (id) => {
+    const customer = customers.find((cust) => cust.id === id)
+    setCustomerToDelete(customer)
     setDeleteModalOpen(true)
   }
 
   const confirmDelete = () => {
-    if (employeeToDelete) {
-      setEmployees(employees.filter((emp) => emp.id !== employeeToDelete.id))
+    if (customerToDelete) {
+      setCustomers(customers.filter((cust) => cust.id !== customerToDelete.id))
       setDeleteModalOpen(false)
-      setEmployeeToDelete(null)
+      setCustomerToDelete(null)
     }
   }
 
-  const exportEmployees = () => {
+  const exportCustomers = () => {
     const csvContent =
       "data:text/csv;charset=utf-8," +
-      "Name,Email,Phone,Department,Designation,Join Date,Salary,Status\n" +
-      filteredEmployees
+      "Name,Company,Email,Mobile,Customer Type,GST Number,City,State,Status\n" +
+      filteredCustomers
         .map(
-          (emp) =>
-            `"${emp.name}","${emp.email}","${emp.phone}","${emp.department}","${emp.designation}","${emp.joinDate}","${formatSalary(emp.salary, emp.salaryType)}","${emp.status}"`,
+          (customer) =>
+            `"${customer.fullName}","${customer.companyName}","${customer.email}","${customer.mobile}","${customer.customerType}","${customer.gstNumber}","${customer.city}","${customer.state}","${customer.status}"`,
         )
         .join("\n")
+
     const encodedUri = encodeURI(csvContent)
     const link = document.createElement("a")
     link.setAttribute("href", encodedUri)
-    link.setAttribute("download", "employees.csv")
+    link.setAttribute("download", "customers.csv")
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
+  }
+  const navigate = useNavigate();
+
+
+  const handleAddCustomer = () => {
+    // Navigate to add customer page
+    console.log("Navigate to add customer page")
+    navigate('/customers');
+
   }
 
   // Reset page when filters change
   useEffect(() => {
     setCurrentPage(1)
-  }, [searchTerm, departmentFilter, statusFilter])
+  }, [searchTerm, customerTypeFilter, statusFilter])
 
   return (
     <div className="bg-gradient-to-br from-indigo-50 via-white to-cyan-50 min-h-screen">
       {/* Main Content Area */}
       <main className="p-6">
-        {/* Page Title */}
-        <div className="mb-8">
-          {/* <h1 className="text-3xl font-bold text-gray-900">Employee Management</h1> */}
-          {/* <p className="text-gray-600 mt-2">Manage your team members and their information</p> */}
-        </div>
-
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {/* Total Employees */}
+          {/* Total Customers */}
           <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Total Employees</p>
-                <p className="text-3xl font-bold text-gray-900">{employees.length}</p>
+                <p className="text-sm font-medium text-gray-600">Total Customers</p>
+                <p className="text-3xl font-bold text-gray-900">{customers.length}</p>
                 <p className="text-sm text-green-600 mt-1">
-                  <span className="font-medium">+8</span> this month
+                  <span className="font-medium">+12</span> this month
                 </p>
               </div>
               <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-xl flex items-center justify-center">
@@ -340,16 +323,16 @@ export default function EmployeeList() {
             </div>
           </div>
 
-          {/* Active Employees */}
+          {/* Active Customers */}
           <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Active</p>
                 <p className="text-3xl font-bold text-gray-900">
-                  {employees.filter((emp) => emp.status === "active").length}
+                  {customers.filter((customer) => customer.status === "active").length}
                 </p>
                 <p className="text-sm text-green-600 mt-1">
-                  <span className="font-medium">91%</span> active rate
+                  <span className="font-medium">83%</span> active rate
                 </p>
               </div>
               <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center">
@@ -358,14 +341,16 @@ export default function EmployeeList() {
             </div>
           </div>
 
-          {/* Departments */}
+          {/* Clients */}
           <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Departments</p>
-                <p className="text-3xl font-bold text-gray-900">8</p>
+                <p className="text-sm font-medium text-gray-600">Clients</p>
+                <p className="text-3xl font-bold text-gray-900">
+                  {customers.filter((customer) => customer.customerType === "client").length}
+                </p>
                 <p className="text-sm text-blue-600 mt-1">
-                  <span className="font-medium">Engineering</span> largest
+                  <span className="font-medium">Primary</span> revenue
                 </p>
               </div>
               <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
@@ -374,12 +359,14 @@ export default function EmployeeList() {
             </div>
           </div>
 
-          {/* New Hires */}
+          {/* New Leads */}
           <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">New Hires</p>
-                <p className="text-3xl font-bold text-gray-900">12</p>
+                <p className="text-sm font-medium text-gray-600">New Leads</p>
+                <p className="text-3xl font-bold text-gray-900">
+                  {customers.filter((customer) => customer.customerType === "lead").length}
+                </p>
                 <p className="text-sm text-orange-600 mt-1">
                   <span className="font-medium">This month</span>
                 </p>
@@ -400,7 +387,7 @@ export default function EmployeeList() {
               <div className="relative flex-1 max-w-md">
                 <input
                   type="text"
-                  placeholder="Search employees..."
+                  placeholder="Search customers..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
@@ -408,21 +395,18 @@ export default function EmployeeList() {
                 <Search className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
               </div>
 
-              {/* Department Filter */}
+              {/* Customer Type Filter */}
               <select
-                value={departmentFilter}
-                onChange={(e) => setDepartmentFilter(e.target.value)}
+                value={customerTypeFilter}
+                onChange={(e) => setCustomerTypeFilter(e.target.value)}
                 className="px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
               >
-                <option value="">All Departments</option>
-                <option value="engineering">Engineering</option>
-                <option value="marketing">Marketing</option>
-                <option value="sales">Sales</option>
-                <option value="hr">Human Resources</option>
-                <option value="finance">Finance</option>
-                <option value="operations">Operations</option>
-                <option value="design">Design</option>
-                <option value="support">Customer Support</option>
+                <option value="">All Types</option>
+                <option value="lead">Lead</option>
+                <option value="client">Client</option>
+                <option value="reseller">Reseller</option>
+                <option value="partner">Partner</option>
+                <option value="vendor">Vendor</option>
               </select>
 
               {/* Status Filter */}
@@ -440,28 +424,28 @@ export default function EmployeeList() {
             {/* Actions */}
             <div className="flex gap-3">
               <button
-                onClick={exportEmployees}
+                onClick={exportCustomers}
                 className="px-4 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 font-medium"
               >
                 <Download className="inline-block w-5 h-5 mr-2" />
                 Export
               </button>
               <button
-      onClick={handleAddEmployee}
-      className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-cyan-600 text-white rounded-xl hover:from-indigo-700 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 font-medium shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
-    >
-      <Plus className="inline-block w-5 h-5 mr-2" />
-      Add Employee
-    </button>
+                onClick={handleAddCustomer}
+                className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-cyan-600 text-white rounded-xl hover:from-indigo-700 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 font-medium shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
+              >
+                <Plus className="inline-block w-5 h-5 mr-2" />
+                Add Customer
+              </button>
             </div>
           </div>
         </div>
 
-        {/* Employee Table */}
+        {/* Customer Table */}
         <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 border border-gray-100 overflow-hidden">
           <div className="p-6 border-b border-gray-100">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold text-gray-900">All Employees</h3>
+              <h3 className="text-lg font-semibold text-gray-900">All Customers</h3>
               <div className="flex items-center space-x-2 text-sm text-gray-500">
                 <span>Showing</span>
                 <select
@@ -492,36 +476,36 @@ export default function EmployeeList() {
                     />
                   </th>
                   <th
-                    onClick={() => handleSort("name")}
+                    onClick={() => handleSort("fullName")}
                     className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                   >
-                    Employee
+                    Customer
                     <PanelLeft className="inline-block w-4 h-4 ml-1" />
                   </th>
                   <th
-                    onClick={() => handleSort("department")}
+                    onClick={() => handleSort("companyName")}
                     className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                   >
-                    Department
+                    Company
                     <PanelLeft className="inline-block w-4 h-4 ml-1" />
                   </th>
                   <th
-                    onClick={() => handleSort("designation")}
+                    onClick={() => handleSort("customerType")}
                     className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                   >
-                    Designation
+                    Type
+                  </th>
+                  <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Contact
+                  </th>
+                  <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Location
                   </th>
                   <th
-                    onClick={() => handleSort("joinDate")}
+                    onClick={() => handleSort("lastContact")}
                     className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                   >
-                    Join Date
-                  </th>
-                  <th
-                    onClick={() => handleSort("salary")}
-                    className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-                  >
-                    Salary
+                    Last Contact
                   </th>
                   <th
                     onClick={() => handleSort("status")}
@@ -535,13 +519,13 @@ export default function EmployeeList() {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {currentEmployees.map((employee) => (
-                  <tr key={employee.id} className="hover:bg-gray-50 transition-colors duration-200">
+                {currentCustomers.map((customer) => (
+                  <tr key={customer.id} className="hover:bg-gray-50 transition-colors duration-200">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <input
                         type="checkbox"
-                        checked={selectedEmployees.includes(employee.id)}
-                        onChange={(e) => handleSelectEmployee(employee.id, e.target.checked)}
+                        checked={selectedCustomers.includes(customer.id)}
+                        onChange={(e) => handleSelectCustomer(customer.id, e.target.checked)}
                         className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                       />
                     </td>
@@ -550,7 +534,7 @@ export default function EmployeeList() {
                         <div className="h-10 w-10 flex-shrink-0">
                           <div className="h-10 w-10 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 flex items-center justify-center">
                             <span className="text-white font-medium text-sm">
-                              {employee.name
+                              {customer.fullName
                                 .split(" ")
                                 .map((n) => n[0])
                                 .join("")}
@@ -558,40 +542,69 @@ export default function EmployeeList() {
                           </div>
                         </div>
                         <div className="ml-4">
-                          <div className="text-sm font-medium text-gray-900">{employee.name}</div>
-                          <div className="text-sm text-gray-500">{employee.email}</div>
+                          <div className="text-sm font-medium text-gray-900">{customer.fullName}</div>
+                          <div className="text-sm text-gray-500">{customer.email}</div>
                         </div>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                        {employee.department}
+                      <div className="text-sm text-gray-900">{customer.companyName}</div>
+                      {customer.gstNumber && <div className="text-xs text-gray-500">GST: {customer.gstNumber}</div>}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span
+                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                          customer.customerType === "client"
+                            ? "bg-blue-100 text-blue-800"
+                            : customer.customerType === "lead"
+                              ? "bg-yellow-100 text-yellow-800"
+                              : customer.customerType === "partner"
+                                ? "bg-purple-100 text-purple-800"
+                                : customer.customerType === "reseller"
+                                  ? "bg-green-100 text-green-800"
+                                  : "bg-gray-100 text-gray-800"
+                        }`}
+                      >
+                        {customer.customerType.charAt(0).toUpperCase() + customer.customerType.slice(1)}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{employee.designation}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      <div className="flex items-center">
+                        <Phone className="w-4 h-4 mr-1 text-gray-400" />
+                        {customer.mobile}
+                      </div>
+                      <div className="flex items-center mt-1">
+                        <Mail className="w-4 h-4 mr-1 text-gray-400" />
+                        <span className="truncate max-w-32">{customer.email}</span>
+                      </div>
+                    </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {new Date(employee.joinDate).toLocaleDateString("en-US", {
+                      <div className="flex items-center">
+                        <MapPin className="w-4 h-4 mr-1 text-gray-400" />
+                        {customer.city}
+                      </div>
+                      <div className="text-xs text-gray-400">{customer.state}</div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {new Date(customer.lastContact).toLocaleDateString("en-US", {
                         year: "numeric",
                         month: "short",
                         day: "numeric",
                       })}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {formatSalary(employee.salary, employee.salaryType)}
-                    </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span
                         className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                          employee.status === "active" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+                          customer.status === "active" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
                         }`}
                       >
-                        {employee.status.charAt(0).toUpperCase() + employee.status.slice(1)}
+                        {customer.status.charAt(0).toUpperCase() + customer.status.slice(1)}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       <div className="flex items-center space-x-2">
                         <button
-                          onClick={() => viewEmployee(employee.id)}
+                          onClick={() => viewCustomer(customer.id)}
                           className="text-indigo-600 hover:text-indigo-900 p-1 rounded hover:bg-indigo-50"
                           title="View Details"
                         >
@@ -604,7 +617,7 @@ export default function EmployeeList() {
                           <Edit className="w-4 h-4" />
                         </button>
                         <button
-                          onClick={() => deleteEmployee(employee.id)}
+                          onClick={() => deleteCustomer(customer.id)}
                           className="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50"
                           title="Delete"
                         >
@@ -622,8 +635,8 @@ export default function EmployeeList() {
           <div className="bg-white px-6 py-4 border-t border-gray-200">
             <div className="flex items-center justify-between">
               <div className="text-sm text-gray-700">
-                Showing <span>{startIndex + 1}</span> to <span>{Math.min(endIndex, filteredEmployees.length)}</span> of{" "}
-                <span>{filteredEmployees.length}</span> entries
+                Showing <span>{startIndex + 1}</span> to <span>{Math.min(endIndex, filteredCustomers.length)}</span> of{" "}
+                <span>{filteredCustomers.length}</span> entries
               </div>
               <div className="flex items-center space-x-2">
                 <button
@@ -664,109 +677,161 @@ export default function EmployeeList() {
         </div>
       </main>
 
-      {/* Employee Details Modal */}
-      {employeeModalOpen && selectedEmployee && (
+      {/* Customer Details Modal */}
+      {customerModalOpen && selectedCustomer && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50">
           <div className="flex items-center justify-center min-h-screen p-4">
-            <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
               <div className="p-6 border-b border-gray-200">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-xl font-semibold text-gray-900">Employee Details</h3>
-                  <button onClick={() => setEmployeeModalOpen(false)} className="text-gray-400 hover:text-gray-600">
+                  <h3 className="text-xl font-semibold text-gray-900">Customer Details</h3>
+                  <button onClick={() => setCustomerModalOpen(false)} className="text-gray-400 hover:text-gray-600">
                     <X className="w-6 h-6" />
                   </button>
                 </div>
               </div>
+
               <div className="p-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Basic Information */}
                   <div className="space-y-4">
-                    <h4 className="text-lg font-semibold text-gray-900 border-b pb-2">Personal Information</h4>
+                    <h4 className="text-lg font-semibold text-gray-900 border-b pb-2">Basic Information</h4>
                     <div className="space-y-3">
                       <div>
                         <label className="text-sm font-medium text-gray-500">Full Name</label>
-                        <p className="text-gray-900">{selectedEmployee.name}</p>
+                        <p className="text-gray-900">{selectedCustomer.fullName}</p>
+                      </div>
+                      <div>
+                        <label className="text-sm font-medium text-gray-500">Company Name</label>
+                        <p className="text-gray-900">{selectedCustomer.companyName}</p>
                       </div>
                       <div>
                         <label className="text-sm font-medium text-gray-500">Email</label>
-                        <p className="text-gray-900">{selectedEmployee.email}</p>
+                        <p className="text-gray-900">{selectedCustomer.email}</p>
                       </div>
                       <div>
-                        <label className="text-sm font-medium text-gray-500">Phone</label>
-                        <p className="text-gray-900">{selectedEmployee.phone}</p>
+                        <label className="text-sm font-medium text-gray-500">Mobile</label>
+                        <p className="text-gray-900">{selectedCustomer.mobile}</p>
                       </div>
+                      {selectedCustomer.alternateNumber && (
+                        <div>
+                          <label className="text-sm font-medium text-gray-500">Alternate Number</label>
+                          <p className="text-gray-900">{selectedCustomer.alternateNumber}</p>
+                        </div>
+                      )}
                       <div>
-                        <label className="text-sm font-medium text-gray-500">Address</label>
-                        <p className="text-gray-900">{selectedEmployee.address}</p>
+                        <label className="text-sm font-medium text-gray-500">Customer Type</label>
+                        <span
+                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                            selectedCustomer.customerType === "client"
+                              ? "bg-blue-100 text-blue-800"
+                              : selectedCustomer.customerType === "lead"
+                                ? "bg-yellow-100 text-yellow-800"
+                                : selectedCustomer.customerType === "partner"
+                                  ? "bg-purple-100 text-purple-800"
+                                  : selectedCustomer.customerType === "reseller"
+                                    ? "bg-green-100 text-green-800"
+                                    : "bg-gray-100 text-gray-800"
+                          }`}
+                        >
+                          {selectedCustomer.customerType.charAt(0).toUpperCase() +
+                            selectedCustomer.customerType.slice(1)}
+                        </span>
                       </div>
                     </div>
                   </div>
+
+                  {/* Address & GST Information */}
                   <div className="space-y-4">
-                    <h4 className="text-lg font-semibold text-gray-900 border-b pb-2">Job Information</h4>
+                    <h4 className="text-lg font-semibold text-gray-900 border-b pb-2">Address & GST Information</h4>
                     <div className="space-y-3">
+                      {selectedCustomer.gstNumber && (
+                        <div>
+                          <label className="text-sm font-medium text-gray-500">GST Number</label>
+                          <p className="text-gray-900">{selectedCustomer.gstNumber}</p>
+                        </div>
+                      )}
                       <div>
-                        <label className="text-sm font-medium text-gray-500">Department</label>
-                        <p className="text-gray-900">{selectedEmployee.department}</p>
+                        <label className="text-sm font-medium text-gray-500">Address</label>
+                        <p className="text-gray-900">{selectedCustomer.address}</p>
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <label className="text-sm font-medium text-gray-500">City</label>
+                          <p className="text-gray-900">{selectedCustomer.city}</p>
+                        </div>
+                        <div>
+                          <label className="text-sm font-medium text-gray-500">State</label>
+                          <p className="text-gray-900">
+                            {selectedCustomer.state.charAt(0).toUpperCase() + selectedCustomer.state.slice(1)}
+                          </p>
+                        </div>
                       </div>
                       <div>
-                        <label className="text-sm font-medium text-gray-500">Designation</label>
-                        <p className="text-gray-900">{selectedEmployee.designation}</p>
-                      </div>
-                      <div>
-                        <label className="text-sm font-medium text-gray-500">Join Date</label>
-                        <p className="text-gray-900">{new Date(selectedEmployee.joinDate).toLocaleDateString()}</p>
-                      </div>
-                      <div>
-                        <label className="text-sm font-medium text-gray-500">Salary</label>
-                        <p className="text-gray-900">
-                          {formatSalary(selectedEmployee.salary, selectedEmployee.salaryType)}
-                        </p>
+                        <label className="text-sm font-medium text-gray-500">Pincode</label>
+                        <p className="text-gray-900">{selectedCustomer.pincode}</p>
                       </div>
                       <div>
                         <label className="text-sm font-medium text-gray-500">Status</label>
                         <span
                           className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                            selectedEmployee.status === "active"
+                            selectedCustomer.status === "active"
                               ? "bg-green-100 text-green-800"
                               : "bg-red-100 text-red-800"
                           }`}
                         >
-                          {selectedEmployee.status.charAt(0).toUpperCase() + selectedEmployee.status.slice(1)}
+                          {selectedCustomer.status.charAt(0).toUpperCase() + selectedCustomer.status.slice(1)}
                         </span>
                       </div>
                     </div>
                   </div>
+
+                  {/* Additional Information */}
                   <div className="md:col-span-2 space-y-4">
-                    <h4 className="text-lg font-semibold text-gray-900 border-b pb-2">Bank Details</h4>
+                    <h4 className="text-lg font-semibold text-gray-900 border-b pb-2">Additional Information</h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
-                        <label className="text-sm font-medium text-gray-500">PAN Number</label>
-                        <p className="text-gray-900">{selectedEmployee.panNumber}</p>
+                        <label className="text-sm font-medium text-gray-500">Created Date</label>
+                        <p className="text-gray-900">{new Date(selectedCustomer.createdDate).toLocaleDateString()}</p>
                       </div>
                       <div>
-                        <label className="text-sm font-medium text-gray-500">Aadhaar Number</label>
-                        <p className="text-gray-900">{selectedEmployee.aadhaarNumber}</p>
-                      </div>
-                      <div>
-                        <label className="text-sm font-medium text-gray-500">Bank Name</label>
-                        <p className="text-gray-900">{selectedEmployee.bankName}</p>
-                      </div>
-                      <div>
-                        <label className="text-sm font-medium text-gray-500">IFSC Code</label>
-                        <p className="text-gray-900">{selectedEmployee.ifscCode}</p>
-                      </div>
-                      <div className="md:col-span-2">
-                        <label className="text-sm font-medium text-gray-500">Account Number</label>
-                        <p className="text-gray-900">{selectedEmployee.accountNumber}</p>
+                        <label className="text-sm font-medium text-gray-500">Last Contact</label>
+                        <p className="text-gray-900">{new Date(selectedCustomer.lastContact).toLocaleDateString()}</p>
                       </div>
                     </div>
+
+                    {selectedCustomer.tags && selectedCustomer.tags.length > 0 && (
+                      <div>
+                        <label className="text-sm font-medium text-gray-500">Tags</label>
+                        <div className="mt-2 flex flex-wrap gap-2">
+                          {selectedCustomer.tags.map((tag, index) => (
+                            <span
+                              key={index}
+                              className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-indigo-100 text-indigo-800"
+                            >
+                              <Tag className="w-3 h-3 mr-1" />
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {selectedCustomer.remarks && (
+                      <div>
+                        <label className="text-sm font-medium text-gray-500">Remarks</label>
+                        <p className="text-gray-900 mt-1">{selectedCustomer.remarks}</p>
+                      </div>
+                    )}
                   </div>
                 </div>
+
                 <div className="mt-6 flex justify-end space-x-3">
                   <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
-                    Edit Employee
+                    Edit Customer
                   </button>
                   <button
-                    onClick={() => setEmployeeModalOpen(false)}
+                    onClick={() => setCustomerModalOpen(false)}
                     className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
                   >
                     Close
@@ -779,7 +844,7 @@ export default function EmployeeList() {
       )}
 
       {/* Delete Confirmation Modal */}
-      {deleteModalOpen && employeeToDelete && (
+      {deleteModalOpen && customerToDelete && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50">
           <div className="flex items-center justify-center min-h-screen p-4">
             <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full">
@@ -789,13 +854,13 @@ export default function EmployeeList() {
                     <AlertTriangle className="w-6 h-6 text-red-600" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900">Delete Employee</h3>
+                    <h3 className="text-lg font-semibold text-gray-900">Delete Customer</h3>
                     <p className="text-sm text-gray-500">This action cannot be undone.</p>
                   </div>
                 </div>
                 <p className="text-gray-700 mb-6">
-                  Are you sure you want to delete <span className="font-semibold">{employeeToDelete.name}</span>? This
-                  will permanently remove their record from the system.
+                  Are you sure you want to delete <span className="font-semibold">{customerToDelete.fullName}</span>?
+                  This will permanently remove their record from the system.
                 </p>
                 <div className="flex justify-end space-x-3">
                   <button
