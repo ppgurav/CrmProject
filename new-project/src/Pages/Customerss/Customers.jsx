@@ -2,7 +2,7 @@
 import { useState } from "react"
 import { User, MapPin, FileText, Paperclip, Check, Upload, X } from "lucide-react"
 
-export default function Customer() {
+export default function Customers() {
   const [formData, setFormData] = useState({
     fullName: "",
     companyName: "",
