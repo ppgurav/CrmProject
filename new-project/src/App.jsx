@@ -27,6 +27,7 @@ import VendorList from './Pages/Vendor/VendorList';
 import AddInvoice from './Pages/Invoice/AddInvoice';
 import Invoice from './Pages/Invoice/Invoice';
 import Customers from './Pages/Customerss/Customers';
+import Venders from './Pages/Vendor/Venders';
 
 function App() {
   return (
@@ -42,7 +43,7 @@ function App() {
           <Route path="/customerslist" element={<CustomersList />} />
 
           <Route path="/employee" element={<EmployeeList />} />
-          <Route path="/vender" element={<Vender />} />
+          <Route path="/vender" element={<Venders/>} />
           <Route path="/vendorlist" element={<VendorList />} />
 
           <Route path="/addemployee" element={<AddEmployee />} />
