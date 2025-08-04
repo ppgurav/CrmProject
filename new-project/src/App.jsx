@@ -1,8 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './Auth/Login';
-import Dashboard from './Dashboard';
-import Customers from './Pages/Customerss/Customers';
 import Container from './Component/Container';
 import EmployeeList from './Pages/EmployeeList';
 import Vender from './Pages/Vendor/Vender';
@@ -29,6 +27,7 @@ import CustomersList from './Pages/Customerss/CustomersList';
 import VendorList from './Pages/Vendor/VendorList';
 import AddInvoice from './Pages/Invoice/AddInvoice';
 import Invoice from './Pages/Invoice/Invoice';
+import Customers from './Pages/Customerss/Customers';
 
 function App() {
   return (
