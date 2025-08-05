@@ -2,7 +2,8 @@
 
 import { useState } from "react"
 import { z } from "zod"
-import { User, Target, Calendar, FileText, Paperclip, Check, Upload, X } from "lucide-react"
+import { User, Target, Calendar, FileText, Paperclip, Check, Upload, X, ArrowLeft } from "lucide-react"
+import { useNavigate } from "react-router-dom"
 
 const leadSchema = z.object({
   fullName: z.string().min(1, "Full Name is required"),
@@ -128,6 +129,7 @@ export default function AddLead() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-white to-cyan-100 py-10 px-4">
+       
       <div className="max-w-full mx-auto">
         <div className="text-center mb-8">
           {/* <h1 className="text-4xl font-bold text-gray-800 mb-2">Add New Lead ✍️</h1> */}
