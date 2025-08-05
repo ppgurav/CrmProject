@@ -117,6 +117,7 @@ import Venders from './Pages/Vendor/Venders';
 
 import { AuthProvider } from './Auth/AuthContext';
 import PrivateRoute from './Auth/PrivateRoute';
+import AddLead from './Pages/Lead/AddLead';
 
 function App() {
   return (
@@ -158,6 +159,8 @@ function App() {
               <Route path="/leave-management/leavelist" element={<LeaveList />} />
               <Route path="/attendance/wfh-report" element={<WFTlist />} />
               <Route path="/attendance/attendance-entry" element={<AttendanceEntry />} />
+
+              <Route path="/addlead" element={<AddLead />} />
             </Route>
           </Route>
         </Routes>

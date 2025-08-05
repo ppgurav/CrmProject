@@ -20,6 +20,7 @@ import {
   Clock,
   X,
 } from "lucide-react"
+import { useNavigate } from "react-router-dom"
 
 // Validation schema
 const leadSchema = z.object({
@@ -238,7 +239,15 @@ export default function LeadForm() {
     }
     return colors[status] || "bg-gray-100 text-gray-800"
   }
+  const navigate = useNavigate();
 
+
+  const handleAddCustomerLead = () => {
+    // Navigate to add customer page
+    console.log("Navigate to add customer page")
+    navigate('/addlead');
+
+  }
   const getPriorityColor = (priority) => {
     const colors = {
       High: "text-red-600",
@@ -268,7 +277,7 @@ export default function LeadForm() {
               {/* <h1 className="text-2xl font-bold text-gray-900">Lead Management System</h1> */}
             </div>
             <button
-              onClick={() => setShowAddForm(true)}
+              onClick={handleAddCustomerLead}
               className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 hover:bg-blue-700"
             >
               <Plus className="h-4 w-4" />
@@ -489,7 +498,7 @@ export default function LeadForm() {
       </div>
 
       {/* Add Lead Modal */}
-      {showAddForm && (
+      {/* {showAddForm && (
   <div className="fixed inset-0 backdrop-blur-sm bg-black/40 flex items-center justify-center p-4 z-50">
     <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
       <div className="flex justify-between items-center p-6 border-b">
@@ -500,7 +509,7 @@ export default function LeadForm() {
       </div>
 
       <form onSubmit={handleSubmit} className="p-6 space-y-4">
-        {/* --- Full Name & Mobile --- */}
+   
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Full Name *</label>
@@ -527,7 +536,7 @@ export default function LeadForm() {
           </div>
         </div>
 
-        {/* --- Email & Company Name --- */}
+      
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
@@ -553,7 +562,7 @@ export default function LeadForm() {
           </div>
         </div>
 
-        {/* --- City/State & Lead Source --- */}
+        
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">City, State</label>
@@ -586,7 +595,7 @@ export default function LeadForm() {
           </div>
         </div>
 
-        {/* --- Interested In --- */}
+       
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Interested In *</label>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
@@ -607,7 +616,7 @@ export default function LeadForm() {
           {errors.interestedIn && <p className="text-red-500 text-xs mt-1">{errors.interestedIn}</p>}
         </div>
 
-        {/* --- Budget & Priority --- */}
+       
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Budget Range</label>
@@ -642,7 +651,7 @@ export default function LeadForm() {
           </div>
         </div>
 
-        {/* --- Assigned To & Follow-up --- */}
+      
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Assigned To *</label>
@@ -675,7 +684,7 @@ export default function LeadForm() {
           </div>
         </div>
 
-        {/* --- Notes --- */}
+
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Notes</label>
           <textarea
@@ -688,7 +697,7 @@ export default function LeadForm() {
           />
         </div>
 
-        {/* --- Upload Visiting Card / Docs --- */}
+  
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Upload Visiting Card / Docs (optional)</label>
           <input
@@ -699,7 +708,7 @@ export default function LeadForm() {
           />
         </div>
 
-        {/* --- Buttons --- */}
+     
         <div className="flex justify-end space-x-3 pt-4">
           <button
             type="button"
@@ -718,7 +727,7 @@ export default function LeadForm() {
       </form>
     </div>
   </div>
-)}
+)} */}
 
 
       {/* Lead Detail Modal */}
