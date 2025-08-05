@@ -201,7 +201,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
 import { Menu, Eye, EyeOff } from 'lucide-react';
-
+import { useAuth } from './AuthContext'; // ✅ import the useAuth hook
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -210,7 +210,7 @@ const loginSchema = z.object({
 
 const Login = () => {
   const navigate = useNavigate();
-
+  const { login } = useAuth(); // ✅ get login from context
   const [showPassword, setShowPassword] = useState(false);
 
   const {
@@ -226,8 +226,8 @@ const Login = () => {
     const validPassword = 'Admin@17854';
 
     if (data.email === validEmail && data.password === validPassword) {
-
-      navigate('/leadform'); // ✅ Navigate to the lead page
+      login(); // ✅ persist login in context/localStorage
+      navigate('/leadform'); // ✅ navigate to protected page
     } else {
       alert('Invalid email or password');
     }
@@ -236,7 +236,7 @@ const Login = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-cyan-50">
       <div className="min-h-screen flex">
-        {/* Left Side - Decorative */}
+        {/* Left Decorative Side */}
         <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-indigo-600 via-purple-600 to-cyan-600 relative overflow-hidden">
           <div className="absolute inset-0">
             <div className="absolute top-20 left-20 w-72 h-72 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
@@ -272,7 +272,7 @@ const Login = () => {
           </div>
         </div>
 
-        {/* Right Side - Login Form */}
+        {/* Right Form Side */}
         <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
           <div className="w-full max-w-md">
             {/* Mobile Logo */}
