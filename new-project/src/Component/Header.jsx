@@ -18,7 +18,8 @@ import {
   Dot,
   CircleDot,
   DotIcon,
-  Users
+  Users,
+  Users2
 } from "lucide-react"
 import { useLocation, Link } from "react-router-dom"
 
@@ -28,6 +29,14 @@ export default function Header({ onMenuClick }) {
   const currentPath = location.pathname
 
   const routeTitles = {
+    '/leadform': {
+        title: 'Lead Management System ',
+        buttonTextColor: 'text-white',
+        iconColor: 'stroke-blue-700 h-3 w-8 text-blue-600',
+        // icons:Users2,
+      //   pageSubtitle: 'Manage your customers here.',
+     
+      },
     '/customers': {
       title: 'AddCustomers ',
       buttonTextColor: 'text-white',
@@ -243,14 +252,29 @@ export default function Header({ onMenuClick }) {
         </button>
 
         {/* Page Title and Subtitle */}
-        <div className="flex-1 lg:flex-none">
+        {/* <div className="flex-1 lg:flex-none">
           <div className="ml-auto lg:ml-64 flex flex-col justify-center">
             <h1 className="text-2xl font-bold text-gray-900">{pageTitle}</h1>
             {pageSubtitle && (
               <p className="text-sm text-gray-600 mt-1">{pageSubtitle}</p>
             )}
           </div>
-        </div>
+        </div> */}
+        {/* Page Title and Subtitle */}
+<div className="flex-1 lg:flex-none">
+  <div className="ml-auto lg:ml-64 flex flex-col justify-center">
+    <div className="flex items-center space-x-2">
+      {routeData.icons && (
+        <routeData.icons className={`w-6 h-6 ${iconColor}`} />
+      )}
+      <h1 className="text-2xl font-bold text-gray-900">{pageTitle}</h1>
+    </div>
+    {pageSubtitle && (
+      <p className="text-sm text-gray-600 mt-1">{pageSubtitle}</p>
+    )}
+  </div>
+</div>
+
 
         {/* Right side */}
         <div className="flex items-center space-x-4">

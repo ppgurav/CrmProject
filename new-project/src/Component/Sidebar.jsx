@@ -37,6 +37,11 @@ export default function Sidebar({ isOpen, onClose }) {
 
   const menuItems = [
     {
+      name: "Lead",
+      icon: Users,
+      href: "/leadform",
+    },
+    {
       name: "Customers",
       icon: Users,
       href: "/customersList",

@@ -28,6 +28,7 @@ import AddInvoice from './Pages/Invoice/AddInvoice';
 import Invoice from './Pages/Invoice/Invoice';
 import Customers from './Pages/Customerss/Customers';
 import Venders from './Pages/Vendor/Venders';
+import LeadForm from './Pages/Lead/LeadForm';
 
 function App() {
   return (
@@ -68,7 +69,8 @@ function App() {
 
           <Route path="/attendance/wfh-report" element={<WFTlist />} />
           <Route path="/attendance/attendance-entry" element={<AttendanceEntry />} />
-          
+          <Route path="/leadform" element={<LeadForm />} />
+
         </Route>  
       </Routes>
     </Router>
