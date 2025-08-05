@@ -201,7 +201,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
 import { Menu, Eye, EyeOff } from 'lucide-react';
-import { useAuth } from '../Auth/AuthContext'; // ✅ import useAuth from context
+
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -210,7 +210,7 @@ const loginSchema = z.object({
 
 const Login = () => {
   const navigate = useNavigate();
-  const { login } = useAuth(); // ✅ access login function from context
+
   const [showPassword, setShowPassword] = useState(false);
 
   const {
@@ -226,7 +226,7 @@ const Login = () => {
     const validPassword = 'Admin@17854';
 
     if (data.email === validEmail && data.password === validPassword) {
-      login('mockToken123'); // ✅ Call login() from AuthContext
+
       navigate('/leadform'); // ✅ Navigate to the lead page
     } else {
       alert('Invalid email or password');
