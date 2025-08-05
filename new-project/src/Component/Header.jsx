@@ -38,7 +38,7 @@ export default function Header({ onMenuClick }) {
      
       },
       '/addlead': {
-        title: 'Add New Lead ✍️',
+        title: 'Add New Lead',
         buttonTextColor: 'text-white',
         iconColor: 'stroke-blue-700 h-3 w-8 text-blue-600',
         // icons:Users2,
@@ -46,7 +46,7 @@ export default function Header({ onMenuClick }) {
      
       },
     '/customers': {
-      title: 'AddCustomers ✍️ ',
+      title: 'AddCustomers',
       buttonTextColor: 'text-white',
       iconColor: 'stroke-white',
     //   pageSubtitle: 'Manage your customers here.',
