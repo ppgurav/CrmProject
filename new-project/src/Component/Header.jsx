@@ -279,7 +279,7 @@ export default function Header({ onMenuClick }) {
         </div> */}
         {/* Page Title and Subtitle */}
 <div className="flex-1 lg:flex-none">
-  <div className="ml-auto lg:ml-16 flex flex-col justify-center">
+  <div className="ml-auto lg:ml-10 flex flex-col justify-center">
     <div className="flex items-center space-x-2">
       {routeData.icons && (
         <routeData.icons className={`w-6 h-6 ${iconColor}`} />
