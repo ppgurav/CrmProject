@@ -243,6 +243,10 @@ export default function Header({ onMenuClick }) {
         title: 'Purchase Order',
        pageSubtitle: 'Manage your purchase orders and track their status',
       },
+      '/purchase/purchase-order': {
+        title: 'Create Purchase Order',
+       pageSubtitle: 'Generate and manage purchase orders for your vendors',
+      },
   }
 
   const routeData = routeTitles[currentPath] || {}
