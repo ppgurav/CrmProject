@@ -245,7 +245,7 @@ export default function LeadForm() {
   const handleAddCustomerLead = () => {
     // Navigate to add customer page
     console.log("Navigate to add customer page")
-    navigate('/addlead');
+    navigate('/leadform/addlead');
 
   }
   const getPriorityColor = (priority) => {

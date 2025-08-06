@@ -37,7 +37,7 @@ export default function Header({ onMenuClick }) {
       //   pageSubtitle: 'Manage your customers here.',
      
       },
-      '/addlead': {
+      '/leadform/addlead': {
         title: 'Add New Lead',
         buttonTextColor: 'text-white',
         iconColor: 'stroke-blue-700 h-3 w-8 text-blue-600',
@@ -45,7 +45,7 @@ export default function Header({ onMenuClick }) {
         pageSubtitle: 'Capture and manage your potential customers.',
      
       },
-    '/customers': {
+    '/customersList/customers': {
       title: 'AddCustomers',
       buttonTextColor: 'text-white',
       iconColor: 'stroke-white',
@@ -57,7 +57,7 @@ export default function Header({ onMenuClick }) {
         iconColor: 'stroke-white',
         pageSubtitle: 'Manage your customers here.',
       },
-    '/vender': {
+    '/vendorlist/vender': {
       title: 'Create Vendor',
       buttonTextColor: 'text-yellow-100',
       iconColor: 'stroke-yellow-100',
@@ -73,7 +73,7 @@ export default function Header({ onMenuClick }) {
       buttonTextColor: 'text-green-200',
       iconColor: 'stroke-green-200',
     },
-    '/addemployee': {
+    '/employee/addemployee': {
       title: 'Add Employee',
       buttonTextColor: 'text-pink-200',
       iconColor: 'stroke-pink-200',

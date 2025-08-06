@@ -132,24 +132,34 @@ function App() {
           {/* Protected Routes */}
           <Route element={<PrivateRoute />}>
             <Route element={<Container />}>
+
               <Route path="/leadform" element={<LeadForm />} />
+              <Route path="/leadform/addlead" element={<AddLead />} />
+
+              <Route path="/customersList/customers" element={<Customers />} />
+              <Route path="/customerslist" element={<CustomersList />} />
+
               <Route path="/employee" element={<EmployeeList />} />
-              <Route path="/addemployee" element={<AddEmployee />} />
+              <Route path="/employee/addemployee" element={<AddEmployee />} />
+
+              <Route path="/vendorlist/vender" element={<Venders />} />
+              <Route path="/vendorlist" element={<VendorList />} />
 
               <Route path="/sale/product-service" element={<ProductService />} />
+
+
+
               <Route path="/sale/invoice" element={<Invoice />} />
               <Route path="/sale/invoice/addInvoice" element={<AddInvoice />} />
 
-              <Route path="/customers" element={<Customers />} />
-              <Route path="/customerslist" element={<CustomersList />} />
-              <Route path="/vender" element={<Venders />} />
-              <Route path="/vendorlist" element={<VendorList />} />
 
               <Route path="/ticket/ticket-list" element={<SupportTicket />} />
               <Route path="/ticket/ticket-list/create-ticket" element={<CreateTicket />} />
+
               <Route path="/ticket/ticket-details" element={<TicketDetails />} />
               <Route path="/ticket/assign-ticket" element={<AssignTicket />} />
               <Route path="/ticket/ticket-details/:ticketId" element={<TicketDetails />} />
+
 
               <Route path="/attendance/dashboard" element={<AttendanceDashboard />} />
               <Route path="/attendance/daily-report" element={<DailyReport />} />
@@ -162,9 +172,10 @@ function App() {
               <Route path="/attendance/wfh-report" element={<WFTlist />} />
               <Route path="/attendance/attendance-entry" element={<AttendanceEntry />} />
 
-              <Route path="/addlead" element={<AddLead />} />
+
               <Route path="/purchase/purchase-order" element={<PurchaseOrder />} />
               <Route path="/purchase/purchasetable" element={<PurchaseTable />} />
+
             </Route>
           </Route>
         </Routes>

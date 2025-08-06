@@ -65,7 +65,7 @@ export default function VendorList() {
   // Sample vendor data
   const navigate = useNavigate()
   const handleAddVendor = () => {
-    navigate("/vender")
+    navigate("/vendorlist/vender")
   }
 
   const [vendors, setVendors] = useState([

@@ -41,7 +41,7 @@ export default function EmployeeList() {
   const navigate = useNavigate();
 
   const handleAddEmployee = () => {
-    navigate('/addemployee');
+    navigate('/employee/addemployee');
   };
   const [employees, setEmployees] = useState([
     {

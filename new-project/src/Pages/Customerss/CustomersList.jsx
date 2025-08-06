@@ -292,7 +292,7 @@ export default function CustomersList() {
   const handleAddCustomer = () => {
     // Navigate to add customer page
     console.log("Navigate to add customer page")
-    navigate('/customers');
+    navigate('/customersList/customers');
 
   }
 
