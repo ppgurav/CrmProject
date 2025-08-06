@@ -175,6 +175,7 @@ function App() {
 
               <Route path="/purchase/purchase-order" element={<PurchaseOrder />} />
               <Route path="/purchase/purchasetable" element={<PurchaseTable />} />
+              <Route path="/allinvoices" element={<PurchaseTable />} />
 
             </Route>
           </Route>
