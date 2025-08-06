@@ -695,167 +695,73 @@ export default function CustomersList() {
           </div> */}
 
 <div className="w-full overflow-x-auto">
-  <table className="min-w-full table-auto divide-y divide-gray-200">
+  <table className="w-max min-w-full divide-y divide-gray-200">
     <thead className="bg-gray-50">
       <tr>
-        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-          <input
-            type="checkbox"
-            checked={selectAll}
-            onChange={(e) => handleSelectAll(e.target.checked)}
-            className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-          />
-        </th>
-        <th
-          onClick={() => handleSort("fullName")}
-          className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-        >
-          Customer
-          <PanelLeft className="inline-block w-4 h-4 ml-1" />
-        </th>
-        <th
-          onClick={() => handleSort("companyName")}
-          className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-        >
-          Company
-          <PanelLeft className="inline-block w-4 h-4 ml-1" />
-        </th>
-        <th
-          onClick={() => handleSort("customerType")}
-          className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-        >
-          Type
-        </th>
-        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-          Contact
-        </th>
-        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-          Location
-        </th>
-        <th
-          onClick={() => handleSort("lastContact")}
-          className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-        >
-          Last Contact
-        </th>
-        <th
-          onClick={() => handleSort("status")}
-          className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-        >
-          Status
-        </th>
-        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-          Actions
-        </th>
+        <th className="px-4 py-3"><input type="checkbox" checked={selectAll} onChange={(e) => handleSelectAll(e.target.checked)} /></th>
+        <th onClick={() => handleSort("fullName")} className="px-4 py-3 cursor-pointer">Customer</th>
+        <th onClick={() => handleSort("companyName")} className="px-4 py-3 cursor-pointer">Company</th>
+        <th onClick={() => handleSort("customerType")} className="px-4 py-3 cursor-pointer">Type</th>
+        <th className="px-4 py-3">Contact</th>
+        <th className="px-4 py-3">Location</th>
+        <th onClick={() => handleSort("lastContact")} className="px-4 py-3 cursor-pointer">Last Contact</th>
+        <th onClick={() => handleSort("status")} className="px-4 py-3 cursor-pointer">Status</th>
+        <th className="px-4 py-3">Actions</th>
       </tr>
     </thead>
     <tbody className="bg-white divide-y divide-gray-200">
       {currentCustomers.map((customer) => (
-        <tr key={customer.id} className="hover:bg-gray-50 transition-colors duration-200">
+        <tr key={customer.id}>
+          <td className="px-4 py-3"><input type="checkbox" checked={selectedCustomers.includes(customer.id)} onChange={(e) => handleSelectCustomer(customer.id, e.target.checked)} /></td>
           <td className="px-4 py-3">
-            <input
-              type="checkbox"
-              checked={selectedCustomers.includes(customer.id)}
-              onChange={(e) => handleSelectCustomer(customer.id, e.target.checked)}
-              className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-            />
-          </td>
-          <td className="px-4 py-3 break-words text-sm text-gray-900">
             <div className="flex items-center">
-              <div className="h-10 w-10 flex-shrink-0">
-                <div className="h-10 w-10 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 flex items-center justify-center">
-                  <span className="text-white font-medium text-sm">
-                    {customer.fullName.split(" ").map((n) => n[0]).join("")}
-                  </span>
-                </div>
+              <div className="h-10 w-10 flex items-center justify-center bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-full">
+                <span className="text-white font-medium text-sm">{customer.fullName.split(" ").map((n) => n[0]).join("")}</span>
               </div>
               <div className="ml-4">
-                <div className="text-sm font-medium text-gray-900">{customer.fullName}</div>
+                <div className="text-sm font-medium">{customer.fullName}</div>
                 <div className="text-sm text-gray-500">{customer.email}</div>
               </div>
             </div>
           </td>
-          <td className="px-4 py-3 text-sm text-gray-900 break-words">
+          <td className="px-4 py-3">
             <div>{customer.companyName}</div>
             {customer.gstNumber && <div className="text-xs text-gray-500">GST: {customer.gstNumber}</div>}
           </td>
-          <td className="px-4 py-3 text-sm text-gray-900">
-            <span
-              className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                customer.customerType === "client"
-                  ? "bg-blue-100 text-blue-800"
-                  : customer.customerType === "lead"
-                  ? "bg-yellow-100 text-yellow-800"
-                  : customer.customerType === "partner"
-                  ? "bg-purple-100 text-purple-800"
-                  : customer.customerType === "reseller"
-                  ? "bg-green-100 text-green-800"
-                  : "bg-gray-100 text-gray-800"
-              }`}
-            >
+          <td className="px-4 py-3">
+            <span className={`inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium ${
+              customer.customerType === "client" ? "bg-blue-100 text-blue-800"
+              : customer.customerType === "lead" ? "bg-yellow-100 text-yellow-800"
+              : customer.customerType === "partner" ? "bg-purple-100 text-purple-800"
+              : customer.customerType === "reseller" ? "bg-green-100 text-green-800"
+              : "bg-gray-100 text-gray-800"
+            }`}>
               {customer.customerType.charAt(0).toUpperCase() + customer.customerType.slice(1)}
             </span>
           </td>
-          <td className="px-4 py-3 text-sm text-gray-900 break-words">
-            <div className="flex items-center">
-              <Phone className="w-4 h-4 mr-1 text-gray-400" />
-              {customer.mobile}
-            </div>
-            <div className="flex items-center mt-1">
-              <Mail className="w-4 h-4 mr-1 text-gray-400" />
-              <span className="break-words">{customer.email}</span>
-            </div>
+          <td className="px-4 py-3">
+            <div className="flex items-center">{customer.mobile}</div>
+            <div className="flex items-center mt-1">{customer.email}</div>
           </td>
-          <td className="px-4 py-3 text-sm text-gray-900">
-            <div className="flex items-center">
-              <MapPin className="w-4 h-4 mr-1 text-gray-400" />
-              {customer.city}
-            </div>
-            <div className="text-xs text-gray-400">
-              {customer.state.charAt(0).toUpperCase() + customer.state.slice(1)}
-            </div>
+          <td className="px-4 py-3">
+            <div>{customer.city}</div>
+            <div className="text-xs text-gray-400">{customer.state}</div>
           </td>
-          <td className="px-4 py-3 text-sm text-gray-900">
-            {new Date(customer.lastContact).toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "short",
-              day: "numeric",
-            })}
+          <td className="px-4 py-3">
+            {new Date(customer.lastContact).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
           </td>
-          <td className="px-4 py-3 text-sm text-gray-900">
-            <span
-              className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                customer.status === "active" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
-              }`}
-            >
+          <td className="px-4 py-3">
+            <span className={`inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium ${
+              customer.status === "active" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+            }`}>
               {customer.status.charAt(0).toUpperCase() + customer.status.slice(1)}
             </span>
           </td>
-          <td className="px-4 py-3 text-sm text-gray-900">
-            <div className="flex items-center space-x-2">
-              <button
-                onClick={() => viewCustomer(customer.id)}
-                className="text-indigo-600 hover:text-indigo-900 p-1 rounded hover:bg-indigo-50"
-                title="View Details"
-                aria-label="View customer details"
-              >
-                <Eye className="w-4 h-4" />
-              </button>
-              <button
-                className="text-green-600 hover:text-green-900 p-1 rounded hover:bg-green-50"
-                title="Edit"
-                aria-label="Edit customer"
-              >
-                <Edit className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => deleteCustomer(customer.id)}
-                className="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50"
-                title="Delete"
-                aria-label="Delete customer"
-              >
-                <Trash2 className="w-4 h-4" />
-              </button>
+          <td className="px-4 py-3">
+            <div className="flex space-x-2">
+              <button onClick={() => viewCustomer(customer.id)}>View</button>
+              <button>Edit</button>
+              <button onClick={() => deleteCustomer(customer.id)}>Delete</button>
             </div>
           </td>
         </tr>
@@ -863,6 +769,7 @@ export default function CustomersList() {
     </tbody>
   </table>
 </div>
+
 
 
           {/* Pagination */}
