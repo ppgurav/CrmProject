@@ -726,7 +726,7 @@ export default function PurchaseOrder() {
 
       {/* Add Item Modal */}
       {showAddItemModal && (
-        <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div className="fixed inset-0 bg-black/30  flex items-center justify-center p-4 z-50">
 
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-2xl transform transition-all duration-300 scale-100 opacity-100">
             <div className="flex justify-between items-center p-6 border-b border-gray-200">

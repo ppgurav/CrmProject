@@ -708,8 +708,9 @@ export default function VendorList() {
 
       {/* Vendor Details Modal */}
       {vendorModalOpen && selectedVendor && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50">
-          <div className="flex items-center justify-center min-h-screen p-4">
+        // <div className="fixed inset-0 bg-black bg-opacity-50 z-50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 ">
+        <div className="flex items-center justify-center min-h-screen p-4">
             <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
               <div className="p-6 border-b border-gray-200">
                 <div className="flex items-center justify-between">
@@ -887,8 +888,9 @@ export default function VendorList() {
 
       {/* Delete Confirmation Modal */}
       {deleteModalOpen && vendorToDelete && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50">
-          <div className="flex items-center justify-center min-h-screen p-4">
+        // <div className="fixed inset-0 bg-black bg-opacity-50 z-50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 ">
+        <div className="flex items-center justify-center min-h-screen p-4">
             <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full">
               <div className="p-6">
                 <div className="flex items-center mb-4">

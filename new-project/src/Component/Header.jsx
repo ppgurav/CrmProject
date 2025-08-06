@@ -307,14 +307,14 @@ export default function Header({ onMenuClick }) {
           )}
 
           {/* Search Input */}
-          <div className="hidden md:block relative">
+          {/* <div className="hidden md:block relative">
             <input
               type="text"
               placeholder="Search..."
               className="w-64 pl-10 pr-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-gray-50"
             />
             <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-          </div>
+          </div> */}
 
           {/* Notifications */}
           <button className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-xl relative">

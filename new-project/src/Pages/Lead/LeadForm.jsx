@@ -732,7 +732,7 @@ export default function LeadForm() {
 
       {/* Lead Detail Modal */}
       {selectedLead && (
-        <div className="fixed inset-0 backdrop-blur-sm bg-black/40 flex items-center justify-center p-4 z-50">
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50">
 
 <div className="bg-white rounded-lg max-w-7xl w-full h-[700px] overflow-y-auto">
 
