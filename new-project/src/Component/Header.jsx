@@ -262,7 +262,7 @@ export default function Header({ onMenuClick }) {
 
   return (
     <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-30">
-      <div className="flex items-center justify-between h-20 px-6">
+      <div className="flex items-center justify-between h-20 ml-auto">
         {/* Mobile menu button */}
         <button onClick={onMenuClick} className="lg:hidden p-2 rounded-lg hover:bg-gray-100">
           <Menu className="w-6 h-6 text-gray-600" />
@@ -279,7 +279,7 @@ export default function Header({ onMenuClick }) {
         </div> */}
         {/* Page Title and Subtitle */}
 <div className="flex-1 lg:flex-none">
-  <div className="ml-auto lg:ml-64 flex flex-col justify-center">
+  <div className="ml-auto lg:ml-16 flex flex-col justify-center">
     <div className="flex items-center space-x-2">
       {routeData.icons && (
         <routeData.icons className={`w-6 h-6 ${iconColor}`} />

@@ -37,10 +37,10 @@ const Container = () => {
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       {/* Main content - pushed right on large screens */}
-      <div className="flex flex-col flex-1 lg:ml-64">
+      <div className="flex flex-col flex-1 lg:ml-60">
         <Header onMenuClick={() => setSidebarOpen(true)} />
 
-        <main className="flex-1 p-6">
+        <main className="flex-1 p-1">
           <Outlet />
         </main>
       </div>
