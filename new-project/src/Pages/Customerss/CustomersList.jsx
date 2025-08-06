@@ -695,73 +695,110 @@ export default function CustomersList() {
           </div> */}
 
 <div className="w-full overflow-x-auto">
-  <table className="w-max min-w-full divide-y divide-gray-200">
+  <table className="w-full table-fixed divide-y divide-gray-200">
     <thead className="bg-gray-50">
       <tr>
-        <th className="px-4 py-3"><input type="checkbox" checked={selectAll} onChange={(e) => handleSelectAll(e.target.checked)} /></th>
-        <th onClick={() => handleSort("fullName")} className="px-4 py-3 cursor-pointer">Customer</th>
-        <th onClick={() => handleSort("companyName")} className="px-4 py-3 cursor-pointer">Company</th>
-        <th onClick={() => handleSort("customerType")} className="px-4 py-3 cursor-pointer">Type</th>
-        <th className="px-4 py-3">Contact</th>
-        <th className="px-4 py-3">Location</th>
-        <th onClick={() => handleSort("lastContact")} className="px-4 py-3 cursor-pointer">Last Contact</th>
-        <th onClick={() => handleSort("status")} className="px-4 py-3 cursor-pointer">Status</th>
-        <th className="px-4 py-3">Actions</th>
+        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          <input
+            type="checkbox"
+            checked={selectAll}
+            onChange={(e) => handleSelectAll(e.target.checked)}
+            className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+          />
+        </th>
+        <th onClick={() => handleSort("fullName")} className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase cursor-pointer">
+          Customer
+        </th>
+        <th onClick={() => handleSort("companyName")} className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase cursor-pointer">
+          Company
+        </th>
+        <th onClick={() => handleSort("customerType")} className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase cursor-pointer">
+          Type
+        </th>
+        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+          Contact
+        </th>
+        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+          Location
+        </th>
+        <th onClick={() => handleSort("lastContact")} className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase cursor-pointer">
+          Last Contact
+        </th>
+        <th onClick={() => handleSort("status")} className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase cursor-pointer">
+          Status
+        </th>
+        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+          Actions
+        </th>
       </tr>
     </thead>
+
     <tbody className="bg-white divide-y divide-gray-200">
       {currentCustomers.map((customer) => (
         <tr key={customer.id}>
-          <td className="px-4 py-3"><input type="checkbox" checked={selectedCustomers.includes(customer.id)} onChange={(e) => handleSelectCustomer(customer.id, e.target.checked)} /></td>
-          <td className="px-4 py-3">
+          <td className="px-4 py-3 text-sm">
+            <input
+              type="checkbox"
+              checked={selectedCustomers.includes(customer.id)}
+              onChange={(e) => handleSelectCustomer(customer.id, e.target.checked)}
+              className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+            />
+          </td>
+          <td className="px-4 py-3 text-sm">
             <div className="flex items-center">
-              <div className="h-10 w-10 flex items-center justify-center bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-full">
-                <span className="text-white font-medium text-sm">{customer.fullName.split(" ").map((n) => n[0]).join("")}</span>
+              <div className="h-10 w-10 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 flex items-center justify-center">
+                <span className="text-white font-medium text-sm">
+                  {customer.fullName.split(" ").map((n) => n[0]).join("")}
+                </span>
               </div>
               <div className="ml-4">
-                <div className="text-sm font-medium">{customer.fullName}</div>
-                <div className="text-sm text-gray-500">{customer.email}</div>
+                <div className="font-medium">{customer.fullName}</div>
+                <div className="text-gray-500">{customer.email}</div>
               </div>
             </div>
           </td>
-          <td className="px-4 py-3">
+          <td className="px-4 py-3 text-sm">
             <div>{customer.companyName}</div>
             {customer.gstNumber && <div className="text-xs text-gray-500">GST: {customer.gstNumber}</div>}
           </td>
-          <td className="px-4 py-3">
-            <span className={`inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium ${
-              customer.customerType === "client" ? "bg-blue-100 text-blue-800"
-              : customer.customerType === "lead" ? "bg-yellow-100 text-yellow-800"
-              : customer.customerType === "partner" ? "bg-purple-100 text-purple-800"
-              : customer.customerType === "reseller" ? "bg-green-100 text-green-800"
-              : "bg-gray-100 text-gray-800"
+          <td className="px-4 py-3 text-sm">
+            <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+              customer.customerType === "client"
+                ? "bg-blue-100 text-blue-800"
+                : customer.customerType === "lead"
+                ? "bg-yellow-100 text-yellow-800"
+                : customer.customerType === "partner"
+                ? "bg-purple-100 text-purple-800"
+                : customer.customerType === "reseller"
+                ? "bg-green-100 text-green-800"
+                : "bg-gray-100 text-gray-800"
             }`}>
-              {customer.customerType.charAt(0).toUpperCase() + customer.customerType.slice(1)}
+              {customer.customerType}
             </span>
           </td>
-          <td className="px-4 py-3">
-            <div className="flex items-center">{customer.mobile}</div>
-            <div className="flex items-center mt-1">{customer.email}</div>
+          <td className="px-4 py-3 text-sm">
+            <div className="flex items-center"><Phone className="w-4 h-4 mr-1" />{customer.mobile}</div>
+            <div className="flex items-center mt-1"><Mail className="w-4 h-4 mr-1" />{customer.email}</div>
           </td>
-          <td className="px-4 py-3">
-            <div>{customer.city}</div>
+          <td className="px-4 py-3 text-sm">
+            <div className="flex items-center"><MapPin className="w-4 h-4 mr-1" />{customer.city}</div>
             <div className="text-xs text-gray-400">{customer.state}</div>
           </td>
-          <td className="px-4 py-3">
-            {new Date(customer.lastContact).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
+          <td className="px-4 py-3 text-sm">
+            {new Date(customer.lastContact).toLocaleDateString()}
           </td>
-          <td className="px-4 py-3">
-            <span className={`inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium ${
+          <td className="px-4 py-3 text-sm">
+            <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
               customer.status === "active" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
             }`}>
-              {customer.status.charAt(0).toUpperCase() + customer.status.slice(1)}
+              {customer.status}
             </span>
           </td>
-          <td className="px-4 py-3">
+          <td className="px-4 py-3 text-sm">
             <div className="flex space-x-2">
-              <button onClick={() => viewCustomer(customer.id)}>View</button>
-              <button>Edit</button>
-              <button onClick={() => deleteCustomer(customer.id)}>Delete</button>
+              <button onClick={() => viewCustomer(customer.id)}><Eye className="w-4 h-4" /></button>
+              <button><Edit className="w-4 h-4 text-green-500" /></button>
+              <button onClick={() => deleteCustomer(customer.id)}><Trash2 className="w-4 h-4 text-red-500" /></button>
             </div>
           </td>
         </tr>
@@ -769,7 +806,6 @@ export default function CustomersList() {
     </tbody>
   </table>
 </div>
-
 
 
           {/* Pagination */}
