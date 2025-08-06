@@ -238,6 +238,11 @@ export default function Header({ onMenuClick }) {
         iconSize: 'w-6 h-6',  
         // pageSubtitle: 'Submit your leave application with proper documentation',
       },
+
+      '/purchase/purchasetable': {
+        title: 'Purchase Order',
+       pageSubtitle: 'Manage your purchase orders and track their status',
+      },
   }
 
   const routeData = routeTitles[currentPath] || {}

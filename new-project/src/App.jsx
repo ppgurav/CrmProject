@@ -118,6 +118,8 @@ import Venders from './Pages/Vendor/Venders';
 import { AuthProvider } from './Auth/AuthContext';
 import PrivateRoute from './Auth/PrivateRoute';
 import AddLead from './Pages/Lead/AddLead';
+import PurchaseOrder from './Pages/PurchaseAnd Expenses/PurchaseOrder';
+import PurchaseTable from './Pages/PurchaseAnd Expenses/PurchaseTable';
 
 function App() {
   return (
@@ -161,6 +163,8 @@ function App() {
               <Route path="/attendance/attendance-entry" element={<AttendanceEntry />} />
 
               <Route path="/addlead" element={<AddLead />} />
+              <Route path="/purchase/purchase-order" element={<PurchaseOrder />} />
+              <Route path="/purchase/purchasetable" element={<PurchaseTable />} />
             </Route>
           </Route>
         </Routes>

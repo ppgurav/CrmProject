@@ -29,7 +29,6 @@ import { useState, useEffect } from "react"
 export default function Sidebar({ isOpen, onClose }) {
   const location = useLocation()
   const currentPath = location.pathname
-
   const [openSections, setOpenSections] = useState({})
 
   const menuSections = [
@@ -50,7 +49,7 @@ export default function Sidebar({ isOpen, onClose }) {
     {
       title: "📦 Purchase & Expenses",
       items: [
-        { name: "Purchase Order", icon: Receipt, href: "/purchase/purchase-order" },
+        { name: "Purchase Order", icon: Receipt, href: "/purchase/purchasetable" },
         {
           name: "Vendor Invoices",
           icon: FileSearch,
@@ -72,7 +71,7 @@ export default function Sidebar({ isOpen, onClose }) {
     },
     {
       title: "👨‍💼 Employee",
-      items: [], // This should not show dropdown icon or expand
+      items: [],
     },
     {
       title: "🔸 Attendance",
@@ -131,6 +130,7 @@ export default function Sidebar({ isOpen, onClose }) {
         isOpen ? "translate-x-0" : "-translate-x-full"
       } lg:translate-x-0`}
     >
+      {/* Header */}
       <div className="flex items-center justify-between h-20 px-6 border-b border-gray-100">
         <div className="flex items-center space-x-3">
           <div className="w-8 h-8 bg-gradient-to-r from-indigo-600 to-cyan-600 rounded-lg flex items-center justify-center">
@@ -143,102 +143,105 @@ export default function Sidebar({ isOpen, onClose }) {
         </button>
       </div>
 
-      <nav className="mt-6 px-3 space-y-4">
-        {menuSections.map((section) => {
-          const isOpenSection = openSections[section.title]
-          const hasItems = section.items.length > 0
+      {/* Scrollable Nav */}
+      <div className="h-[calc(100vh-5rem)] overflow-y-auto">
+        <nav className="mt-6 px-3 space-y-4">
+          {menuSections.map((section) => {
+            const isOpenSection = openSections[section.title]
+            const hasItems = section.items.length > 0
 
-          return (
-            <div key={section.title}>
-              <button
-                className={`w-full flex items-center justify-between px-3 py-2 text-sm font-semibold rounded-xl transition-all duration-300 ${
-                  isOpenSection
-                    ? "bg-gradient-to-r from-indigo-600 to-cyan-600 text-white"
-                    : "text-gray-700 hover:bg-gray-100"
-                }`}
-                onClick={() => {
-                  if (hasItems) toggleSection(section.title)
-                }}
-              >
-                <span>{section.title}</span>
-                {hasItems && (
-                  <ChevronRight
-                    className={`h-4 w-4 transform transition-transform duration-300 ${
-                      isOpenSection ? "rotate-90" : "rotate-0"
-                    }`}
-                  />
-                )}
-              </button>
-
-              {/* Section Items */}
-              {hasItems && (
-                <div
-                  className={`ml-4 overflow-hidden transition-all duration-300 ${
-                    isOpenSection ? "max-h-[999px] mt-2" : "max-h-0"
+            return (
+              <div key={section.title}>
+                <button
+                  className={`w-full flex items-center justify-between px-3 py-2 text-sm font-semibold rounded-xl transition-all duration-300 ${
+                    isOpenSection
+                      ? "bg-gradient-to-r from-indigo-600 to-cyan-600 text-white"
+                      : "text-gray-700 hover:bg-gray-100"
                   }`}
+                  onClick={() => {
+                    if (hasItems) toggleSection(section.title)
+                  }}
                 >
-                  <div className="space-y-1">
-                    {section.items.map((item) => {
-                      const isItemActive =
-                        currentPath === item.href || currentPath.startsWith(item.href)
+                  <span>{section.title}</span>
+                  {hasItems && (
+                    <ChevronRight
+                      className={`h-4 w-4 transform transition-transform duration-300 ${
+                        isOpenSection ? "rotate-90" : "rotate-0"
+                      }`}
+                    />
+                  )}
+                </button>
 
-                      if (item.children) {
-                        return (
-                          <div key={item.name}>
-                            <div className="text-gray-500 text-xs font-medium mt-2 mb-1">{item.name}</div>
-                            <div className="ml-2 space-y-1">
-                              {item.children.map((child) => (
-                                <Link
-                                  key={child.name}
-                                  to={child.href}
-                                  className={`group flex items-center px-2 py-2 text-sm rounded-lg transition ${
-                                    currentPath === child.href
-                                      ? "bg-indigo-100 text-indigo-700"
-                                      : "text-gray-600 hover:bg-gray-100"
-                                  }`}
-                                >
-                                  <child.icon className="mr-2 h-4 w-4" />
-                                  {child.name}
-                                </Link>
-                              ))}
+                {/* Section Items */}
+                {hasItems && (
+                  <div
+                    className={`ml-4 overflow-hidden transition-all duration-300 ${
+                      isOpenSection ? "max-h-[999px] mt-2" : "max-h-0"
+                    }`}
+                  >
+                    <div className="space-y-1">
+                      {section.items.map((item) => {
+                        const isItemActive =
+                          currentPath === item.href || currentPath.startsWith(item.href)
+
+                        if (item.children) {
+                          return (
+                            <div key={item.name}>
+                              <div className="text-gray-500 text-xs font-medium mt-2 mb-1">{item.name}</div>
+                              <div className="ml-2 space-y-1">
+                                {item.children.map((child) => (
+                                  <Link
+                                    key={child.name}
+                                    to={child.href}
+                                    className={`group flex items-center px-2 py-2 text-sm rounded-lg transition ${
+                                      currentPath === child.href
+                                        ? "bg-indigo-100 text-indigo-700"
+                                        : "text-gray-600 hover:bg-gray-100"
+                                    }`}
+                                  >
+                                    <child.icon className="mr-2 h-4 w-4" />
+                                    {child.name}
+                                  </Link>
+                                ))}
+                              </div>
                             </div>
-                          </div>
+                          )
+                        }
+
+                        return (
+                          <Link
+                            key={item.name}
+                            to={item.href}
+                            className={`group flex items-center px-3 py-2 text-sm rounded-lg transition ${
+                              isItemActive
+                                ? "bg-indigo-100 text-indigo-700"
+                                : "text-gray-600 hover:bg-gray-100"
+                            }`}
+                          >
+                            <item.icon className="mr-3 h-4 w-4" />
+                            {item.name}
+                          </Link>
                         )
-                      }
-
-                      return (
-                        <Link
-                          key={item.name}
-                          to={item.href}
-                          className={`group flex items-center px-3 py-2 text-sm rounded-lg transition ${
-                            isItemActive
-                              ? "bg-indigo-100 text-indigo-700"
-                              : "text-gray-600 hover:bg-gray-100"
-                          }`}
-                        >
-                          <item.icon className="mr-3 h-4 w-4" />
-                          {item.name}
-                        </Link>
-                      )
-                    })}
+                      })}
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
-          )
-        })}
+                )}
+              </div>
+            )
+          })}
 
-        {/* Bottom Help Section */}
-        <div className="mt-8 pt-6 border-t border-gray-200">
-          <Link
-            to="/help"
-            className="text-gray-700 hover:bg-gray-100 group flex items-center px-3 py-3 text-sm font-medium rounded-xl transition-all duration-200"
-          >
-            <HelpCircle className="mr-3 h-5 w-5" />
-            Help & Support
-          </Link>
-        </div>
-      </nav>
+          {/* Bottom Help Section */}
+          <div className="mt-8 pt-6 border-t border-gray-200">
+            <Link
+              to="/help"
+              className="text-gray-700 hover:bg-gray-100 group flex items-center px-3 py-3 text-sm font-medium rounded-xl transition-all duration-200"
+            >
+              <HelpCircle className="mr-3 h-5 w-5" />
+              Help & Support
+            </Link>
+          </div>
+        </nav>
+      </div>
     </div>
   )
 }
