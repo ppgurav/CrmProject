@@ -120,6 +120,7 @@ import PrivateRoute from './Auth/PrivateRoute';
 import AddLead from './Pages/Lead/AddLead';
 import PurchaseOrder from './Pages/PurchaseAnd Expenses/PurchaseOrder';
 import PurchaseTable from './Pages/PurchaseAnd Expenses/PurchaseTable';
+import AllInvoices from './Pages/PurchaseAnd Expenses/AllInvoices';
 
 function App() {
   return (
@@ -175,7 +176,7 @@ function App() {
 
               <Route path="/purchase/purchase-order" element={<PurchaseOrder />} />
               <Route path="/purchase/purchasetable" element={<PurchaseTable />} />
-              <Route path="/allinvoices" element={<PurchaseTable />} />
+              <Route path="/purchase/invoices/all" element={<AllInvoices />} />
 
             </Route>
           </Route>

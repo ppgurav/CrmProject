@@ -561,7 +561,7 @@ export default function WFTlist() {
       {/* Selfie Modal */}
       {showSelfieModal && (
         // <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30">
 
          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full">
             <div className="p-6 border-b border-gray-100">
@@ -589,7 +589,7 @@ export default function WFTlist() {
 
       {/* Action Modal */}
       {showActionModal && (
-       <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm">
+       <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30">
 
           <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full">
             <div className="p-6 border-b border-gray-100">
