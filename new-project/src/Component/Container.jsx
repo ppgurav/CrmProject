@@ -1,3 +1,28 @@
+// import React, { useState } from 'react';
+// import Sidebar from './Sidebar';
+// import Header from './Header';
+// import { Outlet } from 'react-router-dom';
+
+// const Container = () => {
+//   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+//   return (
+//     <div className="flex min-h-screen">
+//       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+//       <div className="flex flex-col flex-1">
+//         <Header onMenuClick={() => setSidebarOpen(true)} />
+//         <main className="flex-1 bg-gray-50 p-6 lg:ml-64">
+//   <Outlet />
+// </main>
+
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Container;
+
+
 import React, { useState } from 'react';
 import Sidebar from './Sidebar';
 import Header from './Header';
@@ -7,14 +32,16 @@ const Container = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen overflow-x-hidden">
+      {/* Sidebar is assumed to be fixed width, e.g., w-64 */}
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+
       <div className="flex flex-col flex-1">
         <Header onMenuClick={() => setSidebarOpen(true)} />
-        <main className="flex-1 bg-gray-50  lg:ml-64">
-  <Outlet />
-</main>
-
+        
+        <main className="flex-1 bg-gray-50 p-6">
+          <Outlet />
+        </main>
       </div>
     </div>
   );
