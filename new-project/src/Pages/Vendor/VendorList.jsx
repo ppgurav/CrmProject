@@ -351,13 +351,13 @@ export default function VendorList() {
       {/* Main Content Area */}
       <main className="p-6">
         {/* Page Title */}
-        <div className="mb-8">
+        <div className="">
           {/* <h1 className="text-3xl font-bold text-gray-900">Vendor Management</h1> */}
           {/* <p className="text-gray-600 mt-2">Manage your vendors and their information</p> */}
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-3">
           {/* Total Vendors */}
           <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100">
             <div className="flex items-center justify-between">
@@ -426,7 +426,7 @@ export default function VendorList() {
         </div>
 
         {/* Filters and Actions */}
-        <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-8">
+        <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-3">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             {/* Search and Filters */}
             <div className="flex flex-col sm:flex-row gap-4 flex-1">
@@ -889,7 +889,7 @@ export default function VendorList() {
       {/* Delete Confirmation Modal */}
       {deleteModalOpen && vendorToDelete && (
         // <div className="fixed inset-0 bg-black bg-opacity-50 z-50">
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 ">
+         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 ">
         <div className="flex items-center justify-center min-h-screen p-4">
             <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full">
               <div className="p-6">

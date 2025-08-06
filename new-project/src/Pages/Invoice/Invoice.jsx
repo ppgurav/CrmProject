@@ -325,7 +325,7 @@ export default function Invoice() {
         </div> */}
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-3">
           {/* Total Invoices */}
           <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100">
             <div className="flex items-center justify-between">
@@ -392,7 +392,7 @@ export default function Invoice() {
         </div>
 
         {/* Filters and Actions */}
-        <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-8">
+        <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-3">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             {/* Search and Filters */}
             <div className="flex flex-col sm:flex-row gap-4 flex-1">

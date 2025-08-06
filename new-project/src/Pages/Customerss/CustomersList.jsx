@@ -278,11 +278,11 @@ export default function CustomersList() {
   }, [searchTerm, customerTypeFilter, statusFilter])
 
   return (
-    <div className="bg-gradient-to-br from-indigo-50 via-white to-cyan-50 min-h-full p-7">
+    <div className="bg-gradient-to-br from-indigo-50 via-white to-cyan-50 min-h-screen">
       {/* Main Content Area */}
       <main className="p-6">
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-3">
           {/* Total Customers */}
           <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100">
             <div className="flex items-center justify-between">
@@ -352,7 +352,7 @@ export default function CustomersList() {
         </div>
 
         {/* Filters and Actions */}
-        <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-8">
+        <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-3">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             {/* Search and Filters */}
             <div className="flex flex-col sm:flex-row gap-4 flex-1">

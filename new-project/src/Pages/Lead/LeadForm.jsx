@@ -272,14 +272,14 @@ export default function LeadForm() {
       {/* Header */}
       <div className=" ">
         <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <div className="flex items-center space-x-3">
+          <div className="flex justify-between items-center py-1">
+            {/* <div className=""> */}
               {/* <Users className="h-8 w-8 text-blue-600" /> */}
               {/* <h1 className="text-2xl font-bold text-gray-900">Lead Management System</h1> */}
-            </div>
+            {/* </div> */}
             <button
               onClick={handleAddCustomerLead}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 hover:bg-blue-700"
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 hover:bg-blue-700 ml-auto"
             >
               <Plus className="h-4 w-4" />
               <span>Add Lead</span>

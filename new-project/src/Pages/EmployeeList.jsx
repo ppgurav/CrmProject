@@ -317,13 +317,13 @@ export default function EmployeeList() {
       {/* Main Content Area */}
       <main className="p-6">
         {/* Page Title */}
-        <div className="mb-8">
+        <div className="">
           {/* <h1 className="text-3xl font-bold text-gray-900">Employee Management</h1> */}
           {/* <p className="text-gray-600 mt-2">Manage your team members and their information</p> */}
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-3">
           {/* Total Employees */}
           <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100">
             <div className="flex items-center justify-between">
@@ -392,7 +392,7 @@ export default function EmployeeList() {
         </div>
 
         {/* Filters and Actions */}
-        <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-8">
+        <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-3">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             {/* Search and Filters */}
             <div className="flex flex-col sm:flex-row gap-4 flex-1">
