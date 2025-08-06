@@ -695,7 +695,7 @@ export default function CustomersList() {
           </div> */}
 
 
-<div className="block w-full">
+<div className="block w-full overflow-x-auto">
   <table className="w-full table-auto divide-y divide-gray-200">
     <thead className="bg-gray-50">
       <tr>
@@ -707,24 +707,13 @@ export default function CustomersList() {
             className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
           />
         </th>
-        <th
-          onClick={() => handleSort("fullName")}
-          className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-        >
-          Customer
-          <PanelLeft className="inline-block w-4 h-4 ml-1" />
+        <th onClick={() => handleSort("fullName")} className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
+          Customer <PanelLeft className="inline-block w-4 h-4 ml-1" />
         </th>
-        <th
-          onClick={() => handleSort("companyName")}
-          className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-        >
-          Company
-          <PanelLeft className="inline-block w-4 h-4 ml-1" />
+        <th onClick={() => handleSort("companyName")} className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
+          Company <PanelLeft className="inline-block w-4 h-4 ml-1" />
         </th>
-        <th
-          onClick={() => handleSort("customerType")}
-          className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-        >
+        <th onClick={() => handleSort("customerType")} className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
           Type
         </th>
         <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -733,19 +722,13 @@ export default function CustomersList() {
         <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
           Location
         </th>
-        <th
-          onClick={() => handleSort("lastContact")}
-          className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-        >
+        <th onClick={() => handleSort("lastContact")} className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
           Last Contact
         </th>
-        <th
-          onClick={() => handleSort("status")}
-          className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-        >
+        <th onClick={() => handleSort("status")} className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
           Status
         </th>
-        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[120px]">
           Actions
         </th>
       </tr>
@@ -828,8 +811,8 @@ export default function CustomersList() {
               {customer.status.charAt(0).toUpperCase() + customer.status.slice(1)}
             </span>
           </td>
-          <td className="px-4 py-4 text-sm text-gray-900 whitespace-normal break-words">
-            <div className="flex items-center space-x-2">
+          <td className="px-4 py-4 text-sm text-gray-900 whitespace-nowrap">
+            <div className="flex items-center space-x-2 flex-wrap">
               <button
                 onClick={() => viewCustomer(customer.id)}
                 className="text-indigo-600 hover:text-indigo-900 p-1 rounded hover:bg-indigo-50"
@@ -860,6 +843,7 @@ export default function CustomersList() {
     </tbody>
   </table>
 </div>
+
 
 
 
