@@ -278,7 +278,7 @@ export default function CustomersList() {
   }, [searchTerm, customerTypeFilter, statusFilter])
 
   return (
-    <div className="bg-gradient-to-br from-indigo-50 via-white to-cyan-50 min-h-full">
+    <div className="bg-gradient-to-br from-indigo-50 via-white to-cyan-50 min-h-full p-7">
       {/* Main Content Area */}
       <main className="p-6">
         {/* Stats Cards */}
