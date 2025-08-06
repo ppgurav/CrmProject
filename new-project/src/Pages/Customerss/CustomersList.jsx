@@ -463,7 +463,9 @@ export default function CustomersList() {
             </div>
           </div>
 
-          <div className="overflow-x-auto">
+          {/* <div className="overflow-x-auto"> */}
+          <div className="overflow-x-hidden w-full">
+
             <table className="w-full">
               <thead className="bg-gray-50">
                 <tr>

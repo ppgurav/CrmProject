@@ -267,7 +267,8 @@ export default function LeadForm() {
   })
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    // <div className="min-h-screen bg-gray-50">
+    <div className="bg-gradient-to-br from-indigo-50 via-white to-cyan-50 min-h-screen p-6">
       {/* Header */}
       <div className=" ">
         <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
