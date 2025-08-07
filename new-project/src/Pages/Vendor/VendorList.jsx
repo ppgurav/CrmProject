@@ -672,10 +672,10 @@ export default function VendorList() {
           />
         </th>
         <th onClick={() => handleSort("vendorName")} className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
-          Vendor <PanelLeft className="inline-block w-4 h-4 ml-1" />
+          Vendor 
         </th>
         <th onClick={() => handleSort("vendorType")} className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
-          Type <PanelLeft className="inline-block w-4 h-4 ml-1" />
+          Type 
         </th>
         <th onClick={() => handleSort("contactPersonName")} className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
           Contact Person
