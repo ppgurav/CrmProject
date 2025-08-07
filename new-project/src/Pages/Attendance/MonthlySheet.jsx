@@ -185,7 +185,7 @@ export default function MonthlySheet() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-cyan-50 py-3">
-    <div className="max-w-full mx-auto">
+    <div className="max-w-full">
         {/* Page Header */}
         {/* <div className="mb-8"> */}
           {/* <h1 className="text-3xl font-bold text-gray-900 mb-2">Monthly Attendance Sheet</h1> */}
@@ -193,7 +193,7 @@ export default function MonthlySheet() {
         {/* </div> */}
 
         {/* Action Buttons */}
-        <div className="flex justify-end items-center space-x-4 mb-6">
+        <div className="flex justify-end items-center space-x-4 mb-4">
           <button
             onClick={printSummary}
             className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 font-medium flex items-center"
@@ -236,7 +236,7 @@ export default function MonthlySheet() {
         </div>
 
         {/* Filters Section */}
-        <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-8">
+        <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-3 ml-3">
           <div className="flex items-center mb-6">
             <div className="w-10 h-10 bg-gradient-to-r from-indigo-600 to-cyan-600 rounded-xl flex items-center justify-center mr-4">
               <Filter className="w-5 h-5 text-white" />
@@ -249,7 +249,7 @@ export default function MonthlySheet() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 ml-3 ">
             {/* Month & Year Filter */}
             <div>
               <label htmlFor="monthYearFilter" className="block text-sm font-medium text-gray-700 mb-2">
@@ -325,7 +325,7 @@ export default function MonthlySheet() {
             </div>
           </div>
 
-          <div className="flex justify-between items-center mt-6">
+          <div className="flex justify-between items-center mt-6 ">
             <div className="flex items-center space-x-4">
               <button
                 onClick={applyFilters}
@@ -344,7 +344,7 @@ export default function MonthlySheet() {
         </div>
 
         {/* Icon Legend */}
-        <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-8">
+        <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-3 ml-3">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Icon Legend</h3>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             <div className="flex items-center space-x-2">
@@ -371,7 +371,7 @@ export default function MonthlySheet() {
         </div>
 
         {/* Monthly Attendance Table */}
-        <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 border border-gray-100">
+        <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 border border-gray-100 ml-3">
           <div className="p-6 border-b border-gray-100">
             <div className="flex items-center justify-between">
               <div>

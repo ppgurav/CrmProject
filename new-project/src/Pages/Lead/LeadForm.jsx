@@ -288,7 +288,7 @@ export default function LeadForm() {
         </div>
       </div>
 
-      <div className="bg-white max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div className="bg-white max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 rounded-2xl">
         {/* Tabs */}
         <div className="mb-7">
           <div className="border-b border-gray-200">
