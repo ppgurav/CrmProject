@@ -448,13 +448,13 @@ export default function AssignTicket() {
       )}
 
       {/* Page Title */}
-      <div className="mb-8">
+      {/* <div className=""> */}
         {/* <h1 className="text-3xl font-bold text-gray-900 mb-2">Assign Tickets</h1> */}
         {/* <p className="text-gray-600">Manage and assign support tickets to team members</p> */}
-      </div>
+      {/* </div> */}
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-3">
         <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
           <div className="flex items-center justify-between">
             <div>
@@ -505,7 +505,7 @@ export default function AssignTicket() {
       </div>
 
       {/* Controls */}
-      <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 mb-8">
+      <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 mb-3">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div className="flex items-center space-x-4">
             <button

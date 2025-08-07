@@ -695,8 +695,8 @@ export default function CustomersList() {
           </div> */}
 
 
-<div className="block w-full overflow-x-auto">
-  <table className="w-full table-auto divide-y divide-gray-200">
+<div className="w-full overflow-x-auto">
+  <table className="min-w-full table-auto divide-y divide-gray-200">
     <thead className="bg-gray-50">
       <tr>
         <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -736,7 +736,7 @@ export default function CustomersList() {
     <tbody className="bg-white divide-y divide-gray-200">
       {currentCustomers.map((customer) => (
         <tr key={customer.id} className="hover:bg-gray-50 transition-colors duration-200">
-          <td className="px-4 py-4 text-sm text-gray-900">
+          <td className="px-4 py-4">
             <input
               type="checkbox"
               checked={selectedCustomers.includes(customer.id)}
@@ -744,9 +744,9 @@ export default function CustomersList() {
               className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
             />
           </td>
-          <td className="px-4 py-4 text-sm text-gray-900 whitespace-normal break-words">
+          <td className="px-4 py-4">
             <div className="flex items-center">
-              <div className="h-10 w-10 flex-shrink-0 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 flex items-center justify-center">
+              <div className="h-10 w-10 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 flex items-center justify-center">
                 <span className="text-white font-medium text-sm">
                   {customer.fullName.split(" ").map((n) => n[0]).join("")}
                 </span>
@@ -757,11 +757,11 @@ export default function CustomersList() {
               </div>
             </div>
           </td>
-          <td className="px-4 py-4 text-sm text-gray-900 whitespace-normal break-words">
+          <td className="px-4 py-4 text-sm text-gray-900">
             <div>{customer.companyName}</div>
             {customer.gstNumber && <div className="text-xs text-gray-500">GST: {customer.gstNumber}</div>}
           </td>
-          <td className="px-4 py-4 text-sm text-gray-900 whitespace-normal break-words">
+          <td className="px-4 py-4 text-sm">
             <span
               className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                 customer.customerType === "client"
@@ -778,7 +778,7 @@ export default function CustomersList() {
               {customer.customerType.charAt(0).toUpperCase() + customer.customerType.slice(1)}
             </span>
           </td>
-          <td className="px-4 py-4 text-sm text-gray-900 whitespace-normal break-words">
+          <td className="px-4 py-4 text-sm text-gray-900">
             <div className="flex items-center">
               <Phone className="w-4 h-4 mr-1 text-gray-400" />
               {customer.mobile}
@@ -788,21 +788,21 @@ export default function CustomersList() {
               <span className="truncate max-w-32">{customer.email}</span>
             </div>
           </td>
-          <td className="px-4 py-4 text-sm text-gray-900 whitespace-normal break-words">
+          <td className="px-4 py-4 text-sm text-gray-900">
             <div className="flex items-center">
               <MapPin className="w-4 h-4 mr-1 text-gray-400" />
               {customer.city}
             </div>
             <div className="text-xs text-gray-400 capitalize">{customer.state}</div>
           </td>
-          <td className="px-4 py-4 text-sm text-gray-900 whitespace-normal break-words">
+          <td className="px-4 py-4 text-sm text-gray-500">
             {new Date(customer.lastContact).toLocaleDateString("en-US", {
               year: "numeric",
               month: "short",
               day: "numeric",
             })}
           </td>
-          <td className="px-4 py-4 text-sm text-gray-900 whitespace-normal break-words">
+          <td className="px-4 py-4 text-sm">
             <span
               className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                 customer.status === "active" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
@@ -811,7 +811,7 @@ export default function CustomersList() {
               {customer.status.charAt(0).toUpperCase() + customer.status.slice(1)}
             </span>
           </td>
-          <td className="px-4 py-4 text-sm text-gray-900 whitespace-nowrap">
+          <td className="px-4 py-4 text-sm font-medium">
             <div className="flex items-center space-x-2 flex-wrap">
               <button
                 onClick={() => viewCustomer(customer.id)}

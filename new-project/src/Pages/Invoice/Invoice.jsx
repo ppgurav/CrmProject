@@ -481,14 +481,14 @@ export default function Invoice() {
                     className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                   >
                     Invoice Number
-                    <PanelLeft className="inline-block w-4 h-4 ml-1" />
+                   
                   </th>
                   <th
                     onClick={() => handleSort("customerName")}
                     className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                   >
                     Customer
-                    <PanelLeft className="inline-block w-4 h-4 ml-1" />
+                   
                   </th>
                   <th
                     onClick={() => handleSort("invoiceDate")}

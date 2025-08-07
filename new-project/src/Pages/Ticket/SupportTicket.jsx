@@ -1340,7 +1340,7 @@ export default function SupportTickets() {
           </div>
         </div>
 
-        <div className="overflow-x-auto">
+        {/* <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-50">
               <tr>
@@ -1466,7 +1466,136 @@ export default function SupportTickets() {
               )}
             </tbody>
           </table>
-        </div>
+        </div> */}
+        <div className="w-full overflow-x-auto">
+  <table className="min-w-full table-auto divide-y divide-gray-200">
+    <thead className="bg-gray-50">
+      <tr>
+        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          <input
+            type="checkbox"
+            checked={selectedTickets.size === paginatedTickets.length && paginatedTickets.length > 0}
+            onChange={(e) => handleSelectAll(e.target.checked)}
+            className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+          />
+        </th>
+        <th
+          onClick={() => handleSort("ticketNo")}
+          className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+        >
+          Ticket No
+        </th>
+        <th
+          onClick={() => handleSort("customerName")}
+          className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+        >
+          Customer Name
+        </th>
+        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Type
+        </th>
+        <th
+          onClick={() => handleSort("priority")}
+          className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+        >
+          Priority
+        </th>
+        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Status
+        </th>
+        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Assigned To
+        </th>
+        <th
+          onClick={() => handleSort("lastUpdated")}
+          className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+        >
+          Last Updated
+        </th>
+        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[120px]">
+          Actions
+        </th>
+      </tr>
+    </thead>
+    <tbody className="bg-white divide-y divide-gray-200">
+      {paginatedTickets.length === 0 ? (
+        <tr>
+          <td colSpan="9" className="px-6 py-12 text-center text-gray-500">
+            <AlertCircle className="mx-auto h-12 w-12 text-gray-400 mb-4" />
+            <p className="text-lg font-medium">No tickets found</p>
+            <p className="text-sm">Try adjusting your search or filter criteria</p>
+          </td>
+        </tr>
+      ) : (
+        paginatedTickets.map((ticket) => (
+          <tr key={ticket.id} className="hover:bg-gray-50 transition-colors duration-200">
+            <td className="px-4 py-4">
+              <input
+                type="checkbox"
+                checked={selectedTickets.has(ticket.id)}
+                onChange={(e) => handleSelectTicket(ticket.id, e.target.checked)}
+                className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+              />
+            </td>
+            <td className="px-4 py-4 whitespace-nowrap">
+              <div className="text-sm font-medium text-gray-900">{ticket.ticketNo}</div>
+            </td>
+            <td className="px-4 py-4">
+              <div className="flex items-center">
+                <div className="h-8 w-8 flex-shrink-0 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 flex items-center justify-center text-white font-semibold text-xs mr-3">
+                  {getInitials(ticket.customerName)}
+                </div>
+                <div>
+                  <div className="text-sm font-medium text-gray-900">{ticket.customerName}</div>
+                  <div className="text-sm text-gray-500">{ticket.customerEmail}</div>
+                </div>
+              </div>
+            </td>
+            <td className="px-4 py-4">
+              <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getTypeColor(ticket.type)}`}>
+                {ticket.type}
+              </span>
+            </td>
+            <td className="px-4 py-4">
+              <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getPriorityColor(ticket.priority)} capitalize`}>
+                {ticket.priority}
+              </span>
+            </td>
+            <td className="px-4 py-4">
+              <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(ticket.status)} capitalize`}>
+                {ticket.status.replace("-", " ")}
+              </span>
+            </td>
+            <td className="px-4 py-4 text-sm text-gray-900">
+              {ticket.assignedTo || <span className="text-gray-400">Unassigned</span>}
+            </td>
+            <td className="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">
+              {formatDateTime(ticket.lastUpdated)}
+            </td>
+            <td className="px-4 py-4 text-sm font-medium">
+              <div className="flex items-center space-x-2 flex-wrap">
+                <button
+                  onClick={() => viewTicket(ticket)}
+                  className="text-indigo-600 hover:text-indigo-900 p-1 rounded hover:bg-indigo-50"
+                  title="View Details"
+                >
+                  <Eye className="w-4 h-4" />
+                </button>
+                <button
+                  className="text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-50"
+                  title="Edit"
+                >
+                  <Edit className="w-4 h-4" />
+                </button>
+              </div>
+            </td>
+          </tr>
+        ))
+      )}
+    </tbody>
+  </table>
+</div>
+
 
         {/* Pagination */}
         <div className="px-6 py-4 border-t border-gray-100">
