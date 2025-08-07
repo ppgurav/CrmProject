@@ -37,7 +37,7 @@ const Container = () => {
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       {/* Main content */}
-      <div className="flex flex-col flex-1 lg:ml-50">
+      <div className="flex flex-col flex-1 lg:ml-57">
         {/* Fixed Header */}
         <div className="flex-shrink-0">
           <Header onMenuClick={() => setSidebarOpen(true)} />

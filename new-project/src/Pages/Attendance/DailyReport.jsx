@@ -551,8 +551,9 @@ export default function DailyReport() {
 
       {/* Attendance Modal */}
       {showAttendanceModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        // <div className="fixed inset-0 bg-transparent bg-opacity-50 z-50 flex items-center justify-center p-4">
+       
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30"><div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b border-gray-100">
               <div className="flex items-center justify-between">
                 <h3 className="text-xl font-semibold text-gray-900">Edit Attendance</h3>
@@ -643,8 +644,8 @@ export default function DailyReport() {
       )}
 
       {/* Selfie Modal */}
-      {showSelfieModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+      {/* {showSelfieModal && (
+        <div className="fixed inset-0 bg-transparent bg-opacity-100 z-200 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full">
             <div className="p-6 border-b border-gray-100">
               <div className="flex items-center justify-between">
@@ -667,7 +668,33 @@ export default function DailyReport() {
             </div>
           </div>
         </div>
-      )}
+      )} */}
+      {showSelfieModal && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30">
+    <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full">
+      <div className="p-6 border-b border-gray-100">
+        <div className="flex items-center justify-between">
+          <h3 className="text-xl font-semibold text-gray-900">Employee Selfie</h3>
+          <button onClick={() => setShowSelfieModal(false)} className="p-2 hover:bg-gray-100 rounded-lg">
+            <X className="w-5 h-5 text-gray-500" />
+          </button>
+        </div>
+      </div>
+      <div className="p-6">
+        <div className="text-center">
+          <img
+            src="/placeholder.svg?height=200&width=200"
+            alt="Employee Selfie"
+            className="w-48 h-48 rounded-xl mx-auto object-cover border border-gray-200"
+          />
+          <p className="text-sm text-gray-600 mt-4">Selfie taken at check-in</p>
+          <p className="text-xs text-gray-500">January 8, 2024 - 10:05 AM</p>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
     </div>
   )
 }

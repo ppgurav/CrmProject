@@ -184,13 +184,13 @@ export default function MonthlySheet() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-cyan-50 p-6">
-      <div className="max-w-full mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-cyan-50 py-3">
+    <div className="max-w-screen-2xl mx-auto">
         {/* Page Header */}
-        <div className="mb-8">
+        {/* <div className="mb-8"> */}
           {/* <h1 className="text-3xl font-bold text-gray-900 mb-2">Monthly Attendance Sheet</h1> */}
           {/* <p className="text-gray-600">Track and manage employee attendance records</p> */}
-        </div>
+        {/* </div> */}
 
         {/* Action Buttons */}
         <div className="flex justify-end items-center space-x-4 mb-6">
@@ -207,7 +207,7 @@ export default function MonthlySheet() {
               onClick={() => setShowDownloadMenu(!showDownloadMenu)}
               className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all duration-200 font-medium flex items-center"
             >
-              <Download className="w-4 h-4 mr-2" />
+              <Download className="w-4 h-4" />
               Download
               <ChevronDown className="w-4 h-4 ml-1" />
             </button>
