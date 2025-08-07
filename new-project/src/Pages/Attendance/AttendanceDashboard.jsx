@@ -366,7 +366,7 @@ export default function AttendanceDashboard() {
     <div className="bg-gradient-to-br from-indigo-50 via-white to-cyan-50 min-h-screen">
       <div className="p-6">
         {/* Header Section */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3">
           {/* <h1 className="text-3xl font-bold text-gray-900 mb-4 sm:mb-0">Attendance Dashboard</h1> */}
           <div className="flex items-center space-x-4 ml-auto">
             <input
@@ -387,7 +387,7 @@ export default function AttendanceDashboard() {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-3">
           <StatCard
             title="Total Employees"
             value={attendanceData.totalEmployees}
@@ -430,7 +430,7 @@ export default function AttendanceDashboard() {
         </div>
 
         {/* Charts Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-3">
           <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-lg font-semibold text-gray-900">Attendance Trend (Last {trendPeriod} Days)</h3>

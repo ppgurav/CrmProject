@@ -131,7 +131,7 @@ export default function AttendanceEntry() {
     <div className="bg-gradient-to-br from-blue-50 via-white to-indigo-50 min-h-screen p-6">
       <div className="max-w-full mx-auto">
         {/* Page Header */}
-        <div className="mb-8">
+        <div className="mb-3">
           <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
             <Users className="h-8 w-8 text-blue-600" />
             Manual Attendance Entry
@@ -140,7 +140,7 @@ export default function AttendanceEntry() {
         </div>
 
         {/* Manual Entry Form */}
-        <div className="bg-white rounded-2xl shadow-lg shadow-blue-500/5 p-8 border border-gray-100 mb-8">
+        <div className="bg-white rounded-2xl shadow-lg shadow-blue-500/5 p-8 border border-gray-100 mb-3">
           <h3 className="text-lg font-semibold text-gray-900 mb-6 flex items-center gap-2">
             <Clock className="h-5 w-5 text-blue-600" />
             Add Attendance Record

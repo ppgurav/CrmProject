@@ -260,7 +260,7 @@ export default function Calender() {
     <div className="bg-gradient-to-br from-indigo-50 via-white to-cyan-50 min-h-screen">
       <div className="container mx-auto px-4 py-8 max-w-full">
         {/* Page Header */}
-        <div className="mb-8">
+        <div className="mb-3">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             <div className="mb-4 md:mb-0">
               {/* <h1 className="text-3xl font-bold text-gray-900">My Attendance Calendar</h1> */}
@@ -292,7 +292,7 @@ export default function Calender() {
         </div>
 
         {/* Color Legend */}
-        <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-8">
+        <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-3">
           <div className="flex items-center mb-4">
             <div className="w-10 h-10 bg-gradient-to-r from-indigo-600 to-cyan-600 rounded-xl flex items-center justify-center mr-4">
               <Info className="w-5 h-5 text-white" />
@@ -352,7 +352,7 @@ export default function Calender() {
         </div>
 
         {/* Calendar Grid */}
-        <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 border border-gray-100 mb-8">
+        <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 border border-gray-100 mb-3">
           <div className="p-6 border-b border-gray-100">
             <div className="flex items-center justify-between">
               <div>

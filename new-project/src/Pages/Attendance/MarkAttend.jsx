@@ -288,7 +288,7 @@ export default function MarkAttend() {
       {/* Main Content */}
       <div className="container mx-auto px-6 py-8 max-w-full">
         {/* Header */}
-        {/* <div className="text-center mb-8">
+        {/* <div className="text-center mb-3">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">Mark Attendance</h1>
           <p className="text-gray-600">{currentDateTime}</p>
         </div> */}
@@ -307,7 +307,7 @@ export default function MarkAttend() {
         )}
 
         {/* Current Status Card */}
-        <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-8">
+        <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-3">
           <div className="text-center">
             <div
               className={`w-20 h-20 bg-gradient-to-r ${getStatusColor()} rounded-full flex items-center justify-center mx-auto mb-4 ${!attendanceState.markedOut ? "animate-bounce" : ""}`}
@@ -353,7 +353,7 @@ export default function MarkAttend() {
             <div className="p-6">
               {/* Mark IN Section */}
               {!attendanceState.markedIn && (
-                <div className="mb-8">
+                <div className="mb-3">
                   <div className="flex items-center justify-between mb-4">
                     <h4 className="text-lg font-medium text-gray-900">Mark IN</h4>
                     <span className="text-sm text-gray-500">Required to start your day</span>
@@ -384,7 +384,7 @@ export default function MarkAttend() {
 
               {/* Work Plan Section */}
               {attendanceState.markedIn && (
-                <div className="mb-8">
+                <div className="mb-3">
                   <div className="flex items-center justify-between mb-4">
                     <h4 className="text-lg font-medium text-gray-900">Today's Work Plan</h4>
                     <span className="text-sm text-gray-500">Optional</span>
@@ -401,7 +401,7 @@ export default function MarkAttend() {
 
               {/* Selfie Upload Section */}
               {attendanceState.markedIn && (
-                <div className="mb-8">
+                <div className="mb-3">
                   <div className="flex items-center justify-between mb-4">
                     <h4 className="text-lg font-medium text-gray-900">Upload Selfie</h4>
                     <span className="text-sm text-gray-500">Optional - For verification</span>
@@ -442,7 +442,7 @@ export default function MarkAttend() {
               )}
 
               {/* Location Info */}
-              <div className="mb-8">
+              <div className="mb-3">
                 <h4 className="text-lg font-medium text-gray-900 mb-4">Location Information</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="bg-gray-50 rounded-xl p-4">
@@ -464,7 +464,7 @@ export default function MarkAttend() {
 
               {/* Mark OUT Section */}
               {attendanceState.markedIn && (
-                <div className="mb-8">
+                <div className="mb-3">
                   <div className="flex items-center justify-between mb-4">
                     <h4 className="text-lg font-medium text-gray-900">Mark OUT</h4>
                     <span className="text-sm text-gray-500">End your work day</span>
