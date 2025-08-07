@@ -481,7 +481,7 @@ export default function PurchaseTable() {
               </div>
             </div>
           </div>
-          <div className="overflow-x-auto">
+          {/* <div className="overflow-x-auto">
             <table className="w-full">
               <thead className="bg-gray-50">
                 <tr>
@@ -589,7 +589,125 @@ export default function PurchaseTable() {
                 ))}
               </tbody>
             </table>
-          </div>
+          </div> */}
+
+<div className="w-full overflow-x-auto">
+  <table className="min-w-full table-auto divide-y divide-gray-200">
+    <thead className="bg-gray-50">
+      <tr>
+        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          <input
+            type="checkbox"
+            checked={selectAll}
+            onChange={(e) => handleSelectAll(e.target.checked)}
+            className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+          />
+        </th>
+        <th onClick={() => handleSort("poNumber")} className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
+          PO Number
+        </th>
+        <th onClick={() => handleSort("vendor")} className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
+          Vendor
+        </th>
+        <th onClick={() => handleSort("poDate")} className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
+          PO Date
+        </th>
+        <th onClick={() => handleSort("deliveryDate")} className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
+          Delivery Date
+        </th>
+        <th onClick={() => handleSort("grandTotal")} className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
+          Grand Total
+        </th>
+        <th onClick={() => handleSort("status")} className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
+          Status
+        </th>
+        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[120px]">
+          Actions
+        </th>
+      </tr>
+    </thead>
+    <tbody className="bg-white divide-y divide-gray-200">
+      {currentPurchaseOrders.map((po) => (
+        <tr key={po.id} className="hover:bg-gray-50 transition-colors duration-200">
+          <td className="px-4 py-4">
+            <input
+              type="checkbox"
+              checked={selectedPOs.includes(po.id)}
+              onChange={(e) => handleSelectPO(po.id, e.target.checked)}
+              className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+            />
+          </td>
+          <td className="px-4 py-4 text-sm font-medium text-gray-900">{po.poNumber}</td>
+          <td className="px-4 py-4">
+            <div className="flex items-center">
+              <div className="h-10 w-10 flex-shrink-0">
+                <div className="h-10 w-10 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 flex items-center justify-center">
+                  <span className="text-white font-medium text-sm">
+                    {po.vendor.split(" ").map((n) => n[0]).join("").substring(0, 2)}
+                  </span>
+                </div>
+              </div>
+              <div className="ml-4">
+                <div className="text-sm font-medium text-gray-900">{po.vendor}</div>
+                <div className="text-sm text-gray-500">{po.vendorMobileEmail}</div>
+              </div>
+            </div>
+          </td>
+          <td className="px-4 py-4 text-sm text-gray-500">
+            {new Date(po.poDate).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+            })}
+          </td>
+          <td className="px-4 py-4 text-sm text-gray-500">
+            {new Date(po.deliveryDate).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+            })}
+          </td>
+          <td className="px-4 py-4 text-sm font-medium text-gray-900">
+            {formatCurrency(calculatePoGrandTotal(po))}
+          </td>
+          <td className="px-4 py-4">
+            <span
+              className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(po.status)}`}
+            >
+              {po.status.charAt(0).toUpperCase() + po.status.slice(1)}
+            </span>
+          </td>
+          <td className="px-4 py-4 text-sm font-medium">
+            <div className="flex items-center space-x-2 flex-wrap">
+              <button
+                onClick={() => handleViewPurchaseOrder(po.id)}
+                className="text-indigo-600 hover:text-indigo-900 p-1 rounded hover:bg-indigo-50"
+                title="View Details"
+              >
+                <Eye className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => handleEditPurchaseOrder(po.id)}
+                className="text-green-600 hover:text-green-900 p-1 rounded hover:bg-green-50"
+                title="Edit"
+              >
+                <Edit className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => handleDeletePurchaseOrder(po.id)}
+                className="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50"
+                title="Delete"
+              >
+                <Trash2 className="w-4 h-4" />
+              </button>
+            </div>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
 
           {/* Pagination */}
           <div className="bg-white px-6 py-4 border-t border-gray-200">
