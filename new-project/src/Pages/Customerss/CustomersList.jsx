@@ -708,10 +708,10 @@ export default function CustomersList() {
           />
         </th>
         <th onClick={() => handleSort("fullName")} className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
-          Customer <PanelLeft className="inline-block w-4 h-4 ml-1" />
+          Customer
         </th>
         <th onClick={() => handleSort("companyName")} className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
-          Company <PanelLeft className="inline-block w-4 h-4 ml-1" />
+          Company
         </th>
         <th onClick={() => handleSort("customerType")} className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
           Type

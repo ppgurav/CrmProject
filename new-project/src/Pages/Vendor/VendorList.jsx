@@ -511,8 +511,8 @@ export default function VendorList() {
             </div>
           </div>
 
-          <div className="overflow-x-auto">
-            <table className="w-full">
+          {/* <div className="block w-full overflow-x-auto">
+          <table className="w-full table-auto divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
                   <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -658,7 +658,139 @@ export default function VendorList() {
                 ))}
               </tbody>
             </table>
-          </div>
+          </div> */}
+          <div className="w-full overflow-x-auto">
+  <table className="min-w-full table-auto divide-y divide-gray-200">
+    <thead className="bg-gray-50">
+      <tr>
+        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          <input
+            type="checkbox"
+            checked={selectAll}
+            onChange={(e) => handleSelectAll(e.target.checked)}
+            className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+          />
+        </th>
+        <th onClick={() => handleSort("vendorName")} className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
+          Vendor <PanelLeft className="inline-block w-4 h-4 ml-1" />
+        </th>
+        <th onClick={() => handleSort("vendorType")} className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
+          Type <PanelLeft className="inline-block w-4 h-4 ml-1" />
+        </th>
+        <th onClick={() => handleSort("contactPersonName")} className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
+          Contact Person
+        </th>
+        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Contact Info
+        </th>
+        <th onClick={() => handleSort("city")} className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
+          Location
+        </th>
+        <th onClick={() => handleSort("status")} className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
+          Status
+        </th>
+        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[120px]">
+          Actions
+        </th>
+      </tr>
+    </thead>
+    <tbody className="bg-white divide-y divide-gray-200">
+      {currentVendors.map((vendor) => (
+        <tr key={vendor.id} className="hover:bg-gray-50 transition-colors duration-200">
+          <td className="px-4 py-4">
+            <input
+              type="checkbox"
+              checked={selectedVendors.includes(vendor.id)}
+              onChange={(e) => handleSelectVendor(vendor.id, e.target.checked)}
+              className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+            />
+          </td>
+          <td className="px-4 py-4">
+            <div className="flex items-center">
+              <div className="h-10 w-10 flex-shrink-0">
+                <div className="h-10 w-10 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 flex items-center justify-center">
+                  <span className="text-white font-medium text-sm">
+                    {vendor.vendorName
+                      .split(" ")
+                      .map((n) => n[0])
+                      .join("")
+                      .substring(0, 2)}
+                  </span>
+                </div>
+              </div>
+              <div className="ml-4">
+                <div className="text-sm font-medium text-gray-900">{vendor.vendorName}</div>
+                <div className="text-sm text-gray-500">{vendor.gstNumber || "No GST"}</div>
+              </div>
+            </div>
+          </td>
+          <td className="px-4 py-4">
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+              {vendor.vendorType}
+            </span>
+          </td>
+          <td className="px-4 py-4 text-sm text-gray-900">
+            {vendor.contactPersonName || "Not specified"}
+          </td>
+          <td className="px-4 py-4 text-sm text-gray-500">
+            <div className="flex flex-col space-y-1">
+              <div className="flex items-center">
+                <Phone className="w-3 h-3 mr-1" />
+                {vendor.mobileNumber}
+              </div>
+              {vendor.emailAddress && (
+                <div className="flex items-center">
+                  <Mail className="w-3 h-3 mr-1" />
+                  {vendor.emailAddress}
+                </div>
+              )}
+            </div>
+          </td>
+          <td className="px-4 py-4 text-sm text-gray-500">
+            <div className="flex items-center">
+              <MapPin className="w-3 h-3 mr-1" />
+              {vendor.city}, {vendor.state}
+            </div>
+          </td>
+          <td className="px-4 py-4">
+            <span
+              className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                vendor.status === "Active" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+              }`}
+            >
+              {vendor.status}
+            </span>
+          </td>
+          <td className="px-4 py-4 text-sm font-medium">
+            <div className="flex items-center space-x-2 flex-wrap">
+              <button
+                onClick={() => viewVendor(vendor.id)}
+                className="text-indigo-600 hover:text-indigo-900 p-1 rounded hover:bg-indigo-50"
+                title="View Details"
+              >
+                <Eye className="w-4 h-4" />
+              </button>
+              <button
+                className="text-green-600 hover:text-green-900 p-1 rounded hover:bg-green-50"
+                title="Edit"
+              >
+                <Edit className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => deleteVendor(vendor.id)}
+                className="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50"
+                title="Delete"
+              >
+                <Trash2 className="w-4 h-4" />
+              </button>
+            </div>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
 
           {/* Pagination */}
           <div className="bg-white px-6 py-4 border-t border-gray-200">
