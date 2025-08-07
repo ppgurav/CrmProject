@@ -40,7 +40,7 @@ const Container = () => {
       <div className="flex flex-col flex-1 lg:ml-55">
         <Header onMenuClick={() => setSidebarOpen(true)} />
 
-        <main className="flex-1 p-2">
+        <main className="flex-1 ">
           <Outlet />
         </main>
       </div>
