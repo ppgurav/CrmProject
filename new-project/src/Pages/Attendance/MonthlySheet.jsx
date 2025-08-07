@@ -185,7 +185,7 @@ export default function MonthlySheet() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-cyan-50 py-3">
-    <div className="max-w-screen-2xl mx-auto">
+    <div className="max-w-full mx-auto">
         {/* Page Header */}
         {/* <div className="mb-8"> */}
           {/* <h1 className="text-3xl font-bold text-gray-900 mb-2">Monthly Attendance Sheet</h1> */}
