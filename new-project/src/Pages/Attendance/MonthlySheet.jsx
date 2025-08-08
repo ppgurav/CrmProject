@@ -236,7 +236,7 @@ export default function MonthlySheet() {
         </div>
 
         {/* Filters Section */}
-        <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-3 ml-3">
+        <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-3 ml-8">
           <div className="flex items-center mb-6">
             <div className="w-10 h-10 bg-gradient-to-r from-indigo-600 to-cyan-600 rounded-xl flex items-center justify-center mr-4">
               <Filter className="w-5 h-5 text-white" />
@@ -344,7 +344,7 @@ export default function MonthlySheet() {
         </div>
 
         {/* Icon Legend */}
-        <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-3 ml-3">
+        <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-3 ml-8">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Icon Legend</h3>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             <div className="flex items-center space-x-2">
@@ -371,7 +371,7 @@ export default function MonthlySheet() {
         </div>
 
         {/* Monthly Attendance Table */}
-        <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 border border-gray-100 ml-3">
+        <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 border border-gray-100 ml-8">
           <div className="p-6 border-b border-gray-100">
             <div className="flex items-center justify-between">
               <div>
