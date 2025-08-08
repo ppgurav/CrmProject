@@ -256,6 +256,11 @@ export default function Header({ onMenuClick }) {
         title: 'Salary Structure',
       //  pageSubtitle: 'Manage and track your incoming invoices',
       },
+
+      '/payroll/monthly-salary': {
+        title: 'Monthly Salary Sheet',
+      //  pageSubtitle: 'Manage and track your incoming invoices',
+      },
   }
 
   const routeData = routeTitles[currentPath] || {}

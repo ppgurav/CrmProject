@@ -122,6 +122,7 @@ import PurchaseOrder from './Pages/PurchaseAnd Expenses/PurchaseOrder';
 import PurchaseTable from './Pages/PurchaseAnd Expenses/PurchaseTable';
 import AllInvoices from './Pages/PurchaseAnd Expenses/AllInvoices';
 import SalaryStrucuture from './Pages/PayRoll/SalaryStrucuture';
+import MonthlySalary from './Pages/PayRoll/MonthlySalary';
 
 function App() {
   return (
@@ -181,6 +182,8 @@ function App() {
 
 
               <Route path="/payroll/salary-structure" element={<SalaryStrucuture />} />
+              <Route path="/payroll/monthly-salary" element={<MonthlySalary />} />
+             
             </Route>
           </Route>
         </Routes>
