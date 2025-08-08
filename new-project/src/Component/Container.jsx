@@ -7,14 +7,17 @@
 //   const [sidebarOpen, setSidebarOpen] = useState(false);
 
 //   return (
-//     <div className="flex min-h-screen">
+//     <div className="min-h-screen bg-gray-50 overflow-x-hidden">
+//       {/* Sidebar - fixed, responsive */}
 //       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-//       <div className="flex flex-col flex-1">
-//         <Header onMenuClick={() => setSidebarOpen(true)} />
-//         <main className="flex-1 bg-gray-50 p-6 lg:ml-64">
-//   <Outlet />
-// </main>
 
+//       {/* Main content - pushed right on large screens */}
+//       <div className="flex flex-col flex-1 lg:ml-55 md:ml-55">
+//         <Header onMenuClick={() => setSidebarOpen(true)} />
+
+//         <main className="flex-1 ">
+//           <Outlet />
+//         </main>
 //       </div>
 //     </div>
 //   );
@@ -32,18 +35,21 @@ const Container = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-50 overflow-x-hidden">
-      {/* Sidebar - fixed, responsive */}
-      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+    <div className="h-screen bg-gray-50 overflow-hidden flex">
+      {/* Sidebar */}
+      <Sidebar
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+        className="fixed lg:static inset-y-0 left-0 w-56 bg-white shadow-lg z-30 lg:z-auto"
+      />
 
-      {/* Main content - pushed right on large screens */}
-      <div className="flex flex-col flex-1 lg:ml-55">
+      {/* Main Content */}
+      <div className="flex flex-col flex-1 lg:ml-56 ">
         <Header onMenuClick={() => setSidebarOpen(true)} />
 
-        <main className="flex-1 flex flex-col overflow-hidden">
-          <div className="flex-1 overflow-y-auto">
-            <Outlet />
-          </div>
+        {/* Outlet area - scrollable vertically and horizontally */}
+        <main className="flex-1 overflow-auto p-4">
+          <Outlet />
         </main>
       </div>
     </div>
@@ -51,4 +57,3 @@ const Container = () => {
 };
 
 export default Container;
-

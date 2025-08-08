@@ -294,7 +294,7 @@ export default function Header({ onMenuClick }) {
 
   return (
     <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-30">
-      <div className="flex items-center justify-between h-20 ml-auto">
+      <div className="flex items-center justify-between h-20 ">
         {/* Mobile menu button */}
         <button onClick={onMenuClick} className="lg:hidden p-2 rounded-lg hover:bg-gray-100">
           <Menu className="w-6 h-6 text-gray-600" />
