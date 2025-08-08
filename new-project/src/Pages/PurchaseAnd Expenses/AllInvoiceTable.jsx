@@ -767,13 +767,7 @@ export default function AllInvoiceTable() {
               >
                 <Plus className="inline-block w-5 h-5 mr-2" /> Add Invoice
               </button> */}
-            </div>
-            
-          </div>
-          
-        </div>
-        
-        <div className="flex justify-end items-center mb-3 w-full space-x-4">
+               <div className="flex justify-end items-center mb-3 w-full space-x-4 mt-3">
   <button
     onClick={exportInvoices}
     className="px-4 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 font-medium"
@@ -788,6 +782,13 @@ export default function AllInvoiceTable() {
     <Plus className="inline-block w-5 h-5 mr-2" /> Add Invoice
   </button>
 </div>
+            </div>
+            
+          </div>
+         
+        </div>
+        
+      
         {/* Invoice Table */}
         <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 border border-gray-100 overflow-hidden">
           <div className="p-6 border-b border-gray-100">
@@ -822,7 +823,7 @@ export default function AllInvoiceTable() {
                     />
                   </th>
                   <th
-                    onClick={() => handleSort("invoiceNumber")}
+                    //  onClick={() => handleSort("invoiceNumber")}
                     className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                   >
                     Invoice Number
@@ -902,8 +903,8 @@ export default function AllInvoiceTable() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <button
-                        onClick={() => viewInvoice(invoice.id)}
-                        className="text-sm font-medium text-indigo-600 hover:underline"
+                        // onClick={() => viewInvoice(invoice.id)}
+                        className="text-sm font-medium text-gray-600 "
                       >
                         {invoice.invoiceNumber}
                       </button>

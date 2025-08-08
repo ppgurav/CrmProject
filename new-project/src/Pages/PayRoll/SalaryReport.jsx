@@ -561,8 +561,8 @@ export default function SalaryReports() {
       <main className="p-6 ml-4 mr-4">
         <div className="max-w-full mx-auto">
           <div className="mb-8">
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">Salary Reports</h1>
-            <p className="text-gray-600">View and manage employee salary reports</p>
+            {/* <h1 className="text-4xl font-bold text-gray-900 mb-2">Salary Reports</h1> */}
+            {/* <p className="text-gray-600">View and manage employee salary reports</p> */}
           </div>
 
           {/* Section 1: Filters */}

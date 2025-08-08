@@ -246,8 +246,8 @@ export default function Expenses() {
         <div className="max-w-full mx-auto">
           {/* Page Title */}
           <div className="mb-8">
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">{isEditing ? "Edit Expense" : "Add New Expense"}</h1>
-            <p className="text-gray-600">Enter details for your expense records</p>
+            {/* <h1 className="text-4xl font-bold text-gray-900 mb-2">{isEditing ? "Edit Expense" : "Add New Expense"}</h1> */}
+            {/* <p className="text-gray-600">Enter details for your expense records</p> */}
           </div>
 
           <form onSubmit={handleSaveExpense} className="space-y-8">
