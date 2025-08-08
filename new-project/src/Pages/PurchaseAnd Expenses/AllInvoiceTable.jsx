@@ -754,7 +754,7 @@ export default function AllInvoiceTable() {
                   </button>
                 </>
               )}
-              <button
+              {/* <button
                 onClick={exportInvoices}
                 className="px-4 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 font-medium"
               >
@@ -766,10 +766,28 @@ export default function AllInvoiceTable() {
                 className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-cyan-600 text-white rounded-xl hover:from-indigo-700 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 font-medium shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
               >
                 <Plus className="inline-block w-5 h-5 mr-2" /> Add Invoice
-              </button>
+              </button> */}
             </div>
+            
           </div>
+          
         </div>
+        
+        <div className="flex justify-end items-center mb-3 w-full space-x-4">
+  <button
+    onClick={exportInvoices}
+    className="px-4 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 font-medium"
+  >
+    <Download className="inline-block w-5 h-5 mr-2" /> Export
+  </button>
+  
+  <button
+    onClick={handleAddInvoice}
+    className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-cyan-600 text-white rounded-xl hover:from-indigo-700 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 font-medium shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
+  >
+    <Plus className="inline-block w-5 h-5 mr-2" /> Add Invoice
+  </button>
+</div>
         {/* Invoice Table */}
         <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 border border-gray-100 overflow-hidden">
           <div className="p-6 border-b border-gray-100">
