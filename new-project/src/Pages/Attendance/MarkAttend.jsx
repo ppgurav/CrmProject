@@ -286,7 +286,7 @@ export default function MarkAttend() {
       )}
 
       {/* Main Content */}
-      <div className="container mx-auto px-6 py-8 max-w-full">
+      <div className="container mx-auto px-6 py-8 max-w-full  ml-4 mr-4">
         {/* Header */}
         {/* <div className="text-center mb-3">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">Mark Attendance</h1>

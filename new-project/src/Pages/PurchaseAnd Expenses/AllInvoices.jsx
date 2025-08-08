@@ -358,7 +358,7 @@ export default function AllInvoices() {
 
   return (
     <div className="bg-gradient-to-br from-indigo-50 via-white to-cyan-50 min-h-screen p-6">
-      <div className="max-w-full mx-auto">
+      <div className="max-w-full mx-auto ml-4 mr-4">
         {/* <div className="mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">Create Purchase Invoice</h1>
           <p className="text-gray-600">Manage and track your incoming invoices</p>

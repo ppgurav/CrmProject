@@ -126,7 +126,7 @@ export default function Sidebar({ isOpen, onClose }) {
 
   return (
     <div
-      className={`fixed inset-y-0 left-0 z-50 w-57 bg-white shadow-2xl shadow-indigo-500/10 transform transition-transform duration-300 ease-in-out border-r border-gray-100 ${
+      className={`fixed inset-y-0 left-0 z-50 w-60 bg-white shadow-2xl shadow-indigo-500/10 transform transition-transform duration-300 ease-in-out border-r border-gray-100 ${
         isOpen ? "translate-x-0" : "-translate-x-full"
       } lg:translate-x-0`}
     >

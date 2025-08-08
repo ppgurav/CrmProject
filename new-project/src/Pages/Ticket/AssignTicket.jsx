@@ -454,7 +454,7 @@ export default function AssignTicket() {
       {/* </div> */}
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-3">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-3 ml-4 mr-4">
         <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
           <div className="flex items-center justify-between">
             <div>
@@ -505,7 +505,7 @@ export default function AssignTicket() {
       </div>
 
       {/* Controls */}
-      <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 mb-3">
+      <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 mb-3 ml-4 mr-4">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div className="flex items-center space-x-4">
             <button
@@ -524,7 +524,7 @@ export default function AssignTicket() {
             <div className="flex items-center bg-gray-100 rounded-lg p-1">
               <button
                 onClick={() => setCurrentView("kanban")}
-                className={`px-3 py-1 text-sm font-medium rounded-md transition-all duration-200 ${
+                className={`px-3 py-1 text-sm font-medium rounded-md transition-all duration-200  ${
                   currentView === "kanban" ? "text-white bg-indigo-600" : "text-gray-600 hover:text-gray-900"
                 }`}
               >
@@ -557,7 +557,7 @@ export default function AssignTicket() {
 
       {/* Kanban View */}
       {currentView === "kanban" && (
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6  ml-4 mr-4">
           <KanbanColumn
             title="Unassigned"
             staff="unassigned"
@@ -591,7 +591,7 @@ export default function AssignTicket() {
 
       {/* List View */}
       {currentView === "list" && (
-        <div className="bg-white rounded-2xl shadow-lg border border-gray-100">
+        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 ml-4 mr-4">
           <div className="p-6 border-b border-gray-100">
             <h3 className="text-lg font-semibold text-gray-900">All Tickets</h3>
           </div>
@@ -627,11 +627,11 @@ export default function AssignTicket() {
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-white divide-y divide-gray-200 ">
                 {tickets.map((ticket) => {
                   const StatusIcon = statusIcons[ticket.status]
                   return (
-                    <tr key={ticket.id} className="hover:bg-gray-50 transition-colors duration-200">
+                    <tr key={ticket.id} className="hover:bg-gray-50 transition-colors duration-200 ">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <input
                           type="checkbox"
@@ -686,16 +686,16 @@ export default function AssignTicket() {
                             <span>{ticket.assignedTo.charAt(0).toUpperCase() + ticket.assignedTo.slice(1)}</span>
                           </div>
                         ) : (
-                          <span className="text-gray-400">Unassigned</span>
+                          <span className="text-gray-400 ">Unassigned</span>
                         )}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium ">
                         <select
-                          className="text-sm border border-gray-300 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                          className="text-sm border border-gray-300 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-indigo-500 "
                           value={ticket.assignedTo || "unassigned"}
                           onChange={(e) => assignTicket(ticket.id, e.target.value)}
                         >
-                          <option value="unassigned">Unassigned</option>
+                          <option value="unassigned ">Unassigned</option>
                           <option value="ankita">Ankita</option>
                           <option value="rahul">Rahul</option>
                           <option value="priya">Priya</option>

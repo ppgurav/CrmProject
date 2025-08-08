@@ -315,7 +315,7 @@ export default function EmployeeList() {
   return (
     <div className="bg-gradient-to-br from-indigo-50 via-white to-cyan-50 min-h-screen">
       {/* Main Content Area */}
-      <main className="p-6">
+      <main className="p-6 ml-4 mr-4">
         {/* Page Title */}
         <div className="">
           {/* <h1 className="text-3xl font-bold text-gray-900">Employee Management</h1> */}

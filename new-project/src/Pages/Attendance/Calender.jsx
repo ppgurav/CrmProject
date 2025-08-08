@@ -258,7 +258,7 @@ export default function Calender() {
 
   return (
     <div className="bg-gradient-to-br from-indigo-50 via-white to-cyan-50 min-h-screen">
-      <div className="container mx-auto px-4 py-8 max-w-full">
+      <div className="container mx-auto px-4 py-8 max-w-full  ml-4 mr-4">
         {/* Page Header */}
         <div className="mb-3">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">

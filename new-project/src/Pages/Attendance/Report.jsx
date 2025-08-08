@@ -208,7 +208,7 @@ export default function Report() {
       )}
 
       {/* Main Content */}
-      <main className="p-6">
+      <main className="p-6  ml-4 mr-4">
         {/* Action Buttons */}
         <div className="flex justify-end items-center space-x-2 mb-6">
           <button

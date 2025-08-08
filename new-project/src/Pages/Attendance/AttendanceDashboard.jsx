@@ -364,7 +364,7 @@ export default function AttendanceDashboard() {
 
   return (
     <div className="bg-gradient-to-br from-indigo-50 via-white to-cyan-50 min-h-screen">
-      <div className="p-6">
+      <div className="p-6  ml-4 mr-4">
         {/* Header Section */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3">
           {/* <h1 className="text-3xl font-bold text-gray-900 mb-4 sm:mb-0">Attendance Dashboard</h1> */}

@@ -344,7 +344,7 @@ export default function PurchaseTable() {
   return (
     <div className="bg-gradient-to-br from-indigo-50 via-white to-cyan-50 min-h-screen p-6">
       {/* Main Content Area */}
-      <main className="max-w-full mx-auto">
+      <main className="max-w-full mx-auto ml-4 mr-4">
         {/* Page Title */}
         {/* <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Purchase Orders</h1>

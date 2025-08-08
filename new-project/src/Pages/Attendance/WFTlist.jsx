@@ -248,8 +248,8 @@ export default function WFTlist() {
       )}
 
       {/* Header */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between">
+      <div className="mb-8 ">
+        <div className="flex items-center justify-between ">
           <div>
             {/* <h1 className="text-3xl font-bold text-gray-900">WFH Approval List</h1> */}
             {/* <p className="text-gray-600 mt-2">Manage work from home requests and approvals</p> */}
@@ -274,8 +274,8 @@ export default function WFTlist() {
       </div>
 
       {/* Filters Section */}
-      <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-8">
-        <div className="flex items-center mb-6">
+      <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-8  ml-4 mr-4">
+        <div className="flex items-center mb-6 ">
           <div className="w-10 h-10 bg-gradient-to-r from-indigo-600 to-cyan-600 rounded-xl flex items-center justify-center mr-4">
             <Filter className="w-5 h-5 text-white" />
           </div>
@@ -371,7 +371,7 @@ export default function WFTlist() {
       </div>
 
       {/* WFH Requests Table */}
-      <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 border border-gray-100">
+      <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 border border-gray-100  ml-4 mr-4">
         <div className="p-6 border-b border-gray-100">
           <div className="flex items-center justify-between">
             <div>

@@ -1116,7 +1116,7 @@ export default function SupportTickets() {
   return (
     <div className="bg-gradient-to-br from-indigo-50 via-white to-cyan-50 min-h-screen p-6">
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 ml-4 mr-4">
         <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100">
           <div className="flex items-center justify-between">
             <div>
@@ -1179,7 +1179,7 @@ export default function SupportTickets() {
       </div>
 
       {/* Search Bar */}
-      <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-8">
+      <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-8 ml-4 mr-4">
         <div className="relative">
           <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
           <input
@@ -1193,7 +1193,7 @@ export default function SupportTickets() {
       </div>
 
       {/* Filters and Actions */}
-      <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-8">
+      <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-8 ml-4 mr-4">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
           <div className="flex flex-col sm:flex-row gap-4">
             <div>
@@ -1311,7 +1311,7 @@ export default function SupportTickets() {
       </div>
 
       {/* Tickets Table */}
-      <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 border border-gray-100">
+      <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 border border-gray-100  ml-4 mr-4">
         <div className="p-6 border-b border-gray-100">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
