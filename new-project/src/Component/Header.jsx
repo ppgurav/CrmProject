@@ -256,7 +256,7 @@ export default function Header({ onMenuClick }) {
       //  pageSubtitle: 'Manage and track your incoming invoices',
       },
       '/purchase/expenses': {
-        title: 'Add New Expenses',
+        title: 'Add New Expenses ',
        pageSubtitle: 'Enter details for your expense records',
       },
 
