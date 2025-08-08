@@ -251,6 +251,10 @@ export default function Header({ onMenuClick }) {
         title: 'Create Purchase Invoice',
        pageSubtitle: 'Manage and track your incoming invoices',
       },
+      '/purchase/expenses': {
+        title: 'Expenses',
+      //  pageSubtitle: 'Manage and track your incoming invoices',
+      },
 
       '/payroll/salary-structure': {
         title: 'Salary Structure',
@@ -259,6 +263,16 @@ export default function Header({ onMenuClick }) {
 
       '/payroll/monthly-salary': {
         title: 'Monthly Salary Sheet',
+      //  pageSubtitle: 'Manage and track your incoming invoices',
+      },
+
+      '/payroll/generate-salary': {
+        title: 'Generate Salary',
+      //  pageSubtitle: 'Manage and track your incoming invoices',
+      },
+
+      '/payroll/reports': {
+        title: 'SalaryReports',
       //  pageSubtitle: 'Manage and track your incoming invoices',
       },
   }

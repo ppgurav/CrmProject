@@ -54,12 +54,13 @@ export default function Sidebar({ isOpen, onClose }) {
           name: "Vendor Invoices",
           icon: FileSearch,
           children: [
-            { name: "All Invoices", href: "/purchase/invoices/all", icon: FileText },
-            { name: "Paid", href: "/purchase/invoices/paid", icon: Check },
-            { name: "Unpaid", href: "/purchase/invoices/unpaid", icon: X },
+            { name: "All Invoices", href: "/purchase/invoices/allinvoictable", icon: FileText },
+            // { name: "Paid", href: "/purchase/invoices/paid", icon: Check },
+            // { name: "Unpaid", href: "/purchase/invoices/unpaid", icon: X },
+            { name: "Expenses", icon: Banknote, href: "/purchase/expenses" },
           ],
         },
-        { name: "Expenses", icon: Banknote, href: "/purchase/expenses" },
+        // { name: "Expenses", icon: Banknote, href: "/purchase/expenses" },
       ],
     },
     {

@@ -123,6 +123,10 @@ import PurchaseTable from './Pages/PurchaseAnd Expenses/PurchaseTable';
 import AllInvoices from './Pages/PurchaseAnd Expenses/AllInvoices';
 import SalaryStrucuture from './Pages/PayRoll/SalaryStrucuture';
 import MonthlySalary from './Pages/PayRoll/MonthlySalary';
+import GenerateSalary from './Pages/PayRoll/GenerateSalary';
+import SalaryReport from './Pages/PayRoll/SalaryReport';
+import Expenses from './Pages/PurchaseAnd Expenses/Expenses';
+import AllInvoiceTable from './Pages/PurchaseAnd Expenses/AllInvoiceTable';
 
 function App() {
   return (
@@ -179,10 +183,14 @@ function App() {
               <Route path="/purchase/purchase-order" element={<PurchaseOrder />} />
               <Route path="/purchase/purchasetable" element={<PurchaseTable />} />
               <Route path="/purchase/invoices/all" element={<AllInvoices />} />
+              <Route path="/purchase/invoices/allinvoictable" element={<AllInvoiceTable />} />
+              <Route path="/purchase/expenses" element={<Expenses />} />
 
 
               <Route path="/payroll/salary-structure" element={<SalaryStrucuture />} />
               <Route path="/payroll/monthly-salary" element={<MonthlySalary />} />
+              <Route path="/payroll/generate-salary" element={<GenerateSalary />} />
+              <Route path="/payroll/reports" element={<SalaryReport />} />
              
             </Route>
           </Route>
