@@ -210,7 +210,7 @@ export default function CreateTicket() {
 
   return (
     <div className="bg-gradient-to-br from-indigo-50 via-white to-cyan-50 min-h-screen">
-      <div className="container mx-auto px-4 py-8">
+      <div className="max-w-full mx-auto px-4 py-8  ml-5 mr-4">
         {/* Page Header */}
 
         {/* <div className="mb-8 flex items-center justify-between">
