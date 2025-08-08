@@ -43,13 +43,17 @@ const Container = () => {
         className="fixed lg:static inset-y-0 left-0 w-56 bg-white shadow-lg z-30 lg:z-auto"
       />
 
-      {/* Main Content */}
-      <div className="flex flex-col flex-1 lg:ml-56 ">
+      {/* Main content area */}
+      <div className="flex flex-col flex-1 lg:ml-56 min-h-screen min-w-0">
+        {/* Header */}
         <Header onMenuClick={() => setSidebarOpen(true)} />
 
-        {/* Outlet area - scrollable vertically and horizontally */}
-        <main className="flex-1 overflow-auto p-4">
-          <Outlet />
+        {/* Scrollable Outlet container */}
+        <main className="flex-1 overflow-auto overflow-x-auto p-4 min-h-0">
+          {/* min-h-0 + min-w-0 ensure flexbox allows shrinking and scrolling */}
+          <div className="w-full h-full min-w-0">
+            <Outlet />
+          </div>
         </main>
       </div>
     </div>
