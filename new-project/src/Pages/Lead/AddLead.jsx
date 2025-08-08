@@ -128,9 +128,9 @@ export default function AddLead() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-white to-cyan-100 py-10 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-white to-cyan-100 py-10 px-4 ">
        
-      <div className="max-w-full mx-auto">
+      <div className="max-w-full mx-auto  ml-4 mr-4">
         <div className="text-center mb-8">
           {/* <h1 className="text-4xl font-bold text-gray-800 mb-2">Add New Lead ✍️</h1> */}
           {/* <p className="text-gray-600">Capture and manage your potential customers</p> */}

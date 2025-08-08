@@ -164,10 +164,10 @@ export default function Customers() {
   ]
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
+    <form onSubmit={handleSubmit} className="max-w-full mx-auto p-6 bg-white  bg-gradient-to-br from-indigo-50 via-white to-cyan-50 min-h-screen space-y-8 mb-8 mr-4 ml-4 ">
       {/* 1. Basic Information */}
-      <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100">
-        <div className="flex items-center mb-6">
+      <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 ">
+        <div className="flex items-center mb-6 ">
           <div className="w-8 h-8 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-lg flex items-center justify-center mr-3">
             <User className="w-5 h-5 text-white" />
           </div>

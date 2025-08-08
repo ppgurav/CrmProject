@@ -251,6 +251,11 @@ export default function Header({ onMenuClick }) {
         title: 'Create Purchase Invoice',
        pageSubtitle: 'Manage and track your incoming invoices',
       },
+
+      '/payroll/salary-structure': {
+        title: 'Salary Structure',
+      //  pageSubtitle: 'Manage and track your incoming invoices',
+      },
   }
 
   const routeData = routeTitles[currentPath] || {}

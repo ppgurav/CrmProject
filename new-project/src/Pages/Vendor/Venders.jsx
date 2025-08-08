@@ -324,10 +324,10 @@ export default function Venders() {
   }
 
   return (
-    <div className=" max-w-full mx-auto p-6 bg-white">
+    <div className=" max-w-full mx-auto p-6 bg-white  bg-gradient-to-br from-indigo-50 via-white to-cyan-50 min-h-screen space-y-8 mb-8 mr-4 ml-4 ">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Vendor Registration</h1>
-        <p className="text-gray-600">Please fill in all the required information to register a new vendor.</p>
+        {/* <h1 className="text-3xl font-bold text-gray-900 mb-2">Vendor Registration</h1> */}
+        {/* <p className="text-gray-600">Please fill in all the required information to register a new vendor.</p> */}
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-8">

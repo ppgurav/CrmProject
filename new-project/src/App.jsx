@@ -121,6 +121,7 @@ import AddLead from './Pages/Lead/AddLead';
 import PurchaseOrder from './Pages/PurchaseAnd Expenses/PurchaseOrder';
 import PurchaseTable from './Pages/PurchaseAnd Expenses/PurchaseTable';
 import AllInvoices from './Pages/PurchaseAnd Expenses/AllInvoices';
+import SalaryStrucuture from './Pages/PayRoll/SalaryStrucuture';
 
 function App() {
   return (
@@ -178,6 +179,8 @@ function App() {
               <Route path="/purchase/purchasetable" element={<PurchaseTable />} />
               <Route path="/purchase/invoices/all" element={<AllInvoices />} />
 
+
+              <Route path="/payroll/salary-structure" element={<SalaryStrucuture />} />
             </Route>
           </Route>
         </Routes>

@@ -328,7 +328,7 @@ export default function PurchaseOrder() {
   return (
     <div className="bg-gradient-to-br from-indigo-50 via-white to-cyan-50 min-h-screen">
       {/* Main Content Area */}
-      <main className="p-6">
+      <main className="p-6  ml-4 mr-4">
         <div className="max-w-full mx-auto">
           {/* Page Title */}
           <div className="mb-8">

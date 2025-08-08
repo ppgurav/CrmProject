@@ -213,7 +213,7 @@ export default function AddEmployee() {
 
   return (
     <div className="bg-gradient-to-br from-indigo-50 via-white to-cyan-50 min-h-screen py-8">
-      <div className="max-w-full mx-auto px-4">
+      <div className="max-w-full mx-auto px-4  ml-4 mr-4">
         {/* Page Title */}
         {/* <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">Add Employee</h1>
