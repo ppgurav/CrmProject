@@ -309,7 +309,7 @@ export default function CustomersList() {
   return (
     <div className="bg-gradient-to-br from-indigo-50 via-white to-cyan-50 min-h-screen">
       {/* Main Content Area */}
-      <main className="p-6">
+      <main className="p-6 ml-4 ">
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-3">
           {/* Total Customers */}

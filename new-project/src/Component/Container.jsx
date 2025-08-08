@@ -32,18 +32,18 @@ const Container = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-50 overflow-x-hidden flex">
-      {/* Sidebar */}
+    <div className="min-h-screen bg-gray-50 overflow-x-hidden">
+      {/* Sidebar - fixed, responsive */}
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-      {/* Main content */}
-      <div className="flex flex-col flex-1 lg:ml-55 h-screen">
-        {/* Header stays fixed at the top */}
+      {/* Main content - pushed right on large screens */}
+      <div className="flex flex-col flex-1 lg:ml-55">
         <Header onMenuClick={() => setSidebarOpen(true)} />
 
-        {/* Scrollable Outlet content */}
-        <main className="flex-1 overflow-y-auto">
-          <Outlet />
+        <main className="flex-1 flex flex-col overflow-hidden">
+          <div className="flex-1 overflow-y-auto">
+            <Outlet />
+          </div>
         </main>
       </div>
     </div>
