@@ -272,7 +272,7 @@ export default function LeadForm() {
       {/* Header */}
       <div className="">
         <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-1">
+          <div className="flex justify-between items-center ">
             {/* <div className=""> */}
               {/* <Users className="h-8 w-8 text-blue-600" /> */}
               {/* <h1 className="text-2xl font-bold text-gray-900">Lead Management System</h1> */}

@@ -49,9 +49,9 @@ const Container = () => {
         <Header onMenuClick={() => setSidebarOpen(true)} />
 
         {/* Scrollable Outlet container */}
-        <main className="flex-1 overflow-auto overflow-x-auto p-4 min-h-0">
+        <main className="flex-1 overflow-auto overflow-x-auto  min-h-0">
           {/* min-h-0 + min-w-0 ensure flexbox allows shrinking and scrolling */}
-          <div className="w-full h-full min-w-0">
+          <div className="w-full h-full min-w-0 ">
             <Outlet />
           </div>
         </main>
