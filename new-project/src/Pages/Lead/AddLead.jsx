@@ -1,5 +1,3 @@
-"use client"
-
 import { useState } from "react"
 import { z } from "zod"
 import { User, Target, Calendar, FileText, Paperclip, Check, Upload, X, ArrowLeft } from "lucide-react"

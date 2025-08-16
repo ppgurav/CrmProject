@@ -1,28 +1,9 @@
 
 import { useState } from "react"
 import { z } from "zod"
-import {
-  Users,
-  Plus,
-  Search,
-  Filter,
-  Phone,
-  MessageSquare,
-  Edit,
-  Eye,
-  RefreshCw,
-  User,
-  FileText,
-  History,
-  Mail,
-  RotateCcw,
-  CheckCircle,
-  Clock,
-  X,
-} from "lucide-react"
+import {  Plus,  Search,  Filter,  Phone,  MessageSquare,  Edit, Eye,  RefreshCw,  User,  FileText,  History,  Mail,  RotateCcw,  CheckCircle,  Clock,  X,} from "lucide-react"
 import { useNavigate } from "react-router-dom"
 
-// Validation schema
 const leadSchema = z.object({
   fullName: z.string().min(1, "Full name is required"),
   mobile: z.string().min(10, "Valid mobile number required"),
@@ -46,8 +27,6 @@ export default function LeadForm() {
   const [searchTerm, setSearchTerm] = useState("")
   const [statusFilter, setStatusFilter] = useState("all")
   const [errors, setErrors] = useState({})
-
-  // Sample data
   const [leads, setLeads] = useState([
     {
       id: 1,
@@ -499,238 +478,6 @@ export default function LeadForm() {
       </div>
 
       {/* Add Lead Modal */}
-      {/* {showAddForm && (
-  <div className="fixed inset-0 backdrop-blur-sm bg-black/40 flex items-center justify-center p-4 z-50">
-    <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-      <div className="flex justify-between items-center p-6 border-b">
-        <h2 className="text-xl font-semibold text-gray-900">Add New Lead</h2>
-        <button onClick={() => setShowAddForm(false)} className="text-gray-400 hover:text-gray-600">
-          <X className="h-6 w-6" />
-        </button>
-      </div>
-
-      <form onSubmit={handleSubmit} className="p-6 space-y-4">
-   
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Full Name *</label>
-            <input
-              type="text"
-              name="fullName"
-              value={formData.fullName}
-              onChange={handleInputChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
-            {errors.fullName && <p className="text-red-500 text-xs mt-1">{errors.fullName}</p>}
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Mobile *</label>
-            <input
-              type="tel"
-              name="mobile"
-              value={formData.mobile}
-              onChange={handleInputChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
-            {errors.mobile && <p className="text-red-500 text-xs mt-1">{errors.mobile}</p>}
-          </div>
-        </div>
-
-      
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleInputChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
-            {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Company Name</label>
-            <input
-              type="text"
-              name="companyName"
-              value={formData.companyName}
-              onChange={handleInputChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
-          </div>
-        </div>
-
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">City, State</label>
-            <input
-              type="text"
-              name="cityState"
-              value={formData.cityState}
-              onChange={handleInputChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Lead Source *</label>
-            <select
-              name="leadSource"
-              value={formData.leadSource}
-              onChange={handleInputChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            >
-              <option value="">Select Source</option>
-              <option value="Website">Website</option>
-              <option value="WhatsApp">WhatsApp</option>
-              <option value="Referral">Referral</option>
-              <option value="Cold Call">Cold Call</option>
-              <option value="Social Media">Social Media (Facebook, Instagram, etc.)</option>
-              <option value="Event / Exhibition">Event / Exhibition</option>
-            </select>
-            {errors.leadSource && <p className="text-red-500 text-xs mt-1">{errors.leadSource}</p>}
-          </div>
-        </div>
-
-       
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Interested In *</label>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-            {["Domain", "Hosting", "Website", "Email", "WhatsApp Panel"].map((interest) => (
-              <label key={interest} className="flex items-center">
-                <input
-                  type="checkbox"
-                  name="interestedIn"
-                  value={interest}
-                  checked={formData.interestedIn.includes(interest)}
-                  onChange={handleInputChange}
-                  className="mr-2 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                />
-                <span className="text-sm text-gray-700">{interest}</span>
-              </label>
-            ))}
-          </div>
-          {errors.interestedIn && <p className="text-red-500 text-xs mt-1">{errors.interestedIn}</p>}
-        </div>
-
-       
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Budget Range</label>
-            <select
-              name="budgetRange"
-              value={formData.budgetRange}
-              onChange={handleInputChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            >
-              <option value="">Select Budget</option>
-              <option value="Under 25k">Under 25k</option>
-              <option value="25k-50k">25k-50k</option>
-              <option value="50k-1L">50k-1L</option>
-              <option value="1L+">1L+</option>
-            </select>
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Priority *</label>
-            <select
-              name="priority"
-              value={formData.priority}
-              onChange={handleInputChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            >
-              <option value="">Select Priority</option>
-              <option value="Low">Low</option>
-              <option value="Medium">Medium</option>
-              <option value="High">High</option>
-            </select>
-            {errors.priority && <p className="text-red-500 text-xs mt-1">{errors.priority}</p>}
-          </div>
-        </div>
-
-      
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Assigned To *</label>
-            <select
-              name="assignedTo"
-              value={formData.assignedTo}
-              onChange={handleInputChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            >
-              <option value="">Select Employee</option>
-              {employees.map((employee) => (
-                <option key={employee} value={employee}>
-                  {employee}
-                </option>
-              ))}
-            </select>
-            {errors.assignedTo && <p className="text-red-500 text-xs mt-1">{errors.assignedTo}</p>}
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Next Follow-up Date *</label>
-            <input
-              type="date"
-              name="nextFollowup"
-              value={formData.nextFollowup}
-              onChange={handleInputChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
-            {errors.nextFollowup && <p className="text-red-500 text-xs mt-1">{errors.nextFollowup}</p>}
-          </div>
-        </div>
-
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Notes</label>
-          <textarea
-            name="notes"
-            value={formData.notes}
-            onChange={handleInputChange}
-            rows={3}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            placeholder="Additional notes..."
-          />
-        </div>
-
-  
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Upload Visiting Card / Docs (optional)</label>
-          <input
-            type="file"
-            name="uploadFile"
-            onChange={handleFileUpload}
-            className="w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:border file:border-gray-300 file:rounded-md file:bg-gray-100 hover:file:bg-gray-200"
-          />
-        </div>
-
-     
-        <div className="flex justify-end space-x-3 pt-4">
-          <button
-            type="button"
-            onClick={() => setShowAddForm(false)}
-            className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200"
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            className="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700"
-          >
-            Add Lead
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-)} */}
-
-
       {/* Lead Detail Modal */}
       {selectedLead && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50">
@@ -974,3 +721,6 @@ export default function LeadForm() {
     </div>
   )
 }
+
+
+
