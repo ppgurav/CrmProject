@@ -34,6 +34,7 @@ const customerSchema = z.object({
 
 export default function CustomersList() {
   // Sample customer data
+  
   const [customers, setCustomers] = useState([
     {
       id: 1,

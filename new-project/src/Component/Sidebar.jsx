@@ -38,6 +38,7 @@ export default function Sidebar({ isOpen, onClose }) {
         { name: "Lead", icon: Users, href: "/leadform" },
         { name: "Customers", icon: Users, href: "/customersList" },
         { name: "Vendor", icon: UserPlus, href: "/vendorlist" },
+        { name: "User", icon: Users, href: "/userList" },
         { name: "Employee", icon: Users, href: "/employee" },
         { name: "Product/Service", icon: Package, href: "/sale/product-service" },
       ],

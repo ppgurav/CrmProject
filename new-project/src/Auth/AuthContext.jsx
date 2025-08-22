@@ -59,29 +59,62 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Fetch current user
+  // const fetchCurrentUser = async () => {
+  //   const token = sessionStorage.getItem('token');
+  //   if (!token) return;
+
+  //   try {
+  //     const response = await fetch(`${API_BASE_URL}auth/me`, {
+  //       method: 'GET',
+  //       headers: {
+  //         'Authorization': `Bearer ${token}`,
+  //         'Content-Type': 'application/json',
+          
+  //       }
+  //     });
+
+  //     if (!response.ok) throw new Error('Failed to fetch user');
+
+  //     const data = await response.json();
+  //     setUser(data);
+  //   } catch (error) {
+  //     console.error(error);
+  //     logout();
+  //   }
+  // };
   const fetchCurrentUser = async () => {
     const token = sessionStorage.getItem('token');
-    if (!token) return;
-
+    if (!token) {
+      console.warn("No token found in sessionStorage");
+      logout();
+      return;
+    }
+  
     try {
       const response = await fetch(`${API_BASE_URL}auth/me`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         }
       });
-
-      if (!response.ok) throw new Error('Failed to fetch user');
-
+  
+      console.log("Fetch status:", response.status);
+  
       const data = await response.json();
+      console.log("Response data:", data);
+  
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to fetch user");
+      }
+  
       setUser(data);
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching user:", error);
       logout();
     }
   };
-
+  
   useEffect(() => {
     if (isAuthenticated) {
       fetchCurrentUser();

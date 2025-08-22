@@ -4,7 +4,7 @@
 // import { zodResolver } from '@hookform/resolvers/zod';
 // import { useNavigate } from 'react-router-dom';
 // import { Menu, Eye, EyeOff } from 'lucide-react';
-// import { useAuth } from './AuthContext'; // ✅ import the useAuth hook
+// // import { useAuth } from './AuthContext'; // ✅ import the useAuth hook
 
 // const loginSchema = z.object({
 //   email: z.string().email(),
@@ -13,7 +13,7 @@
 
 // const Login = () => {
 //   const navigate = useNavigate();
-//   const { login } = useAuth(); // ✅ get login from context
+//   // const { login } = useAuth(); // ✅ get login from context
 //   const [showPassword, setShowPassword] = useState(false);
 
 //   const {
@@ -29,7 +29,7 @@
 //     const validPassword = 'Admin@17854';
 
 //     if (data.email === validEmail && data.password === validPassword) {
-//       login(); // ✅ persist login in context/localStorage
+//       // login(); // ✅ persist login in context/localStorage
 //       navigate('/leadform'); // ✅ navigate to protected page
 //     } else {
 //       alert('Invalid email or password');
