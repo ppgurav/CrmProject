@@ -68,6 +68,13 @@ export default function Header({ onMenuClick }) {
         iconColor: 'stroke-yellow-100',
         pageSubtitle: 'Manage your vendors and their information.',
       },
+        
+    '/userList': {
+      title: 'User Management',
+      buttonTextColor: 'text-green-200',
+      iconColor: 'stroke-green-200',
+    },
+
     '/employee': {
       title: 'Employee Management',
       buttonTextColor: 'text-green-200',
