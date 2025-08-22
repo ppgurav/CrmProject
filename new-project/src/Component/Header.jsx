@@ -69,7 +69,7 @@ export default function Header({ onMenuClick }) {
         pageSubtitle: 'Manage your vendors and their information.',
       },
         
-    '/userList': {
+    '/userList':  {
       title: 'User Management',
       buttonTextColor: 'text-green-200',
       iconColor: 'stroke-green-200',
