@@ -3664,10 +3664,10 @@
 
 
 
-"use client"
 
-// Plain JavaScript React component (no TypeScript types), Tailwind only, no component/ui.
-// Mirrors the style and behavior of user-list.tsx but for employees.
+
+
+"use client"
 
 import { useEffect, useMemo, useState } from "react"
 import { Search, Users, CheckCircle, UserX, Plus, Download, Eye, Trash2, X, AlertTriangle, Edit } from "lucide-react"
@@ -3700,6 +3700,7 @@ export default function EmployeeList() {
   const [viewModalOpen, setViewModalOpen] = useState(false)
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
   const [editModalOpen, setEditModalOpen] = useState(false)
+  const [bankModalOpen, setBankModalOpen] = useState(false)
 
   const [selectedEmployee, setSelectedEmployee] = useState(null)
   const [employeeToDelete, setEmployeeToDelete] = useState(null)
@@ -3717,6 +3718,22 @@ export default function EmployeeList() {
     monthly_salary: 0,
   })
   const [editLoading, setEditLoading] = useState(false)
+
+  // Local state for bank details form
+  const [bankFormData, setBankFormData] = useState({
+    pan: "",
+    aadhaar: "",
+    bank_name: "",
+    ifsc: "",
+    account_number: "",
+    account_holder_name: "",
+  })
+
+  // Bank form input handler
+  const handleBankInputChange = (e) => {
+    const { name, value } = e.target
+    setBankFormData((prev) => ({ ...prev, [name]: value }))
+  }
 
   // Fetch employees from API (server-side pagination)
   useEffect(() => {
@@ -3903,6 +3920,15 @@ export default function EmployeeList() {
       salary_type: emp.salary_type || "fixed",
       monthly_salary: Number(emp.monthly_salary || 0),
     })
+    const bank = emp.bank || {}
+    setBankFormData({
+      pan: bank.pan || "",
+      aadhaar: bank.aadhaar || "",
+      bank_name: bank.bank_name || "",
+      ifsc: bank.ifsc || "",
+      account_number: bank.account_number || "",
+      account_holder_name: bank.account_holder_name || "",
+    })
     setEditModalOpen(true)
   }
 
@@ -3935,9 +3961,30 @@ export default function EmployeeList() {
       })
       if (!res.ok) throw new Error(`Error ${res.status}`)
 
-      setEmployees((prev) => prev.map((e) => (e.id === selectedEmployee.id ? { ...e, ...payload } : e)))
+      const bankRes = await fetch(`${API_BASE_URL}employees/${selectedEmployee.id}/bank`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          ...(deptId ? { "X-Department-Id": deptId } : {}),
+        },
+        body: JSON.stringify({
+          pan: bankFormData.pan || "",
+          aadhaar: bankFormData.aadhaar || "",
+          bank_name: bankFormData.bank_name || "",
+          ifsc: bankFormData.ifsc || "",
+          account_number: bankFormData.account_number || "",
+          account_holder_name: bankFormData.account_holder_name || "",
+        }),
+      })
+      if (!bankRes.ok) throw new Error(`Bank update error ${bankRes.status}`)
+
+      setEmployees((prev) =>
+        prev.map((e) => (e.id === selectedEmployee.id ? { ...e, ...payload, bank: { ...bankFormData } } : e)),
+      )
+
       setEditModalOpen(false)
-      alert("Employee updated successfully!")
+      alert("Employee and bank details updated successfully!")
     } catch (err) {
       alert(`Error updating employee: ${err.message || err}`)
     } finally {
@@ -3959,6 +4006,52 @@ export default function EmployeeList() {
 
   const handleAddEmployee = () => {
     if (typeof window !== "undefined") window.location.href = "/employee/addemployee"
+  }
+
+  const openBankDetails = (emp) => {
+    setSelectedEmployee(emp)
+    setBankFormData({
+      pan: emp.pan || "",
+      aadhaar: emp.aadhaar || "",
+      bank_name: emp.bank_name || "",
+      ifsc: emp.ifsc || "",
+      account_number: emp.account_number || "",
+      account_holder_name: emp.account_holder_name || "",
+    })
+    setBankModalOpen(true)
+  }
+
+  const handleBankSubmit = async (e) => {
+    e.preventDefault()
+    if (!selectedEmployee) return
+    try {
+      setEditLoading(true)
+      const token = typeof window !== "undefined" ? sessionStorage.getItem("token") : null
+      const deptId = typeof window !== "undefined" ? sessionStorage.getItem("departmentId") : null
+
+      const payload = {
+        ...bankFormData,
+      }
+
+      const res = await fetch(`${API_BASE_URL}employees/${selectedEmployee.id}/bank`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          ...(deptId ? { "X-Department-Id": deptId } : {}),
+        },
+        body: JSON.stringify(payload),
+      })
+      if (!res.ok) throw new Error(`Error ${res.status}`)
+
+      setEmployees((prev) => prev.map((e) => (e.id === selectedEmployee.id ? { ...e, ...payload } : e)))
+      setBankModalOpen(false)
+      alert("Bank details updated successfully!")
+    } catch (err) {
+      alert(`Error updating bank details: ${err.message || err}`)
+    } finally {
+      setEditLoading(false)
+    }
   }
 
   return (
@@ -4260,6 +4353,13 @@ export default function EmployeeList() {
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>
+                          {/* <button
+                            onClick={() => openBankDetails(emp)}
+                            className="text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-50"
+                            title="Bank Details"
+                          >
+                            <span className="w-4 h-4">Bank</span>
+                          </button> */}
                         </div>
                       </td>
                     </tr>
@@ -4372,6 +4472,36 @@ export default function EmployeeList() {
                         {formatSalary(selectedEmployee.monthly_salary, selectedEmployee.salary_type)}
                       </p>
                     </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-8">
+                <h4 className="text-lg font-semibold text-gray-900 border-b pb-2">Bank Information</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                  <div>
+                    <label className="text-sm font-medium text-gray-500">PAN</label>
+                    <p className="text-gray-900">{selectedEmployee.bank?.pan || "—"}</p>
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-500">Aadhaar</label>
+                    <p className="text-gray-900">{selectedEmployee.bank?.aadhaar || "—"}</p>
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-500">Bank Name</label>
+                    <p className="text-gray-900">{selectedEmployee.bank?.bank_name || "—"}</p>
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-500">IFSC</label>
+                    <p className="text-gray-900">{selectedEmployee.bank?.ifsc || "—"}</p>
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-500">Account Number</label>
+                    <p className="text-gray-900">{selectedEmployee.bank?.account_number || "—"}</p>
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-500">Account Holder Name</label>
+                    <p className="text-gray-900">{selectedEmployee.bank?.account_holder_name || "—"}</p>
                   </div>
                 </div>
               </div>
@@ -4588,6 +4718,96 @@ export default function EmployeeList() {
                 </div>
               </div>
 
+              <div className="mt-8 border-t pt-6">
+                <h4 className="text-lg font-semibold text-gray-900 mb-4">Set Bank Details</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label htmlFor="bank-pan" className="block text-sm font-medium text-gray-700 mb-2">
+                      PAN
+                    </label>
+                    <input
+                      type="text"
+                      id="bank-pan"
+                      name="pan"
+                      value={bankFormData.pan}
+                      onChange={handleBankInputChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                      placeholder="Enter PAN"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="bank-aadhaar" className="block text-sm font-medium text-gray-700 mb-2">
+                      Aadhaar
+                    </label>
+                    <input
+                      type="text"
+                      id="bank-aadhaar"
+                      name="aadhaar"
+                      value={bankFormData.aadhaar}
+                      onChange={handleBankInputChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                      placeholder="Enter Aadhaar"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="bank-name" className="block text-sm font-medium text-gray-700 mb-2">
+                      Bank Name
+                    </label>
+                    <input
+                      type="text"
+                      id="bank-name"
+                      name="bank_name"
+                      value={bankFormData.bank_name}
+                      onChange={handleBankInputChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                      placeholder="Enter bank name"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="bank-ifsc" className="block text-sm font-medium text-gray-700 mb-2">
+                      IFSC
+                    </label>
+                    <input
+                      type="text"
+                      id="bank-ifsc"
+                      name="ifsc"
+                      value={bankFormData.ifsc}
+                      onChange={handleBankInputChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                      placeholder="Enter IFSC"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="bank-account-number" className="block text-sm font-medium text-gray-700 mb-2">
+                      Account Number
+                    </label>
+                    <input
+                      type="text"
+                      id="bank-account-number"
+                      name="account_number"
+                      value={bankFormData.account_number}
+                      onChange={handleBankInputChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                      placeholder="Enter account number"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="bank-account-holder" className="block text-sm font-medium text-gray-700 mb-2">
+                      Account Holder Name
+                    </label>
+                    <input
+                      type="text"
+                      id="bank-account-holder"
+                      name="account_holder_name"
+                      value={bankFormData.account_holder_name}
+                      onChange={handleBankInputChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                      placeholder="Enter account holder name"
+                    />
+                  </div>
+                </div>
+              </div>
+
               <div className="flex gap-3 mt-6 justify-end">
                 <button
                   type="button"
@@ -4602,6 +4822,135 @@ export default function EmployeeList() {
                   className="px-8 py-3 bg-gradient-to-r from-indigo-600 to-cyan-600 text-white rounded-xl hover:from-indigo-700 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 font-medium shadow-lg hover:shadow-xl transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {editLoading ? "Updating..." : "Update Employee"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Bank Modal */}
+      {bankModalOpen && selectedEmployee && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6 border-b border-gray-200">
+              <div className="flex items-center justify-between">
+                <h3 className="text-xl font-semibold text-gray-900">Bank Details</h3>
+                <button
+                  onClick={() => setBankModalOpen(false)}
+                  className="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+            </div>
+            <form onSubmit={handleBankSubmit} className="p-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="edit-pan" className="block text-sm font-medium text-gray-700 mb-2">
+                    PAN
+                  </label>
+                  <input
+                    type="text"
+                    id="edit-pan"
+                    name="pan"
+                    value={bankFormData.pan}
+                    onChange={handleBankInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    placeholder="Enter PAN"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="edit-aadhaar" className="block text-sm font-medium text-gray-700 mb-2">
+                    Aadhaar
+                  </label>
+                  <input
+                    type="text"
+                    id="edit-aadhaar"
+                    name="aadhaar"
+                    value={bankFormData.aadhaar}
+                    onChange={handleBankInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    placeholder="Enter Aadhaar"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="edit-bank-name" className="block text-sm font-medium text-gray-700 mb-2">
+                    Bank Name
+                  </label>
+                  <input
+                    type="text"
+                    id="edit-bank-name"
+                    name="bank_name"
+                    value={bankFormData.bank_name}
+                    onChange={handleBankInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    placeholder="Enter Bank Name"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="edit-ifsc" className="block text-sm font-medium text-gray-700 mb-2">
+                    IFSC
+                  </label>
+                  <input
+                    type="text"
+                    id="edit-ifsc"
+                    name="ifsc"
+                    value={bankFormData.ifsc}
+                    onChange={handleBankInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    placeholder="Enter IFSC"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="edit-account-number" className="block text-sm font-medium text-gray-700 mb-2">
+                    Account Number
+                  </label>
+                  <input
+                    type="text"
+                    id="edit-account-number"
+                    name="account_number"
+                    value={bankFormData.account_number}
+                    onChange={handleBankInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    placeholder="Enter Account Number"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="edit-account-holder-name" className="block text-sm font-medium text-gray-700 mb-2">
+                    Account Holder Name
+                  </label>
+                  <input
+                    type="text"
+                    id="edit-account-holder-name"
+                    name="account_holder_name"
+                    value={bankFormData.account_holder_name}
+                    onChange={handleBankInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    placeholder="Enter Account Holder Name"
+                  />
+                </div>
+              </div>
+
+              <div className="flex gap-3 mt-6 justify-end">
+                <button
+                  type="button"
+                  onClick={() => setBankModalOpen(false)}
+                  className="px-6 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 font-medium"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={editLoading}
+                  className="px-8 py-3 bg-gradient-to-r from-indigo-600 to-cyan-600 text-white rounded-xl hover:from-indigo-700 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 font-medium shadow-lg hover:shadow-xl transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {editLoading ? "Updating..." : "Update Bank Details"}
                 </button>
               </div>
             </form>
