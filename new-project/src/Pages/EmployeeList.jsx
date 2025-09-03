@@ -2222,622 +2222,1757 @@
 
 
 
+
+
+// import React from "react"
+
+// import { useState, useEffect, useMemo } from "react"
+// import { z } from "zod"
+// import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
+// import { Search, Users, CheckCircle, Building, Plus, Download, Eye, Edit, Trash2, X, AlertTriangle } from "lucide-react"
+// // import { useNavigate } from "react-router-dom"
+
+// // const API_BASE_URL =
+// //   (typeof process !== "undefined" && process.env && process.env.NEXT_PUBLIC_API_BASE_URL) ||
+// //   (typeof import.meta !== "undefined" && import.meta.env && import.meta.env.VITE_API_BASE_URL) ||
+// //   ""
+// const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
+
+// const getAuthHeaders = () => {
+//   const token = sessionStorage.getItem("token")
+//   const departmentId = sessionStorage.getItem("departmentId") || "1"
+//   return {
+//     Authorization: `Bearer ${token}`,
+//     "X-Department-Id": departmentId,
+//     "Content-Type": "application/json",
+//   }
+// }
+
+// const fetchEmployees = async (page = 1, limit = 10, q = "") => {
+//   const token = sessionStorage.getItem("token")
+//   console.log("Token:", token)
+
+//   const response = await fetch(`${API_BASE_URL}employees?limit=${limit}&page=${page}&q=${q}`, {
+//     method: "GET",
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//       "X-Department-Id": sessionStorage.getItem("departmentId") || "1",
+//     },
+//   })
+
+//   console.log(`${API_BASE_URL}employees?limit=${limit}&page=${page}&q=${q}`)
+
+//   if (!response.ok) {
+//     throw new Error("Failed to fetch employees")
+//   }
+
+//   return response.json()
+// }
+
+// const fetchEmployeeById = async (id) => {
+//   const response = await fetch(`${API_BASE_URL}employees/${id}`, {
+//     method: "GET",
+//     headers: getAuthHeaders(),
+//   })
+
+//   if (!response.ok) {
+//     throw new Error("Failed to fetch employee")
+//   }
+
+//   return response.json()
+// }
+
+// const createEmployee = async (employeeData) => {
+//   const response = await fetch(`${API_BASE_URL}employees`, {
+//     method: "POST",
+//     headers: getAuthHeaders(),
+//     body: JSON.stringify(employeeData),
+//   })
+
+//   if (!response.ok) {
+//     throw new Error("Failed to create employee")
+//   }
+
+//   return response.json()
+// }
+
+// const updateEmployee = async ({ id, data }) => {
+//   const response = await fetch(`${API_BASE_URL}employees/${id}`, {
+//     method: "PUT",
+//     headers: getAuthHeaders(),
+//     body: JSON.stringify(data),
+//   })
+
+//   if (!response.ok) {
+//     throw new Error("Failed to update employee")
+//   }
+
+//   return response.json()
+// }
+
+// const updateEmployeeBank = async ({ id, data }) => {
+//   const response = await fetch(`${API_BASE_URL}employees/${id}/bank`, {
+//     method: "PUT",
+//     headers: getAuthHeaders(),
+//     body: JSON.stringify(data),
+//   })
+
+//   if (!response.ok) {
+//     throw new Error("Failed to update employee bank details")
+//   }
+
+//   return response.json()
+// }
+
+// const updateEmployeeStatus = async ({ id, data }) => {
+//   const response = await fetch(`${API_BASE_URL}employees/${id}/status`, {
+//     method: "PUT",
+//     headers: getAuthHeaders(),
+//     body: JSON.stringify(data),
+//   })
+
+//   if (!response.ok) {
+//     throw new Error("Failed to update employee status")
+//   }
+
+//   return response.json()
+// }
+
+// const linkUserToEmployee = async ({ id, userId }) => {
+//   const response = await fetch(`${API_BASE_URL}employees/${id}/link-user`, {
+//     method: "PATCH",
+//     headers: getAuthHeaders(),
+//     body: JSON.stringify({ user_id: userId }),
+//   })
+
+//   if (!response.ok) {
+//     throw new Error("Failed to link user to employee")
+//   }
+
+//   return response.json()
+// }
+
+// const provisionLogin = async ({ id, role }) => {
+//   const response = await fetch(`${API_BASE_URL}employees/${id}/provision-login`, {
+//     method: "POST",
+//     headers: getAuthHeaders(),
+//     body: JSON.stringify({ role }),
+//   })
+
+//   if (!response.ok) {
+//     throw new Error("Failed to provision login")
+//   }
+
+//   return response.json()
+// }
+
+// const deleteEmployee = async (id) => {
+//   const response = await fetch(`${API_BASE_URL}employees/${id}`, {
+//     method: "DELETE",
+//     headers: getAuthHeaders(),
+//   })
+
+//   if (!response.ok) {
+//     throw new Error("Failed to delete employee")
+//   }
+
+//   return response.json()
+// }
+
+// const employeeSchema = z.object({
+//   id: z.number(),
+//   name: z.string().min(1, "Name is required"),
+//   email: z.string().email("Invalid email format"),
+//   phone: z.string().min(10, "Phone number must be at least 10 digits"),
+//   department: z.string().min(1, "Department is required"),
+//   designation: z.string().min(1, "Designation is required"),
+//   joinDate: z.string(),
+//   salary: z.number().positive("Salary must be positive"),
+//   salaryType: z.enum(["fixed", "hourly", "commission"]),
+//   status: z.enum(["active", "inactive"]),
+//   address: z.string().min(1, "Address is required"),
+//   panNumber: z.string().min(10, "PAN number is required"),
+//   aadhaarNumber: z.string().min(12, "Aadhaar number must be 12 digits"),
+//   bankName: z.string().min(1, "Bank name is required"),
+//   ifscCode: z.string().min(11, "IFSC code is required"),
+//   accountNumber: z.string().min(1, "Account number is required"),
+// })
+
+// export default function EmployeeList() {
+//   const queryClient = useQueryClient()
+
+//   const handleAddEmployee = () => {
+//     if (typeof window !== "undefined") {
+//       window.location.href = "/employee/addemployee"
+//     }
+//   }
+
+//   // Table state
+//   const [currentPage, setCurrentPage] = useState(1)
+//   const [entriesPerPage, setEntriesPerPage] = useState(10)
+//   const [searchTerm, setSearchTerm] = useState("")
+//   const [departmentFilter, setDepartmentFilter] = useState("")
+//   const [statusFilter, setStatusFilter] = useState("")
+//   const [sortColumn, setSortColumn] = useState("")
+//   const [sortDirection, setSortDirection] = useState("asc")
+//   const [selectedEmployees, setSelectedEmployees] = useState([])
+//   const [selectAll, setSelectAll] = useState(false)
+
+//   // Modal state
+//   const [employeeModalOpen, setEmployeeModalOpen] = useState(false)
+//   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
+//   const [selectedEmployee, setSelectedEmployee] = useState(null)
+//   const [employeeToDelete, setEmployeeToDelete] = useState(null)
+
+//   const [editModalOpen, setEditModalOpen] = useState(false)
+//   const [editFormData, setEditFormData] = useState(null)
+//   const [editSubmitting, setEditSubmitting] = useState(false)
+//   const [editError, setEditError] = useState(null)
+
+//   const [bankFormData, setBankFormData] = React.useState({
+//     pan: "",
+//     aadhaar: "",
+//     bank_name: "",
+//     ifsc: "",
+//     account_number: "",
+//     account_holder_name: "",
+//   })
+//   const [bankSubmitting, setBankSubmitting] = React.useState(false)
+//   const [bankError, setBankError] = React.useState(null)
+
+//   const {
+//     data: employeesData,
+//     isLoading,
+//     error,
+//   } = useQuery({
+//     queryKey: ["employees", currentPage, entriesPerPage, searchTerm],
+//     queryFn: () => fetchEmployees(currentPage, entriesPerPage, searchTerm),
+//     keepPreviousData: true,
+//   })
+
+//   console.log("[v0] employeesData:", employeesData)
+
+//   const employees = useMemo(() => {
+//     if (!employeesData) return []
+//     if (Array.isArray(employeesData.rows)) return employeesData.rows
+//     if (Array.isArray(employeesData.data)) return employeesData.data
+//     if (Array.isArray(employeesData)) return employeesData
+//     return []
+//   }, [employeesData])
+
+//   const totalEmployees =
+//     (employeesData && (employeesData.total ?? employeesData.count ?? employeesData?.pagination?.total)) ??
+//     employees.length
+
+//   const deleteEmployeeMutation = useMutation({
+//     mutationFn: deleteEmployee,
+//     onSuccess: () => {
+//       queryClient.invalidateQueries(["employees"])
+//       setDeleteModalOpen(false)
+//       setEmployeeToDelete(null)
+//     },
+//     onError: (error) => {
+//       console.error("Delete failed:", error)
+//     },
+//   })
+
+//   const updateEmployeeMutation = useMutation({
+//     mutationFn: updateEmployee,
+//     onSuccess: () => {
+//       queryClient.invalidateQueries(["employees"])
+//     },
+//     onError: (error) => {
+//       console.error("Update failed:", error)
+//     },
+//   })
+
+//   // Filter and sort employees
+//   const filteredEmployees = useMemo(() => {
+//     const filtered = employees.filter((employee) => {
+//       const matchesSearch =
+//         employee.first_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+//         employee.last_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+//         employee.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+//         employee.designation?.toLowerCase().includes(searchTerm.toLowerCase())
+//       const matchesDepartment = !departmentFilter || employee.department?.toLowerCase() === departmentFilter
+//       const matchesStatus = !statusFilter || employee.status === statusFilter
+//       return matchesSearch && matchesDepartment && matchesStatus
+//     })
+
+//     // Sort employees
+//     if (sortColumn) {
+//       filtered.sort((a, b) => {
+//         let aValue, bValue
+//         switch (sortColumn) {
+//           case "name":
+//             aValue = `${a.first_name} ${a.last_name}`.toLowerCase()
+//             bValue = `${b.first_name} ${b.last_name}`.toLowerCase()
+//             break
+//           case "department":
+//             aValue = a.department?.toLowerCase() || ""
+//             bValue = b.department?.toLowerCase() || ""
+//             break
+//           case "designation":
+//             aValue = a.designation?.toLowerCase() || ""
+//             bValue = b.designation?.toLowerCase() || ""
+//             break
+//           case "joinDate":
+//             aValue = new Date(a.join_date)
+//             bValue = new Date(b.join_date)
+//             break
+//           case "salary":
+//             aValue = a.monthly_salary || 0
+//             bValue = b.monthly_salary || 0
+//             break
+//           case "status":
+//             aValue = a.status
+//             bValue = b.status
+//             break
+//           default:
+//             return 0
+//         }
+//         if (aValue < bValue) return sortDirection === "asc" ? -1 : 1
+//         if (aValue > bValue) return sortDirection === "asc" ? 1 : -1
+//         return 0
+//       })
+//     }
+//     return filtered
+//   }, [employees, searchTerm, departmentFilter, statusFilter, sortColumn, sortDirection])
+
+//   // Pagination
+//   // If the API provides a total/count, treat it as server-side pagination and don't slice again.
+//   const hasServerTotal =
+//     employeesData &&
+//     (typeof employeesData.total === "number" ||
+//       typeof employeesData.count === "number" ||
+//       (employeesData.pagination && typeof employeesData.pagination.total === "number"))
+
+//   const isServerPaginated = !!hasServerTotal
+
+//   const totalPages = Math.ceil(totalEmployees / entriesPerPage)
+//   const startIndex = (currentPage - 1) * entriesPerPage
+//   const endIndex = startIndex + entriesPerPage
+
+//   const currentEmployees = isServerPaginated ? filteredEmployees : filteredEmployees.slice(startIndex, endIndex)
+
+//   // Helper functions
+//   const formatSalary = (amount, type) => {
+//     if (type === "fixed") {
+//       return `₹${amount?.toLocaleString()}/month`
+//     } else if (type === "hourly") {
+//       return `₹${amount}/hour`
+//     } else if (type === "commission") {
+//       return `${amount}% commission`
+//     }
+//     return `₹${amount || 0}`
+//   }
+
+//   const handleSort = (column) => {
+//     if (sortColumn === column) {
+//       setSortDirection(sortDirection === "asc" ? "desc" : "asc")
+//     } else {
+//       setSortColumn(column)
+//       setSortDirection("asc")
+//     }
+//   }
+
+//   const handleSelectAll = (checked) => {
+//     setSelectAll(checked)
+//     if (checked) {
+//       setSelectedEmployees(currentEmployees.map((emp) => emp.id))
+//     } else {
+//       setSelectedEmployees([])
+//     }
+//   }
+
+//   const handleSelectEmployee = (id, checked) => {
+//     if (checked) {
+//       setSelectedEmployees([...selectedEmployees, id])
+//     } else {
+//       setSelectedEmployees(selectedEmployees.filter((empId) => empId !== id))
+//       setSelectAll(false)
+//     }
+//   }
+
+//   const viewEmployee = (id) => {
+//     const employee = employees.find((emp) => emp.id === id)
+//     setSelectedEmployee(employee)
+//     setEmployeeModalOpen(true)
+//   }
+
+//   const handleDeleteEmployee = (id) => {
+//     const employee = employees.find((emp) => emp.id === id)
+//     setEmployeeToDelete(employee)
+//     setDeleteModalOpen(true)
+//   }
+
+//   const confirmDelete = () => {
+//     if (employeeToDelete) {
+//       deleteEmployeeMutation.mutate(employeeToDelete.id)
+//     }
+//   }
+
+//   const exportEmployees = () => {
+//     const csvContent =
+//       "data:text/csv;charset=utf-8," +
+//       "Name,Email,Phone,Department,Designation,Join Date,Salary,Status\n" +
+//       filteredEmployees
+//         .map(
+//           (emp) =>
+//             `"${emp.first_name} ${emp.last_name}","${emp.email}","${emp.phone}","${emp.department}","${emp.designation}","${emp.join_date}","${formatSalary(emp.monthly_salary, emp.salary_type)}","${emp.status}"`,
+//         )
+//         .join("\n")
+//     const encodedUri = encodeURI(csvContent)
+//     const link = document.createElement("a")
+//     link.setAttribute("href", encodedUri)
+//     link.setAttribute("download", "employees.csv")
+//     document.body.appendChild(link)
+//     link.click()
+//     document.body.removeChild(link)
+//   }
+
+//   const toInputDate = (d) => {
+//     if (!d) return ""
+//     try {
+//       const dt = new Date(d)
+//       const tz = new Date(dt.getTime() - dt.getTimezoneOffset() * 60000)
+//       return tz.toISOString().slice(0, 10)
+//     } catch {
+//       return String(d).slice(0, 10) || ""
+//     }
+//   }
+
+//   const openEdit = (employee) => {
+//     if (!employee) return
+//     setEditError(null)
+//     setEditFormData({
+//       id: employee.id,
+//       first_name: employee.first_name || "",
+//       last_name: employee.last_name || "",
+//       gender: employee.gender || "female",
+//       dob: toInputDate(employee.dob),
+//       phone: employee.phone || "",
+//       personal_email: employee.personal_email || employee.email || "",
+//       address: employee.address || "",
+//       designation: employee.designation || "",
+//       department_id: employee.department_id || "",
+//       join_date: toInputDate(employee.join_date),
+//       salary_type: employee.salary_type || "fixed",
+//       monthly_salary: employee.monthly_salary || 0,
+//       create_login: typeof employee.create_login === "boolean" ? employee.create_login : false,
+//       role: employee.role || "agent",
+//     })
+
+//     const bank = (employee && employee.bank) || {}
+//     setBankFormData({
+//       pan: bank.pan || employee.pan || "",
+//       aadhaar: bank.aadhaar || employee.aadhaar || "",
+//       bank_name: bank.bank_name || employee.bank_name || "",
+//       ifsc: bank.ifsc || employee.ifsc || "",
+//       account_number: bank.account_number || employee.account_number || "",
+//       account_holder_name: bank.account_holder_name || employee.account_holder_name || "",
+//     })
+
+//     setEditModalOpen(true)
+//   }
+
+//   const submitBank = async (e) => {
+//     e.preventDefault()
+//     if (!editFormData || !editFormData.id) return
+//     setBankSubmitting(true)
+//     setBankError(null)
+//     try {
+//       const payload = {
+//         pan: bankFormData.pan?.trim() || " ",
+//         aadhaar: bankFormData.aadhaar?.trim() || " ",
+//         bank_name: bankFormData.bank_name?.trim() || " ",
+//         ifsc: bankFormData.ifsc?.trim() || " ",
+//         account_number: bankFormData.account_number?.trim() || " ",
+//         account_holder_name: bankFormData.account_holder_name?.trim() || " ",
+//       }
+
+//       const res = await fetch(`${API_BASE_URL}employees/${editFormData.id}/bank`, {
+//         method: "PUT",
+//         headers: getAuthHeaders(),
+//         body: JSON.stringify(payload),
+//       })
+//       if (!res.ok) throw new Error("Failed to update employee bank details")
+//       await res.json()
+
+//       queryClient.invalidateQueries(["employees"])
+
+//       const patch = {
+//         ...payload,
+//         bank: {
+//           pan: payload.pan,
+//           aadhaar: payload.aadhaar,
+//           bank_name: payload.bank_name,
+//           ifsc: payload.ifsc,
+//           account_number: payload.account_number,
+//           account_holder_name: payload.account_holder_name,
+//         },
+//       }
+//       queryClient.setQueryData(["employees", currentPage, entriesPerPage, searchTerm], (prev) => {
+//         if (!prev) return prev
+//         // handle different API shapes: {rows: []}, {data: []}, or []
+//         const updateArray = (arr) =>
+//           Array.isArray(arr) ? arr.map((emp) => (emp.id === editFormData.id ? { ...emp, ...patch } : emp)) : arr
+
+//         if (Array.isArray(prev)) {
+//           return updateArray(prev)
+//         } else if (Array.isArray(prev.rows)) {
+//           return { ...prev, rows: updateArray(prev.rows) }
+//         } else if (Array.isArray(prev.data)) {
+//           return { ...prev, data: updateArray(prev.data) }
+//         }
+//         return prev
+//       })
+
+//       setEditFormData((prev) => (prev && prev.id === editFormData.id ? { ...prev, ...patch } : prev))
+//       setSelectedEmployee?.((prev) => (prev && prev.id === editFormData.id ? { ...prev, ...patch } : prev))
+
+//       setBankSubmitting(false)
+//     } catch (err) {
+//       setBankSubmitting(false)
+//       setBankError(err?.message || "Failed to update employee bank details")
+//     }
+//   }
+
+//   const handleEditChange = (e) => {
+//     const { name, value } = e.target
+//     setEditFormData((prev) => ({ ...prev, [name]: value }))
+//   }
+
+//   const handleEditCheckbox = (e) => {
+//     const { name, checked } = e.target
+//     setEditFormData((prev) => ({ ...prev, [name]: checked }))
+//   }
+
+//   const submitEdit = async (e) => {
+//     e.preventDefault()
+//     if (!editFormData || !editFormData.id) return
+//     setEditSubmitting(true)
+//     setEditError(null)
+//     try {
+//       const payload = {
+//         first_name: editFormData.first_name?.trim(),
+//         last_name: editFormData.last_name?.trim(),
+//         gender: editFormData.gender,
+//         dob: editFormData.dob || null,
+//         phone: editFormData.phone?.trim(),
+//         personal_email: editFormData.personal_email?.trim(),
+//         address: editFormData.address?.trim(),
+//         designation: editFormData.designation?.trim(),
+//         department_id: editFormData.department_id ? Number(editFormData.department_id) : null,
+//         join_date: editFormData.join_date || null,
+//         salary_type: editFormData.salary_type,
+//         monthly_salary: Number(editFormData.monthly_salary) || 0,
+//         create_login: !!editFormData.create_login,
+//         role: editFormData.role,
+//       }
+
+//       updateEmployeeMutation.mutate(
+//         { id: editFormData.id, data: payload },
+//         {
+//           onSuccess: () => {
+//             setEditSubmitting(false)
+//             setEditModalOpen(false)
+//             setEditFormData(null)
+//           },
+//           onError: (err) => {
+//             setEditSubmitting(false)
+//             setEditError(err?.message || "Failed to update employee")
+//           },
+//         },
+//       )
+//     } catch (err) {
+//       setEditSubmitting(false)
+//       setEditError(err?.message || "Failed to update employee")
+//     }
+//   }
+
+//   // Reset page when filters change
+//   useEffect(() => {
+//     setCurrentPage(1)
+//   }, [searchTerm, departmentFilter, statusFilter])
+
+//   if (isLoading) {
+//     return (
+//       <div className="bg-gradient-to-br from-indigo-50 via-white to-cyan-50 min-h-screen">
+//         <main className="p-6 ml-4 mr-4">
+//           <div className="flex items-center justify-center h-64">
+//             <div className="text-lg text-gray-600">Loading employees...</div>
+//           </div>
+//         </main>
+//       </div>
+//     )
+//   }
+
+//   if (error) {
+//     return (
+//       <div className="bg-gradient-to-br from-indigo-50 via-white to-cyan-50 min-h-screen">
+//         <main className="p-6 ml-4 mr-4">
+//           <div className="flex items-center justify-center h-64">
+//             <div className="text-lg text-red-600">Error loading employees: {error.message}</div>
+//           </div>
+//         </main>
+//       </div>
+//     )
+//   }
+
+//   return (
+//     <div className="bg-gradient-to-br from-indigo-50 via-white to-cyan-50 min-h-screen">
+//       {/* Main Content Area */}
+//       <main className="p-6 ml-4 mr-4">
+//         {/* Page Title */}
+//         <div className="">
+//           {/* <h1 className="text-3xl font-bold text-gray-900">Employee Management</h1> */}
+//           {/* <p className="text-gray-600 mt-2">Manage your team members and their information</p> */}
+//         </div>
+
+//         {/* Stats Cards */}
+//         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-3">
+//           {/* Total Employees */}
+//           <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100">
+//             <div className="flex items-center justify-between">
+//               <div>
+//                 <p className="text-sm font-medium text-gray-600">Total Employees</p>
+//                 <p className="text-3xl font-bold text-gray-900">{totalEmployees}</p>
+//                 <p className="text-sm text-green-600 mt-1">
+//                   <span className="font-medium">+8</span> this month
+//                 </p>
+//               </div>
+//               <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-xl flex items-center justify-center">
+//                 <Users className="w-6 h-6 text-white" />
+//               </div>
+//             </div>
+//           </div>
+
+//           {/* Active Employees */}
+//           <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100">
+//             <div className="flex items-center justify-between">
+//               <div>
+//                 <p className="text-sm font-medium text-gray-600">Active</p>
+//                 <p className="text-3xl font-bold text-gray-900">
+//                   {employees.filter((emp) => emp.status === "active").length}
+//                 </p>
+//                 <p className="text-sm text-green-600 mt-1">
+//                   <span className="font-medium">91%</span> active rate
+//                 </p>
+//               </div>
+//               <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center">
+//                 <CheckCircle className="w-6 h-6 text-white" />
+//               </div>
+//             </div>
+//           </div>
+
+//           {/* Departments */}
+//           <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100">
+//             <div className="flex items-center justify-between">
+//               <div>
+//                 <p className="text-sm font-medium text-gray-600">Departments</p>
+//                 <p className="text-3xl font-bold text-gray-900">8</p>
+//                 <p className="text-sm text-blue-600 mt-1">
+//                   <span className="font-medium">Engineering</span> largest
+//                 </p>
+//               </div>
+//               <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+//                 <Building className="w-6 h-6 text-white" />
+//               </div>
+//             </div>
+//           </div>
+
+//           {/* New Hires */}
+//           <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100">
+//             <div className="flex items-center justify-between">
+//               <div>
+//                 <p className="text-sm font-medium text-gray-600">New Hires</p>
+//                 <p className="text-3xl font-bold text-gray-900">12</p>
+//                 <p className="text-sm text-orange-600 mt-1">
+//                   <span className="font-medium">This month</span>
+//                 </p>
+//               </div>
+//               <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl flex items-center justify-center">
+//                 <Users className="w-6 h-6 text-white" />
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* Filters and Actions */}
+//         <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-3">
+//           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+//             {/* Search and Filters */}
+//             <div className="flex flex-col sm:flex-row gap-4 flex-1">
+//               {/* Search */}
+//               <div className="relative flex-1 max-w-md">
+//                 <input
+//                   type="text"
+//                   placeholder="Search employees..."
+//                   value={searchTerm}
+//                   onChange={(e) => setSearchTerm(e.target.value)}
+//                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+//                 />
+//                 <Search className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
+//               </div>
+
+//               {/* Department Filter */}
+//               <select
+//                 value={departmentFilter}
+//                 onChange={(e) => setDepartmentFilter(e.target.value)}
+//                 className="px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+//               >
+//                 <option value="">All Departments</option>
+//                 <option value="engineering">Engineering</option>
+//                 <option value="marketing">Marketing</option>
+//                 <option value="sales">Sales</option>
+//                 <option value="hr">Human Resources</option>
+//                 <option value="finance">Finance</option>
+//                 <option value="operations">Operations</option>
+//                 <option value="design">Design</option>
+//                 <option value="support">Customer Support</option>
+//               </select>
+
+//               {/* Status Filter */}
+//               <select
+//                 value={statusFilter}
+//                 onChange={(e) => setStatusFilter(e.target.value)}
+//                 className="px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+//               >
+//                 <option value="">All Status</option>
+//                 <option value="active">Active</option>
+//                 <option value="inactive">Inactive</option>
+//               </select>
+//             </div>
+
+//             {/* Actions */}
+//             <div className="flex gap-3">
+//               <button
+//                 onClick={exportEmployees}
+//                 className="px-4 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 font-medium"
+//               >
+//                 <Download className="inline-block w-5 h-5 mr-2" />
+//                 Export
+//               </button>
+//               <button
+//                 onClick={handleAddEmployee}
+//                 className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-cyan-600 text-white rounded-xl hover:from-indigo-700 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 font-medium shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
+//               >
+//                 <Plus className="inline-block w-5 h-5 mr-2" />
+//                 Add Employee
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* Employee Table */}
+//         <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 border border-gray-100 overflow-hidden">
+//           <div className="p-6 border-b border-gray-100">
+//             <div className="flex items-center justify-between">
+//               <h3 className="text-lg font-semibold text-gray-900">All Employees</h3>
+//               <div className="flex items-center space-x-2 text-sm text-gray-500">
+//                 <span>Showing</span>
+//                 <select
+//                   value={entriesPerPage}
+//                   onChange={(e) => setEntriesPerPage(Number.parseInt(e.target.value))}
+//                   className="border border-gray-300 rounded px-2 py-1 text-sm"
+//                 >
+//                   <option value="10">10</option>
+//                   <option value="25">25</option>
+//                   <option value="50">50</option>
+//                   <option value="100">100</option>
+//                 </select>
+//                 <span>entries</span>
+//               </div>
+//             </div>
+//           </div>
+
+//           <div className="w-full overflow-x-auto">
+//             <table className="min-w-full table-auto divide-y divide-gray-200">
+//               <thead className="bg-gray-50">
+//                 <tr>
+//                   <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+//                     <input
+//                       type="checkbox"
+//                       checked={selectAll}
+//                       onChange={(e) => handleSelectAll(e.target.checked)}
+//                       className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+//                     />
+//                   </th>
+//                   <th
+//                     onClick={() => handleSort("name")}
+//                     className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+//                   >
+//                     Employee
+//                   </th>
+//                   <th
+//                     onClick={() => handleSort("department")}
+//                     className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+//                   >
+//                     Department
+//                   </th>
+//                   <th
+//                     onClick={() => handleSort("designation")}
+//                     className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+//                   >
+//                     Designation
+//                   </th>
+//                   <th
+//                     onClick={() => handleSort("joinDate")}
+//                     className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+//                   >
+//                     Join Date
+//                   </th>
+//                   <th
+//                     onClick={() => handleSort("salary")}
+//                     className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+//                   >
+//                     Salary
+//                   </th>
+//                   <th
+//                     onClick={() => handleSort("status")}
+//                     className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+//                   >
+//                     Status
+//                   </th>
+//                   <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[120px]">
+//                     Actions
+//                   </th>
+//                 </tr>
+//               </thead>
+//               <tbody className="bg-white divide-y divide-gray-200">
+//                 {employees.length === 0 ? (
+//                   <tr>
+//                     <td colSpan={8} className="px-4 py-10 text-center text-sm text-gray-500">
+//                       No employees found.
+//                     </td>
+//                   </tr>
+//                 ) : (
+//                   currentEmployees.map((employee) => (
+//                     <tr key={employee.id} className="hover:bg-gray-50 transition-colors duration-200">
+//                       <td className="px-4 py-4">
+//                         <input
+//                           type="checkbox"
+//                           checked={selectedEmployees.includes(employee.id)}
+//                           onChange={(e) => handleSelectEmployee(employee.id, e.target.checked)}
+//                           className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+//                         />
+//                       </td>
+//                       <td className="px-4 py-4">
+//                         <div className="flex items-center">
+//                           <div className="h-10 w-10 flex-shrink-0">
+//                             <div className="h-10 w-10 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 flex items-center justify-center">
+//                               <span className="text-white font-medium text-sm">
+//                                 {`${employee.first_name || ""} ${employee.last_name || ""}`
+//                                   .trim()
+//                                   .split(" ")
+//                                   .filter(Boolean)
+//                                   .map((n) => n[0])
+//                                   .join("")
+//                                   .toUpperCase() || "–"}
+//                               </span>
+//                             </div>
+//                           </div>
+//                           <div className="ml-4">
+//                             <div className="text-sm font-medium text-gray-900">
+//                               {`${employee.first_name || ""} ${employee.last_name || ""}`.trim() || "Unnamed"}
+//                             </div>
+//                             <div className="text-sm text-gray-500">{employee.personal_email || "—"}</div>
+//                           </div>
+//                         </div>
+//                       </td>
+//                       <td className="px-4 py-4">
+//                         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+//                           {employee.department || employee.department_name || employee.department_id || "—"}
+//                         </span>
+//                       </td>
+//                       <td className="px-4 py-4 text-sm text-gray-900">{employee.designation}</td>
+//                       <td className="px-4 py-4 text-sm text-gray-500">
+//                         {employee.join_date
+//                           ? new Date(employee.join_date).toLocaleDateString("en-US", {
+//                               year: "numeric",
+//                               month: "short",
+//                               day: "numeric",
+//                             })
+//                           : "N/A"}
+//                       </td>
+//                       <td className="px-4 py-4 text-sm font-medium text-gray-900">
+//                         {formatSalary(employee.monthly_salary, employee.salary_type)}
+//                       </td>
+//                       <td className="px-4 py-4">
+//                         <span
+//                           className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+//                             employee.status === "active" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+//                           }`}
+//                         >
+//                           {employee.status?.charAt(0).toUpperCase() + employee.status?.slice(1)}
+//                         </span>
+//                       </td>
+//                       <td className="px-4 py-4 text-sm font-medium">
+//                         <div className="flex items-center space-x-2 flex-wrap">
+//                           <button
+//                             onClick={() => viewEmployee(employee.id)}
+//                             className="text-indigo-600 hover:text-indigo-900 p-1 rounded hover:bg-indigo-50"
+//                             title="View Details"
+//                           >
+//                             <Eye className="w-4 h-4" />
+//                           </button>
+//                           <button
+//                             onClick={() => openEdit(employee)}
+//                             className="text-green-600 hover:text-green-900 p-1 rounded hover:bg-green-50"
+//                             title="Edit"
+//                           >
+//                             <Edit className="w-4 h-4" />
+//                           </button>
+//                           <button
+//                             onClick={() => handleDeleteEmployee(employee.id)}
+//                             className="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50"
+//                             title="Delete"
+//                           >
+//                             <Trash2 className="w-4 h-4" />
+//                           </button>
+//                         </div>
+//                       </td>
+//                     </tr>
+//                   ))
+//                 )}
+//               </tbody>
+//             </table>
+//           </div>
+
+//           {/* Pagination */}
+//           <div className="bg-white px-6 py-4 border-t border-gray-200">
+//             <div className="flex items-center justify-between">
+//               <div className="text-sm text-gray-700">
+//                 Showing <span>{startIndex + 1}</span> to <span>{Math.min(endIndex, totalEmployees)}</span> of{" "}
+//                 <span>{totalEmployees}</span> entries
+//               </div>
+//               <div className="flex items-center space-x-2">
+//                 <button
+//                   onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+//                   disabled={currentPage === 1}
+//                   className="px-3 py-2 border border-gray-300 text-gray-500 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+//                 >
+//                   Previous
+//                 </button>
+//                 <div className="flex space-x-1">
+//                   {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+//                     const page = i + 1
+//                     return (
+//                       <button
+//                         key={page}
+//                         onClick={() => setCurrentPage(page)}
+//                         className={`px-3 py-2 border rounded-lg ${
+//                           page === currentPage
+//                             ? "bg-indigo-600 text-white border-indigo-600"
+//                             : "border-gray-300 text-gray-500 hover:bg-gray-50"
+//                         }`}
+//                       >
+//                         {page}
+//                       </button>
+//                     )
+//                   })}
+//                 </div>
+//                 <button
+//                   onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+//                   disabled={currentPage === totalPages}
+//                   className="px-3 py-2 border border-gray-300 text-gray-500 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+//                 >
+//                   Next
+//                 </button>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       </main>
+
+//       {/* Employee Details Modal */}
+//       {employeeModalOpen && selectedEmployee && (
+//         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 ">
+//           <div className="flex items-center justify-center min-h-screen p-4">
+//             <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+//               <div className="p-6 border-b border-gray-200">
+//                 <div className="flex items-center justify-between">
+//                   <h3 className="text-xl font-semibold text-gray-900">Employee Details</h3>
+//                   <button onClick={() => setEmployeeModalOpen(false)} className="text-gray-400 hover:text-gray-600">
+//                     <X className="w-6 h-6" />
+//                   </button>
+//                 </div>
+//               </div>
+//               <div className="p-6">
+//                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+//                   <div className="space-y-4">
+//                     <h4 className="text-lg font-semibold text-gray-900 border-b pb-2">Personal Information</h4>
+//                     <div className="space-y-3">
+//                       <div>
+//                         <label className="text-sm font-medium text-gray-500">Full Name</label>
+//                         <p className="text-gray-900">{`${selectedEmployee.first_name || ""} ${selectedEmployee.last_name || ""}`}</p>
+//                       </div>
+//                       <div>
+//                         <label className="text-sm font-medium text-gray-500">Email</label>
+//                         <p className="text-gray-900">{selectedEmployee.email}</p>
+//                       </div>
+//                       <div>
+//                         <label className="text-sm font-medium text-gray-500">Phone</label>
+//                         <p className="text-gray-900">{selectedEmployee.phone}</p>
+//                       </div>
+//                       <div>
+//                         <label className="text-sm font-medium text-gray-500">Address</label>
+//                         <p className="text-gray-900">{selectedEmployee.address}</p>
+//                       </div>
+//                     </div>
+//                   </div>
+//                   <div className="space-y-4">
+//                     <h4 className="text-lg font-semibold text-gray-900 border-b pb-2">Job Information</h4>
+//                     <div className="space-y-3">
+//                       <div>
+//                         <label className="text-sm font-medium text-gray-500">Department</label>
+//                         <p className="text-gray-900">{selectedEmployee.department}</p>
+//                       </div>
+//                       <div>
+//                         <label className="text-sm font-medium text-gray-500">Designation</label>
+//                         <p className="text-gray-900">{selectedEmployee.designation}</p>
+//                       </div>
+//                       <div>
+//                         <label className="text-sm font-medium text-gray-500">Join Date</label>
+//                         <p className="text-gray-900">
+//                           {selectedEmployee.join_date
+//                             ? new Date(selectedEmployee.join_date).toLocaleDateString()
+//                             : "N/A"}
+//                         </p>
+//                       </div>
+//                       <div>
+//                         <label className="text-sm font-medium text-gray-500">Salary</label>
+//                         <p className="text-gray-900">
+//                           {formatSalary(selectedEmployee.monthly_salary, selectedEmployee.salary_type)}
+//                         </p>
+//                       </div>
+//                       <div>
+//                         <label className="text-sm font-medium text-gray-500">Status</label>
+//                         <span
+//                           className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+//                             selectedEmployee.status === "active"
+//                               ? "bg-green-100 text-green-800"
+//                               : "bg-red-100 text-red-800"
+//                           }`}
+//                         >
+//                           {selectedEmployee.status?.charAt(0).toUpperCase() + selectedEmployee.status?.slice(1)}
+//                         </span>
+//                       </div>
+//                     </div>
+//                   </div>
+//                   <div className="md:col-span-2 space-y-4">
+//                     <h4 className="text-lg font-semibold text-gray-900 border-b pb-2">Bank Details</h4>
+//                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+//                       <div>
+//                         <label className="text-sm font-medium text-gray-500">PAN Number</label>
+//                         <p className="text-gray-900">{selectedEmployee.pan || "N/A"}</p>
+//                       </div>
+//                       <div>
+//                         <label className="text-sm font-medium text-gray-500">Aadhaar Number</label>
+//                         <p className="text-gray-900">{selectedEmployee.aadhaar || "N/A"}</p>
+//                       </div>
+//                       <div>
+//                         <label className="text-sm font-medium text-gray-500">Bank Name</label>
+//                         <p className="text-gray-900">{selectedEmployee.bank_name || "N/A"}</p>
+//                       </div>
+//                       <div>
+//                         <label className="text-sm font-medium text-gray-500">IFSC Code</label>
+//                         <p className="text-gray-900">{selectedEmployee.ifsc || "N/A"}</p>
+//                       </div>
+//                       <div className="md:col-span-2">
+//                         <label className="text-sm font-medium text-gray-500">Account Number</label>
+//                         <p className="text-gray-900">{selectedEmployee.account_number || "N/A"}</p>
+//                       </div>
+//                     </div>
+//                   </div>
+//                 </div>
+//                 <div className="mt-6 flex justify-end space-x-3">
+//                   <button
+//                     onClick={() => {
+//                       setEmployeeModalOpen(false)
+//                       openEdit(selectedEmployee)
+//                     }}
+//                     className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+//                   >
+//                     Edit Employee
+//                   </button>
+//                   <button
+//                     onClick={() => setEmployeeModalOpen(false)}
+//                     className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
+//                   >
+//                     Close
+//                   </button>
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       )}
+
+//       {editModalOpen && editFormData && (
+//         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30">
+//           <div className="flex items-center justify-center min-h-screen p-4 w-full">
+//             <div className="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+//               <div className="p-6 border-b border-gray-200 flex items-center justify-between">
+//                 <h3 className="text-xl font-semibold text-gray-900">Edit Employee</h3>
+//                 <button
+//                   onClick={() => setEditModalOpen(false)}
+//                   className="text-gray-400 hover:text-gray-600"
+//                   aria-label="Close edit dialog"
+//                 >
+//                   <X className="w-6 h-6" />
+//                 </button>
+//               </div>
+
+//               <form onSubmit={submitEdit} className="p-6 space-y-6">
+//                 {editError && (
+//                   <div className="rounded-lg border border-red-200 bg-red-50 text-red-700 px-3 py-2 text-sm">
+//                     {editError}
+//                   </div>
+//                 )}
+//                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+//                   <div>
+//                     <label className="block text-sm font-medium text-gray-700">First Name</label>
+//                     <input
+//                       type="text"
+//                       name="first_name"
+//                       value={editFormData.first_name}
+//                       onChange={handleEditChange}
+//                       className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+//                       required
+//                     />
+//                   </div>
+//                   <div>
+//                     <label className="block text-sm font-medium text-gray-700">Last Name</label>
+//                     <input
+//                       type="text"
+//                       name="last_name"
+//                       value={editFormData.last_name}
+//                       onChange={handleEditChange}
+//                       className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+//                       required
+//                     />
+//                   </div>
+
+//                   <div>
+//                     <label className="block text-sm font-medium text-gray-700">Gender</label>
+//                     <select
+//                       name="gender"
+//                       value={editFormData.gender}
+//                       onChange={handleEditChange}
+//                       className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+//                     >
+//                       <option value="female">Female</option>
+//                       <option value="male">Male</option>
+//                       <option value="other">Other</option>
+//                     </select>
+//                   </div>
+
+//                   <div>
+//                     <label className="block text-sm font-medium text-gray-700">Date of Birth</label>
+//                     <input
+//                       type="date"
+//                       name="dob"
+//                       value={editFormData.dob || ""}
+//                       onChange={handleEditChange}
+//                       className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+//                     />
+//                   </div>
+
+//                   <div>
+//                     <label className="block text-sm font-medium text-gray-700">Phone</label>
+//                     <input
+//                       type="tel"
+//                       name="phone"
+//                       value={editFormData.phone}
+//                       onChange={handleEditChange}
+//                       className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+//                     />
+//                   </div>
+
+//                   <div>
+//                     <label className="block text-sm font-medium text-gray-700">Personal Email</label>
+//                     <input
+//                       type="email"
+//                       name="personal_email"
+//                       value={editFormData.personal_email}
+//                       onChange={handleEditChange}
+//                       className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+//                     />
+//                   </div>
+
+//                   <div className="md:col-span-2">
+//                     <label className="block text-sm font-medium text-gray-700">Address</label>
+//                     <textarea
+//                       name="address"
+//                       value={editFormData.address}
+//                       onChange={handleEditChange}
+//                       rows={3}
+//                       className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+//                     />
+//                   </div>
+
+//                   <div>
+//                     <label className="block text-sm font-medium text-gray-700">Designation</label>
+//                     <input
+//                       type="text"
+//                       name="designation"
+//                       value={editFormData.designation}
+//                       onChange={handleEditChange}
+//                       className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+//                     />
+//                   </div>
+
+//                   <div>
+//                     <label className="block text-sm font-medium text-gray-700">Department ID</label>
+//                     <input
+//                       type="number"
+//                       name="department_id"
+//                       value={editFormData.department_id}
+//                       onChange={handleEditChange}
+//                       className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+//                       min="1"
+//                     />
+//                   </div>
+
+//                   <div>
+//                     <label className="block text-sm font-medium text-gray-700">Join Date</label>
+//                     <input
+//                       type="date"
+//                       name="join_date"
+//                       value={editFormData.join_date || ""}
+//                       onChange={handleEditChange}
+//                       className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+//                     />
+//                   </div>
+
+//                   <div>
+//                     <label className="block text-sm font-medium text-gray-700">Salary Type</label>
+//                     <select
+//                       name="salary_type"
+//                       value={editFormData.salary_type}
+//                       onChange={handleEditChange}
+//                       className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+//                     >
+//                       <option value="fixed">Fixed</option>
+//                       <option value="hourly">Hourly</option>
+//                       <option value="commission">Commission</option>
+//                     </select>
+//                   </div>
+
+//                   <div>
+//                     <label className="block text-sm font-medium text-gray-700">Monthly Salary</label>
+//                     <input
+//                       type="number"
+//                       name="monthly_salary"
+//                       value={editFormData.monthly_salary}
+//                       onChange={handleEditChange}
+//                       className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+//                       min="0"
+//                       step="1"
+//                     />
+//                   </div>
+
+//                   <div className="flex items-center gap-2">
+//                     <input
+//                       id="create_login"
+//                       type="checkbox"
+//                       name="create_login"
+//                       checked={!!editFormData.create_login}
+//                       onChange={handleEditCheckbox}
+//                       className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+//                     />
+//                     <label htmlFor="create_login" className="text-sm font-medium text-gray-700">
+//                       Create Login
+//                     </label>
+//                   </div>
+
+//                   <div>
+//                     <label className="block text-sm font-medium text-gray-700">Role</label>
+//                     <select
+//                       name="role"
+//                       value={editFormData.role}
+//                       onChange={handleEditChange}
+//                       className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+//                     >
+//                       <option value="agent">Agent</option>
+//                       <option value="manager">Manager</option>
+//                       <option value="admin">Admin</option>
+//                     </select>
+//                   </div>
+//                 </div>
+
+//                 {/* Bank Details Section */}
+//                 <div className="mt-6 border-t pt-6">
+//                   <h3 className="text-base font-medium text-gray-900">Bank Details</h3>
+//                   {bankError ? <p className="mt-2 text-sm text-red-600">{bankError}</p> : null}
+
+//                   <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+//                     <div className="flex flex-col gap-1">
+//                       <label className="text-sm text-gray-700">PAN</label>
+//                       <input
+//                         type="text"
+//                         value={bankFormData.pan}
+//                         onChange={(e) => setBankFormData({ ...bankFormData, pan: e.target.value })}
+//                         className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+//                         placeholder="Enter PAN"
+//                       />
+//                     </div>
+
+//                     <div className="flex flex-col gap-1">
+//                       <label className="text-sm text-gray-700">Aadhaar</label>
+//                       <input
+//                         type="text"
+//                         value={bankFormData.aadhaar}
+//                         onChange={(e) => setBankFormData({ ...bankFormData, aadhaar: e.target.value })}
+//                         className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+//                         placeholder="Enter Aadhaar"
+//                       />
+//                     </div>
+
+//                     <div className="flex flex-col gap-1">
+//                       <label className="text-sm text-gray-700">Bank Name</label>
+//                       <input
+//                         type="text"
+//                         value={bankFormData.bank_name}
+//                         onChange={(e) => setBankFormData({ ...bankFormData, bank_name: e.target.value })}
+//                         className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+//                         placeholder="Enter Bank Name"
+//                       />
+//                     </div>
+
+//                     <div className="flex flex-col gap-1">
+//                       <label className="text-sm text-gray-700">IFSC</label>
+//                       <input
+//                         type="text"
+//                         value={bankFormData.ifsc}
+//                         onChange={(e) => setBankFormData({ ...bankFormData, ifsc: e.target.value })}
+//                         className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+//                         placeholder="Enter IFSC"
+//                       />
+//                     </div>
+
+//                     <div className="flex flex-col gap-1">
+//                       <label className="text-sm text-gray-700">Account Number</label>
+//                       <input
+//                         type="text"
+//                         value={bankFormData.account_number}
+//                         onChange={(e) => setBankFormData({ ...bankFormData, account_number: e.target.value })}
+//                         className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+//                         placeholder="Enter Account Number"
+//                       />
+//                     </div>
+
+//                     <div className="flex flex-col gap-1">
+//                       <label className="text-sm text-gray-700">Account Holder Name</label>
+//                       <input
+//                         type="text"
+//                         value={bankFormData.account_holder_name}
+//                         onChange={(e) => setBankFormData({ ...bankFormData, account_holder_name: e.target.value })}
+//                         className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+//                         placeholder="Enter Account Holder Name"
+//                       />
+//                     </div>
+
+//                     <div className="md:col-span-2 flex items-center justify-end gap-3 pt-2">
+//                       <button
+//                         type="button"
+//                         onClick={submitBank}
+//                         disabled={bankSubmitting}
+//                         className="inline-flex items-center rounded-md bg-green-600 px-4 py-2 text-white text-sm hover:bg-green-700 disabled:opacity-60"
+//                       >
+//                         {bankSubmitting ? "Saving..." : "Save Bank Details"}
+//                       </button>
+//                     </div>
+//                   </div>
+//                 </div>
+
+//                 <div className="flex justify-end gap-3">
+//                   <button
+//                     type="button"
+//                     onClick={() => setEditModalOpen(false)}
+//                     className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
+//                     disabled={editSubmitting}
+//                   >
+//                     Cancel
+//                   </button>
+//                   <button
+//                     type="submit"
+//                     disabled={editSubmitting}
+//                     className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50"
+//                   >
+//                     {editSubmitting ? "Saving..." : "Save Changes"}
+//                   </button>
+//                 </div>
+//               </form>
+//             </div>
+//           </div>
+//         </div>
+//       )}
+
+//       {/* Delete Confirmation Modal */}
+//       {deleteModalOpen && employeeToDelete && (
+//         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 ">
+//           <div className="flex items-center justify-center min-h-screen p-4">
+//             <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full">
+//               <div className="p-6">
+//                 <div className="flex items-center mb-4">
+//                   <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
+//                     <AlertTriangle className="w-6 h-6 text-red-600" />
+//                   </div>
+//                   <div>
+//                     <h3 className="text-lg font-semibold text-gray-900">Delete Employee</h3>
+//                     <p className="text-sm text-gray-500">This action cannot be undone.</p>
+//                   </div>
+//                 </div>
+//                 <p className="text-gray-700 mb-6">
+//                   Are you sure you want to delete{" "}
+//                   <span className="font-semibold">{`${employeeToDelete.first_name || ""} ${employeeToDelete.last_name || ""}`}</span>
+//                   ? This will permanently remove their record from the system.
+//                 </p>
+//                 <div className="flex justify-end space-x-3">
+//                   <button
+//                     onClick={() => setDeleteModalOpen(false)}
+//                     className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
+//                     disabled={deleteEmployeeMutation.isLoading}
+//                   >
+//                     Cancel
+//                   </button>
+//                   <button
+//                     onClick={confirmDelete}
+//                     disabled={deleteEmployeeMutation.isLoading}
+//                     className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50"
+//                   >
+//                     {deleteEmployeeMutation.isLoading ? "Deleting..." : "Delete"}
+//                   </button>
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       )}
+//     </div>
+//   )
+// }
+
+
+
+
+
+
+
+
+
 "use client"
 
-import React from "react"
+// Plain JavaScript React component (no TypeScript types), Tailwind only, no component/ui.
+// Mirrors the style and behavior of user-list.tsx but for employees.
 
-import { useState, useEffect, useMemo } from "react"
-import { z } from "zod"
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
-import { Search, Users, CheckCircle, Building, Plus, Download, Eye, Edit, Trash2, X, AlertTriangle } from "lucide-react"
-// import { useNavigate } from "react-router-dom"
-
-// const API_BASE_URL =
-//   (typeof process !== "undefined" && process.env && process.env.NEXT_PUBLIC_API_BASE_URL) ||
-//   (typeof import.meta !== "undefined" && import.meta.env && import.meta.env.VITE_API_BASE_URL) ||
-//   ""
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
-
-const getAuthHeaders = () => {
-  const token = sessionStorage.getItem("token")
-  const departmentId = sessionStorage.getItem("departmentId") || "1"
-  return {
-    Authorization: `Bearer ${token}`,
-    "X-Department-Id": departmentId,
-    "Content-Type": "application/json",
-  }
-}
-
-const fetchEmployees = async (page = 1, limit = 10, q = "") => {
-  const token = sessionStorage.getItem("token")
-  console.log("Token:", token)
-
-  const response = await fetch(`${API_BASE_URL}employees?limit=${limit}&page=${page}&q=${q}`, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "X-Department-Id": sessionStorage.getItem("departmentId") || "1",
-    },
-  })
-
-  console.log(`${API_BASE_URL}employees?limit=${limit}&page=${page}&q=${q}`)
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch employees")
-  }
-
-  return response.json()
-}
-
-const fetchEmployeeById = async (id) => {
-  const response = await fetch(`${API_BASE_URL}employees/${id}`, {
-    method: "GET",
-    headers: getAuthHeaders(),
-  })
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch employee")
-  }
-
-  return response.json()
-}
-
-const createEmployee = async (employeeData) => {
-  const response = await fetch(`${API_BASE_URL}employees`, {
-    method: "POST",
-    headers: getAuthHeaders(),
-    body: JSON.stringify(employeeData),
-  })
-
-  if (!response.ok) {
-    throw new Error("Failed to create employee")
-  }
-
-  return response.json()
-}
-
-const updateEmployee = async ({ id, data }) => {
-  const response = await fetch(`${API_BASE_URL}employees/${id}`, {
-    method: "PUT",
-    headers: getAuthHeaders(),
-    body: JSON.stringify(data),
-  })
-
-  if (!response.ok) {
-    throw new Error("Failed to update employee")
-  }
-
-  return response.json()
-}
-
-const updateEmployeeBank = async ({ id, data }) => {
-  const response = await fetch(`${API_BASE_URL}employees/${id}/bank`, {
-    method: "PUT",
-    headers: getAuthHeaders(),
-    body: JSON.stringify(data),
-  })
-
-  if (!response.ok) {
-    throw new Error("Failed to update employee bank details")
-  }
-
-  return response.json()
-}
-
-const updateEmployeeStatus = async ({ id, data }) => {
-  const response = await fetch(`${API_BASE_URL}employees/${id}/status`, {
-    method: "PUT",
-    headers: getAuthHeaders(),
-    body: JSON.stringify(data),
-  })
-
-  if (!response.ok) {
-    throw new Error("Failed to update employee status")
-  }
-
-  return response.json()
-}
-
-const linkUserToEmployee = async ({ id, userId }) => {
-  const response = await fetch(`${API_BASE_URL}employees/${id}/link-user`, {
-    method: "PATCH",
-    headers: getAuthHeaders(),
-    body: JSON.stringify({ user_id: userId }),
-  })
-
-  if (!response.ok) {
-    throw new Error("Failed to link user to employee")
-  }
-
-  return response.json()
-}
-
-const provisionLogin = async ({ id, role }) => {
-  const response = await fetch(`${API_BASE_URL}employees/${id}/provision-login`, {
-    method: "POST",
-    headers: getAuthHeaders(),
-    body: JSON.stringify({ role }),
-  })
-
-  if (!response.ok) {
-    throw new Error("Failed to provision login")
-  }
-
-  return response.json()
-}
-
-const deleteEmployee = async (id) => {
-  const response = await fetch(`${API_BASE_URL}employees/${id}`, {
-    method: "DELETE",
-    headers: getAuthHeaders(),
-  })
-
-  if (!response.ok) {
-    throw new Error("Failed to delete employee")
-  }
-
-  return response.json()
-}
-
-const employeeSchema = z.object({
-  id: z.number(),
-  name: z.string().min(1, "Name is required"),
-  email: z.string().email("Invalid email format"),
-  phone: z.string().min(10, "Phone number must be at least 10 digits"),
-  department: z.string().min(1, "Department is required"),
-  designation: z.string().min(1, "Designation is required"),
-  joinDate: z.string(),
-  salary: z.number().positive("Salary must be positive"),
-  salaryType: z.enum(["fixed", "hourly", "commission"]),
-  status: z.enum(["active", "inactive"]),
-  address: z.string().min(1, "Address is required"),
-  panNumber: z.string().min(10, "PAN number is required"),
-  aadhaarNumber: z.string().min(12, "Aadhaar number must be 12 digits"),
-  bankName: z.string().min(1, "Bank name is required"),
-  ifscCode: z.string().min(11, "IFSC code is required"),
-  accountNumber: z.string().min(1, "Account number is required"),
-})
+import { useEffect, useMemo, useState } from "react"
+import { Search, Users, CheckCircle, UserX, Plus, Download, Eye, Trash2, X, AlertTriangle, Edit } from "lucide-react"
 
 export default function EmployeeList() {
-  const queryClient = useQueryClient()
+  // const API_BASE_URL = "https://crmapi.technfest.com"
 
-  const handleAddEmployee = () => {
-    if (typeof window !== "undefined") {
-      window.location.href = "/employee/addemployee"
-    }
-  }
-
-  // Table state
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
+  // Server/table state
+  const [employees, setEmployees] = useState([])
+  const [total, setTotal] = useState(0)
+  const [pages, setPages] = useState(1)
   const [currentPage, setCurrentPage] = useState(1)
   const [entriesPerPage, setEntriesPerPage] = useState(10)
+
+  // UI state
   const [searchTerm, setSearchTerm] = useState("")
   const [departmentFilter, setDepartmentFilter] = useState("")
   const [statusFilter, setStatusFilter] = useState("")
   const [sortColumn, setSortColumn] = useState("")
   const [sortDirection, setSortDirection] = useState("asc")
+
   const [selectedEmployees, setSelectedEmployees] = useState([])
   const [selectAll, setSelectAll] = useState(false)
 
-  // Modal state
-  const [employeeModalOpen, setEmployeeModalOpen] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
+
+  // Modals
+  const [viewModalOpen, setViewModalOpen] = useState(false)
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
+  const [editModalOpen, setEditModalOpen] = useState(false)
+
   const [selectedEmployee, setSelectedEmployee] = useState(null)
   const [employeeToDelete, setEmployeeToDelete] = useState(null)
 
-  const [editModalOpen, setEditModalOpen] = useState(false)
-  const [editFormData, setEditFormData] = useState(null)
-  const [editSubmitting, setEditSubmitting] = useState(false)
-  const [editError, setEditError] = useState(null)
-
-  const [bankFormData, setBankFormData] = React.useState({
-    pan: "",
-    aadhaar: "",
-    bank_name: "",
-    ifsc: "",
-    account_number: "",
-    account_holder_name: "",
+  const [editFormData, setEditFormData] = useState({
+    first_name: "",
+    last_name: "",
+    personal_email: "",
+    phone: "",
+    department: "",
+    designation: "",
+    status: "",
+    join_date: "",
+    salary_type: "fixed",
+    monthly_salary: 0,
   })
-  const [bankSubmitting, setBankSubmitting] = React.useState(false)
-  const [bankError, setBankError] = React.useState(null)
+  const [editLoading, setEditLoading] = useState(false)
 
-  const {
-    data: employeesData,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["employees", currentPage, entriesPerPage, searchTerm],
-    queryFn: () => fetchEmployees(currentPage, entriesPerPage, searchTerm),
-    keepPreviousData: true,
-  })
+  // Fetch employees from API (server-side pagination)
+  useEffect(() => {
+    const fetchEmployees = async () => {
+      try {
+        setLoading(true)
+        setError("")
+        const token = typeof window !== "undefined" ? sessionStorage.getItem("token") : null
+        const deptId = typeof window !== "undefined" ? sessionStorage.getItem("departmentId") : null
 
-  console.log("[v0] employeesData:", employeesData)
+        const params = new URLSearchParams({
+          limit: String(entriesPerPage),
+          page: String(currentPage),
+          q: searchTerm || "",
+        })
 
-  const employees = useMemo(() => {
-    if (!employeesData) return []
-    if (Array.isArray(employeesData.rows)) return employeesData.rows
-    if (Array.isArray(employeesData.data)) return employeesData.data
-    if (Array.isArray(employeesData)) return employeesData
-    return []
-  }, [employeesData])
+        const res = await fetch(`${API_BASE_URL}employees?${params.toString()}`, {
+          method: "GET",
+          headers: {
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+            ...(deptId ? { "X-Department-Id": deptId } : {}),
+          },
+        })
 
-  const totalEmployees =
-    (employeesData && (employeesData.total ?? employeesData.count ?? employeesData?.pagination?.total)) ??
-    employees.length
+        if (!res.ok) throw new Error(`Error ${res.status}`)
 
-  const deleteEmployeeMutation = useMutation({
-    mutationFn: deleteEmployee,
-    onSuccess: () => {
-      queryClient.invalidateQueries(["employees"])
-      setDeleteModalOpen(false)
-      setEmployeeToDelete(null)
-    },
-    onError: (error) => {
-      console.error("Delete failed:", error)
-    },
-  })
+        const data = await res.json()
+        const rows = Array.isArray(data?.rows) ? data.rows : Array.isArray(data?.data) ? data.data : data || []
+        setEmployees(
+          rows.map((e) => ({
+            ...e,
+            first_name: e.first_name || e.name?.split(" ")?.[0] || "",
+            last_name: e.last_name || e.name?.split(" ")?.slice(1)?.join(" ") || "",
+            personal_email: e.personal_email || e.email || "",
+            department: e.department || e.department_name || e.department_id || "",
+            designation: e.designation || "",
+            join_date: e.join_date || e.joinDate || e.created_at || e.createdAt,
+            salary_type: e.salary_type || "fixed",
+            monthly_salary: typeof e.monthly_salary === "number" ? e.monthly_salary : Number(e.monthly_salary) || 0,
+            status: e.status || "inactive",
+          })),
+        )
+        setTotal(Number(data?.total ?? data?.count ?? data?.pagination?.total ?? rows.length))
+        setPages(Number(data?.pages ?? Math.max(1, Math.ceil((data?.total ?? rows.length) / entriesPerPage))))
+      } catch (err) {
+        setError(err.message || "Failed to fetch employees")
+      } finally {
+        setLoading(false)
+      }
+    }
 
-  const updateEmployeeMutation = useMutation({
-    mutationFn: updateEmployee,
-    onSuccess: () => {
-      queryClient.invalidateQueries(["employees"])
-    },
-    onError: (error) => {
-      console.error("Update failed:", error)
-    },
-  })
+    fetchEmployees()
+  }, [currentPage, entriesPerPage, searchTerm])
 
-  // Filter and sort employees
+  // Derived data
   const filteredEmployees = useMemo(() => {
-    const filtered = employees.filter((employee) => {
-      const matchesSearch =
-        employee.first_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        employee.last_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        employee.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        employee.designation?.toLowerCase().includes(searchTerm.toLowerCase())
-      const matchesDepartment = !departmentFilter || employee.department?.toLowerCase() === departmentFilter
-      const matchesStatus = !statusFilter || employee.status === statusFilter
-      return matchesSearch && matchesDepartment && matchesStatus
-    })
+    let list = [...employees]
 
-    // Sort employees
+    if (departmentFilter) {
+      list = list.filter(
+        (e) => String(e.department || "").toLowerCase() === String(departmentFilter || "").toLowerCase(),
+      )
+    }
+    if (statusFilter) {
+      list = list.filter((e) => e.status === statusFilter)
+    }
+
     if (sortColumn) {
-      filtered.sort((a, b) => {
-        let aValue, bValue
+      list.sort((a, b) => {
+        let aValue
+        let bValue
         switch (sortColumn) {
           case "name":
-            aValue = `${a.first_name} ${a.last_name}`.toLowerCase()
-            bValue = `${b.first_name} ${b.last_name}`.toLowerCase()
+            aValue = `${a.first_name || ""} ${a.last_name || ""}`.toLowerCase().trim()
+            bValue = `${b.first_name || ""} ${b.last_name || ""}`.toLowerCase().trim()
             break
           case "department":
-            aValue = a.department?.toLowerCase() || ""
-            bValue = b.department?.toLowerCase() || ""
+            aValue = String(a.department || "").toLowerCase()
+            bValue = String(b.department || "").toLowerCase()
             break
           case "designation":
-            aValue = a.designation?.toLowerCase() || ""
-            bValue = b.designation?.toLowerCase() || ""
+            aValue = String(a.designation || "").toLowerCase()
+            bValue = String(b.designation || "").toLowerCase()
             break
           case "joinDate":
-            aValue = new Date(a.join_date)
-            bValue = new Date(b.join_date)
+            aValue = new Date(a.join_date || 0)
+            bValue = new Date(b.join_date || 0)
             break
           case "salary":
-            aValue = a.monthly_salary || 0
-            bValue = b.monthly_salary || 0
+            aValue = Number(a.monthly_salary || 0)
+            bValue = Number(b.monthly_salary || 0)
             break
           case "status":
             aValue = a.status
             bValue = b.status
             break
           default:
-            return 0
+            aValue = 0
+            bValue = 0
         }
         if (aValue < bValue) return sortDirection === "asc" ? -1 : 1
         if (aValue > bValue) return sortDirection === "asc" ? 1 : -1
         return 0
       })
     }
-    return filtered
-  }, [employees, searchTerm, departmentFilter, statusFilter, sortColumn, sortDirection])
 
-  // Pagination
-  // If the API provides a total/count, treat it as server-side pagination and don't slice again.
-  const hasServerTotal =
-    employeesData &&
-    (typeof employeesData.total === "number" ||
-      typeof employeesData.count === "number" ||
-      (employeesData.pagination && typeof employeesData.pagination.total === "number"))
+    return list
+  }, [employees, departmentFilter, statusFilter, sortColumn, sortDirection])
 
-  const isServerPaginated = !!hasServerTotal
+  const activeEmployees = filteredEmployees.filter((e) => e.status === "active").length
+  const withoutDepartment = filteredEmployees.filter((e) => !e.department).length
+  const managersCount = filteredEmployees.filter((e) =>
+    String(e.designation || "")
+      .toLowerCase()
+      .includes("manager"),
+  ).length
 
-  const totalPages = Math.ceil(totalEmployees / entriesPerPage)
-  const startIndex = (currentPage - 1) * entriesPerPage
-  const endIndex = startIndex + entriesPerPage
+  const uniqueDepartments = useMemo(() => {
+    return Array.from(new Set(employees.map((e) => e.department).filter(Boolean))).sort((a, b) =>
+      String(a).localeCompare(String(b)),
+    )
+  }, [employees])
 
-  const currentEmployees = isServerPaginated ? filteredEmployees : filteredEmployees.slice(startIndex, endIndex)
-
-  // Helper functions
-  const formatSalary = (amount, type) => {
-    if (type === "fixed") {
-      return `₹${amount?.toLocaleString()}/month`
-    } else if (type === "hourly") {
-      return `₹${amount}/hour`
-    } else if (type === "commission") {
-      return `${amount}% commission`
-    }
-    return `₹${amount || 0}`
-  }
-
-  const handleSort = (column) => {
-    if (sortColumn === column) {
+  // Helpers
+  const handleSort = (col) => {
+    if (sortColumn === col) {
       setSortDirection(sortDirection === "asc" ? "desc" : "asc")
     } else {
-      setSortColumn(column)
+      setSortColumn(col)
       setSortDirection("asc")
     }
+  }
+
+  const initials = (first, last) => {
+    const name = `${first || ""} ${last || ""}`.trim()
+    if (!name) return "–"
+    return name
+      .split(" ")
+      .filter(Boolean)
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase()
+  }
+
+  const formatSalary = (amount, type) => {
+    const a = Number(amount || 0)
+    const base = a.toLocaleString("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 })
+    if (type === "hourly") return `${base}/hr`
+    if (type === "commission") return `${base} + commission`
+    return `${base}/mo`
   }
 
   const handleSelectAll = (checked) => {
     setSelectAll(checked)
     if (checked) {
-      setSelectedEmployees(currentEmployees.map((emp) => emp.id))
+      setSelectedEmployees(filteredEmployees.map((e) => e.id))
     } else {
       setSelectedEmployees([])
     }
   }
 
   const handleSelectEmployee = (id, checked) => {
-    if (checked) {
-      setSelectedEmployees([...selectedEmployees, id])
-    } else {
-      setSelectedEmployees(selectedEmployees.filter((empId) => empId !== id))
-      setSelectAll(false)
-    }
+    if (checked) setSelectedEmployees((prev) => [...prev, id])
+    else setSelectedEmployees((prev) => prev.filter((x) => x !== id))
   }
 
   const viewEmployee = (id) => {
-    const employee = employees.find((emp) => emp.id === id)
-    setSelectedEmployee(employee)
-    setEmployeeModalOpen(true)
+    const emp = employees.find((e) => e.id === id)
+    setSelectedEmployee(emp || null)
+    setViewModalOpen(true)
   }
 
-  const handleDeleteEmployee = (id) => {
-    const employee = employees.find((emp) => emp.id === id)
-    setEmployeeToDelete(employee)
-    setDeleteModalOpen(true)
-  }
-
-  const confirmDelete = () => {
-    if (employeeToDelete) {
-      deleteEmployeeMutation.mutate(employeeToDelete.id)
-    }
-  }
-
-  const exportEmployees = () => {
-    const csvContent =
-      "data:text/csv;charset=utf-8," +
-      "Name,Email,Phone,Department,Designation,Join Date,Salary,Status\n" +
-      filteredEmployees
-        .map(
-          (emp) =>
-            `"${emp.first_name} ${emp.last_name}","${emp.email}","${emp.phone}","${emp.department}","${emp.designation}","${emp.join_date}","${formatSalary(emp.monthly_salary, emp.salary_type)}","${emp.status}"`,
-        )
-        .join("\n")
-    const encodedUri = encodeURI(csvContent)
-    const link = document.createElement("a")
-    link.setAttribute("href", encodedUri)
-    link.setAttribute("download", "employees.csv")
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-  }
-
-  const toInputDate = (d) => {
-    if (!d) return ""
-    try {
-      const dt = new Date(d)
-      const tz = new Date(dt.getTime() - dt.getTimezoneOffset() * 60000)
-      return tz.toISOString().slice(0, 10)
-    } catch {
-      return String(d).slice(0, 10) || ""
-    }
-  }
-
-  const openEdit = (employee) => {
-    if (!employee) return
-    setEditError(null)
+  const openEdit = (emp) => {
+    setSelectedEmployee(emp)
     setEditFormData({
-      id: employee.id,
-      first_name: employee.first_name || "",
-      last_name: employee.last_name || "",
-      gender: employee.gender || "female",
-      dob: toInputDate(employee.dob),
-      phone: employee.phone || "",
-      personal_email: employee.personal_email || employee.email || "",
-      address: employee.address || "",
-      designation: employee.designation || "",
-      department_id: employee.department_id || "",
-      join_date: toInputDate(employee.join_date),
-      salary_type: employee.salary_type || "fixed",
-      monthly_salary: employee.monthly_salary || 0,
-      create_login: typeof employee.create_login === "boolean" ? employee.create_login : false,
-      role: employee.role || "agent",
+      first_name: emp.first_name || "",
+      last_name: emp.last_name || "",
+      personal_email: emp.personal_email || "",
+      phone: emp.phone || "",
+      department: emp.department || "",
+      designation: emp.designation || "",
+      status: emp.status || "inactive",
+      join_date: emp.join_date ? new Date(emp.join_date).toISOString().substring(0, 10) : "",
+      salary_type: emp.salary_type || "fixed",
+      monthly_salary: Number(emp.monthly_salary || 0),
     })
-
-    const bank = (employee && employee.bank) || {}
-    setBankFormData({
-      pan: bank.pan || employee.pan || "",
-      aadhaar: bank.aadhaar || employee.aadhaar || "",
-      bank_name: bank.bank_name || employee.bank_name || "",
-      ifsc: bank.ifsc || employee.ifsc || "",
-      account_number: bank.account_number || employee.account_number || "",
-      account_holder_name: bank.account_holder_name || employee.account_holder_name || "",
-    })
-
     setEditModalOpen(true)
   }
 
-  const submitBank = async (e) => {
-    e.preventDefault()
-    if (!editFormData || !editFormData.id) return
-    setBankSubmitting(true)
-    setBankError(null)
-    try {
-      const payload = {
-        pan: bankFormData.pan?.trim() || " ",
-        aadhaar: bankFormData.aadhaar?.trim() || " ",
-        bank_name: bankFormData.bank_name?.trim() || " ",
-        ifsc: bankFormData.ifsc?.trim() || " ",
-        account_number: bankFormData.account_number?.trim() || " ",
-        account_holder_name: bankFormData.account_holder_name?.trim() || " ",
-      }
-
-      const res = await fetch(`${API_BASE_URL}employees/${editFormData.id}/bank`, {
-        method: "PUT",
-        headers: getAuthHeaders(),
-        body: JSON.stringify(payload),
-      })
-      if (!res.ok) throw new Error("Failed to update employee bank details")
-      await res.json()
-
-      queryClient.invalidateQueries(["employees"])
-
-      const patch = {
-        ...payload,
-        bank: {
-          pan: payload.pan,
-          aadhaar: payload.aadhaar,
-          bank_name: payload.bank_name,
-          ifsc: payload.ifsc,
-          account_number: payload.account_number,
-          account_holder_name: payload.account_holder_name,
-        },
-      }
-      queryClient.setQueryData(["employees", currentPage, entriesPerPage, searchTerm], (prev) => {
-        if (!prev) return prev
-        // handle different API shapes: {rows: []}, {data: []}, or []
-        const updateArray = (arr) =>
-          Array.isArray(arr) ? arr.map((emp) => (emp.id === editFormData.id ? { ...emp, ...patch } : emp)) : arr
-
-        if (Array.isArray(prev)) {
-          return updateArray(prev)
-        } else if (Array.isArray(prev.rows)) {
-          return { ...prev, rows: updateArray(prev.rows) }
-        } else if (Array.isArray(prev.data)) {
-          return { ...prev, data: updateArray(prev.data) }
-        }
-        return prev
-      })
-
-      setEditFormData((prev) => (prev && prev.id === editFormData.id ? { ...prev, ...patch } : prev))
-      setSelectedEmployee?.((prev) => (prev && prev.id === editFormData.id ? { ...prev, ...patch } : prev))
-
-      setBankSubmitting(false)
-    } catch (err) {
-      setBankSubmitting(false)
-      setBankError(err?.message || "Failed to update employee bank details")
-    }
-  }
-
-  const handleEditChange = (e) => {
+  const handleEditInputChange = (e) => {
     const { name, value } = e.target
     setEditFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleEditCheckbox = (e) => {
-    const { name, checked } = e.target
-    setEditFormData((prev) => ({ ...prev, [name]: checked }))
-  }
-
-  const submitEdit = async (e) => {
+  const handleEditSubmit = async (e) => {
     e.preventDefault()
-    if (!editFormData || !editFormData.id) return
-    setEditSubmitting(true)
-    setEditError(null)
+    if (!selectedEmployee) return
     try {
+      setEditLoading(true)
+      const token = typeof window !== "undefined" ? sessionStorage.getItem("token") : null
+      const deptId = typeof window !== "undefined" ? sessionStorage.getItem("departmentId") : null
+
       const payload = {
-        first_name: editFormData.first_name?.trim(),
-        last_name: editFormData.last_name?.trim(),
-        gender: editFormData.gender,
-        dob: editFormData.dob || null,
-        phone: editFormData.phone?.trim(),
-        personal_email: editFormData.personal_email?.trim(),
-        address: editFormData.address?.trim(),
-        designation: editFormData.designation?.trim(),
-        department_id: editFormData.department_id ? Number(editFormData.department_id) : null,
-        join_date: editFormData.join_date || null,
-        salary_type: editFormData.salary_type,
-        monthly_salary: Number(editFormData.monthly_salary) || 0,
-        create_login: !!editFormData.create_login,
-        role: editFormData.role,
+        ...editFormData,
+        monthly_salary: Number(editFormData.monthly_salary || 0),
       }
 
-      updateEmployeeMutation.mutate(
-        { id: editFormData.id, data: payload },
-        {
-          onSuccess: () => {
-            setEditSubmitting(false)
-            setEditModalOpen(false)
-            setEditFormData(null)
-          },
-          onError: (err) => {
-            setEditSubmitting(false)
-            setEditError(err?.message || "Failed to update employee")
-          },
+      const res = await fetch(`${API_BASE_URL}employees/${selectedEmployee.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          ...(deptId ? { "X-Department-Id": deptId } : {}),
         },
-      )
+        body: JSON.stringify(payload),
+      })
+      if (!res.ok) throw new Error(`Error ${res.status}`)
+
+      setEmployees((prev) => prev.map((e) => (e.id === selectedEmployee.id ? { ...e, ...payload } : e)))
+      setEditModalOpen(false)
+      alert("Employee updated successfully!")
     } catch (err) {
-      setEditSubmitting(false)
-      setEditError(err?.message || "Failed to update employee")
+      alert(`Error updating employee: ${err.message || err}`)
+    } finally {
+      setEditLoading(false)
     }
   }
 
-  // Reset page when filters change
-  useEffect(() => {
-    setCurrentPage(1)
-  }, [searchTerm, departmentFilter, statusFilter])
-
-  if (isLoading) {
-    return (
-      <div className="bg-gradient-to-br from-indigo-50 via-white to-cyan-50 min-h-screen">
-        <main className="p-6 ml-4 mr-4">
-          <div className="flex items-center justify-center h-64">
-            <div className="text-lg text-gray-600">Loading employees...</div>
-          </div>
-        </main>
-      </div>
-    )
+  const handleDeleteEmployee = (id) => {
+    const emp = employees.find((e) => e.id === id)
+    setEmployeeToDelete(emp || null)
+    setDeleteModalOpen(true)
   }
 
-  if (error) {
-    return (
-      <div className="bg-gradient-to-br from-indigo-50 via-white to-cyan-50 min-h-screen">
-        <main className="p-6 ml-4 mr-4">
-          <div className="flex items-center justify-center h-64">
-            <div className="text-lg text-red-600">Error loading employees: {error.message}</div>
-          </div>
-        </main>
-      </div>
-    )
+  const confirmDelete = () => {
+    if (!employeeToDelete) return
+    setEmployees((prev) => prev.filter((e) => e.id !== employeeToDelete.id))
+    setDeleteModalOpen(false)
+  }
+
+  const handleAddEmployee = () => {
+    if (typeof window !== "undefined") window.location.href = "/employee/addemployee"
   }
 
   return (
     <div className="bg-gradient-to-br from-indigo-50 via-white to-cyan-50 min-h-screen">
       {/* Main Content Area */}
       <main className="p-6 ml-4 mr-4">
-        {/* Page Title */}
-        <div className="">
-          {/* <h1 className="text-3xl font-bold text-gray-900">Employee Management</h1> */}
-          {/* <p className="text-gray-600 mt-2">Manage your team members and their information</p> */}
-        </div>
-
-        {/* Stats Cards */}
+        {/* Stat Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-3">
           {/* Total Employees */}
           <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Total Employees</p>
-                <p className="text-3xl font-bold text-gray-900">{totalEmployees}</p>
+                <p className="text-3xl font-bold text-gray-900">{total}</p>
                 <p className="text-sm text-green-600 mt-1">
                   <span className="font-medium">+8</span> this month
                 </p>
@@ -2852,12 +3987,11 @@ export default function EmployeeList() {
           <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Active</p>
-                <p className="text-3xl font-bold text-gray-900">
-                  {employees.filter((emp) => emp.status === "active").length}
-                </p>
+                <p className="text-sm font-medium text-gray-600">Active Employees</p>
+                <p className="text-3xl font-bold text-gray-900">{activeEmployees}</p>
                 <p className="text-sm text-green-600 mt-1">
-                  <span className="font-medium">91%</span> active rate
+                  <span className="font-medium">{total ? Math.round((activeEmployees / total) * 100) : 0}%</span> active
+                  rate
                 </p>
               </div>
               <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center">
@@ -2866,43 +4000,42 @@ export default function EmployeeList() {
             </div>
           </div>
 
-          {/* Departments */}
+          {/* Without Department */}
           <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Departments</p>
-                <p className="text-3xl font-bold text-gray-900">8</p>
-                <p className="text-sm text-blue-600 mt-1">
-                  <span className="font-medium">Engineering</span> largest
+                <p className="text-sm font-medium text-gray-600">Without Department</p>
+                <p className="text-3xl font-bold text-gray-900">{withoutDepartment}</p>
+                <p className="text-sm text-orange-600 mt-1">
+                  <span className="font-medium">Needs assignment</span>
                 </p>
               </div>
-              <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
-                <Building className="w-6 h-6 text-white" />
+              <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl flex items-center justify-center">
+                <UserX className="w-6 h-6 text-white" />
               </div>
             </div>
           </div>
 
-          {/* New Hires */}
+          {/* Managers */}
           <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">New Hires</p>
-                <p className="text-3xl font-bold text-gray-900">12</p>
-                <p className="text-sm text-orange-600 mt-1">
-                  <span className="font-medium">This month</span>
+                <p className="text-sm font-medium text-gray-600">Managers</p>
+                <p className="text-3xl font-bold text-gray-900">{managersCount}</p>
+                <p className="text-sm text-purple-600 mt-1">
+                  <span className="font-medium">Leadership</span>
                 </p>
               </div>
-              <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl flex items-center justify-center">
+              <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
                 <Users className="w-6 h-6 text-white" />
               </div>
             </div>
           </div>
         </div>
 
-        {/* Filters and Actions */}
+        {/* Search, Filters, Actions */}
         <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-3">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-            {/* Search and Filters */}
             <div className="flex flex-col sm:flex-row gap-4 flex-1">
               {/* Search */}
               <div className="relative flex-1 max-w-md">
@@ -2923,14 +4056,11 @@ export default function EmployeeList() {
                 className="px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
               >
                 <option value="">All Departments</option>
-                <option value="engineering">Engineering</option>
-                <option value="marketing">Marketing</option>
-                <option value="sales">Sales</option>
-                <option value="hr">Human Resources</option>
-                <option value="finance">Finance</option>
-                <option value="operations">Operations</option>
-                <option value="design">Design</option>
-                <option value="support">Customer Support</option>
+                {uniqueDepartments.map((dep) => (
+                  <option key={String(dep)} value={String(dep)}>
+                    {String(dep)}
+                  </option>
+                ))}
               </select>
 
               {/* Status Filter */}
@@ -2948,15 +4078,15 @@ export default function EmployeeList() {
             {/* Actions */}
             <div className="flex gap-3">
               <button
-                onClick={exportEmployees}
-                className="px-4 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 font-medium"
+                onClick={() => console.log("Export employees")}
+                className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium"
               >
                 <Download className="inline-block w-5 h-5 mr-2" />
                 Export
               </button>
               <button
                 onClick={handleAddEmployee}
-                className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-cyan-600 text-white rounded-xl hover:from-indigo-700 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 font-medium shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
+                className="px-6 py-2 bg-gradient-to-r from-indigo-600 to-cyan-600 text-white rounded-lg hover:from-indigo-700 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 font-medium shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
               >
                 <Plus className="inline-block w-5 h-5 mr-2" />
                 Add Employee
@@ -2965,7 +4095,7 @@ export default function EmployeeList() {
           </div>
         </div>
 
-        {/* Employee Table */}
+        {/* Table */}
         <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 border border-gray-100 overflow-hidden">
           <div className="p-6 border-b border-gray-100">
             <div className="flex items-center justify-between">
@@ -2974,7 +4104,10 @@ export default function EmployeeList() {
                 <span>Showing</span>
                 <select
                   value={entriesPerPage}
-                  onChange={(e) => setEntriesPerPage(Number.parseInt(e.target.value))}
+                  onChange={(e) => {
+                    setEntriesPerPage(Number.parseInt(e.target.value, 10))
+                    setCurrentPage(1)
+                  }}
                   className="border border-gray-300 rounded px-2 py-1 text-sm"
                 >
                   <option value="10">10</option>
@@ -2987,74 +4120,76 @@ export default function EmployeeList() {
             </div>
           </div>
 
-          <div className="w-full overflow-x-auto">
-            <table className="min-w-full table-auto divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    <input
-                      type="checkbox"
-                      checked={selectAll}
-                      onChange={(e) => handleSelectAll(e.target.checked)}
-                      className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                    />
-                  </th>
-                  <th
-                    onClick={() => handleSort("name")}
-                    className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-                  >
-                    Employee
-                  </th>
-                  <th
-                    onClick={() => handleSort("department")}
-                    className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-                  >
-                    Department
-                  </th>
-                  <th
-                    onClick={() => handleSort("designation")}
-                    className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-                  >
-                    Designation
-                  </th>
-                  <th
-                    onClick={() => handleSort("joinDate")}
-                    className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-                  >
-                    Join Date
-                  </th>
-                  <th
-                    onClick={() => handleSort("salary")}
-                    className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-                  >
-                    Salary
-                  </th>
-                  <th
-                    onClick={() => handleSort("status")}
-                    className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-                  >
-                    Status
-                  </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[120px]">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {employees.length === 0 ? (
+          {loading ? (
+            <div className="p-8 text-center">
+              <p className="text-gray-500">Loading...</p>
+            </div>
+          ) : error ? (
+            <div className="p-8 text-center">
+              <p className="text-red-500">{error}</p>
+            </div>
+          ) : (
+            <div className="w-full overflow-x-auto">
+              <table className="min-w-full table-auto divide-y divide-gray-200">
+                <thead className="bg-gray-50">
                   <tr>
-                    <td colSpan={8} className="px-4 py-10 text-center text-sm text-gray-500">
-                      No employees found.
-                    </td>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <input
+                        type="checkbox"
+                        checked={selectAll}
+                        onChange={(e) => handleSelectAll(e.target.checked)}
+                        className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                      />
+                    </th>
+                    <th
+                      onClick={() => handleSort("name")}
+                      className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                    >
+                      Employee
+                    </th>
+                    <th
+                      onClick={() => handleSort("department")}
+                      className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                    >
+                      Department
+                    </th>
+                    <th
+                      onClick={() => handleSort("designation")}
+                      className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                    >
+                      Designation
+                    </th>
+                    <th
+                      onClick={() => handleSort("joinDate")}
+                      className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                    >
+                      Join Date
+                    </th>
+                    <th
+                      onClick={() => handleSort("salary")}
+                      className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                    >
+                      Salary
+                    </th>
+                    <th
+                      onClick={() => handleSort("status")}
+                      className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                    >
+                      Status
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
+                      Actions
+                    </th>
                   </tr>
-                ) : (
-                  currentEmployees.map((employee) => (
-                    <tr key={employee.id} className="hover:bg-gray-50 transition-colors duration-200">
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {filteredEmployees.map((emp) => (
+                    <tr key={emp.id} className="hover:bg-gray-50 transition-colors duration-200">
                       <td className="px-4 py-4">
                         <input
                           type="checkbox"
-                          checked={selectedEmployees.includes(employee.id)}
-                          onChange={(e) => handleSelectEmployee(employee.id, e.target.checked)}
+                          checked={selectedEmployees.includes(emp.id)}
+                          onChange={(e) => handleSelectEmployee(emp.id, e.target.checked)}
                           className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                         />
                       </td>
@@ -3063,33 +4198,27 @@ export default function EmployeeList() {
                           <div className="h-10 w-10 flex-shrink-0">
                             <div className="h-10 w-10 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 flex items-center justify-center">
                               <span className="text-white font-medium text-sm">
-                                {`${employee.first_name || ""} ${employee.last_name || ""}`
-                                  .trim()
-                                  .split(" ")
-                                  .filter(Boolean)
-                                  .map((n) => n[0])
-                                  .join("")
-                                  .toUpperCase() || "–"}
+                                {initials(emp.first_name, emp.last_name)}
                               </span>
                             </div>
                           </div>
                           <div className="ml-4">
                             <div className="text-sm font-medium text-gray-900">
-                              {`${employee.first_name || ""} ${employee.last_name || ""}`.trim() || "Unnamed"}
+                              {`${emp.first_name || ""} ${emp.last_name || ""}`.trim() || "Unnamed"}
                             </div>
-                            <div className="text-sm text-gray-500">{employee.personal_email || "—"}</div>
+                            <div className="text-sm text-gray-500">{emp.personal_email || "—"}</div>
                           </div>
                         </div>
                       </td>
                       <td className="px-4 py-4">
                         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                          {employee.department || employee.department_name || employee.department_id || "—"}
+                          {emp.department || "—"}
                         </span>
                       </td>
-                      <td className="px-4 py-4 text-sm text-gray-900">{employee.designation}</td>
+                      <td className="px-4 py-4 text-sm text-gray-900">{emp.designation || "—"}</td>
                       <td className="px-4 py-4 text-sm text-gray-500">
-                        {employee.join_date
-                          ? new Date(employee.join_date).toLocaleDateString("en-US", {
+                        {emp.join_date
+                          ? new Date(emp.join_date).toLocaleDateString("en-US", {
                               year: "numeric",
                               month: "short",
                               day: "numeric",
@@ -3097,35 +4226,35 @@ export default function EmployeeList() {
                           : "N/A"}
                       </td>
                       <td className="px-4 py-4 text-sm font-medium text-gray-900">
-                        {formatSalary(employee.monthly_salary, employee.salary_type)}
+                        {formatSalary(emp.monthly_salary, emp.salary_type)}
                       </td>
                       <td className="px-4 py-4">
                         <span
                           className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                            employee.status === "active" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+                            emp.status === "active" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
                           }`}
                         >
-                          {employee.status?.charAt(0).toUpperCase() + employee.status?.slice(1)}
+                          {emp.status ? emp.status.charAt(0).toUpperCase() + emp.status.slice(1) : "Unknown"}
                         </span>
                       </td>
                       <td className="px-4 py-4 text-sm font-medium">
                         <div className="flex items-center space-x-2 flex-wrap">
                           <button
-                            onClick={() => viewEmployee(employee.id)}
+                            onClick={() => viewEmployee(emp.id)}
                             className="text-indigo-600 hover:text-indigo-900 p-1 rounded hover:bg-indigo-50"
                             title="View Details"
                           >
                             <Eye className="w-4 h-4" />
                           </button>
                           <button
-                            onClick={() => openEdit(employee)}
+                            onClick={() => openEdit(emp)}
                             className="text-green-600 hover:text-green-900 p-1 rounded hover:bg-green-50"
                             title="Edit"
                           >
                             <Edit className="w-4 h-4" />
                           </button>
                           <button
-                            onClick={() => handleDeleteEmployee(employee.id)}
+                            onClick={() => handleDeleteEmployee(emp.id)}
                             className="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50"
                             title="Delete"
                           >
@@ -3134,49 +4263,39 @@ export default function EmployeeList() {
                         </div>
                       </td>
                     </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
-
-          {/* Pagination */}
-          <div className="bg-white px-6 py-4 border-t border-gray-200">
+                  ))}
+                  {filteredEmployees.length === 0 && (
+                    <tr>
+                      <td colSpan={8} className="px-4 py-10 text-center text-sm text-gray-500">
+                        No employees found.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          )}
+          <div className="px-6 py-4 border-t border-gray-100">
             <div className="flex items-center justify-between">
-              <div className="text-sm text-gray-700">
-                Showing <span>{startIndex + 1}</span> to <span>{Math.min(endIndex, totalEmployees)}</span> of{" "}
-                <span>{totalEmployees}</span> entries
+              <div className="text-sm text-gray-500">
+                Showing {(currentPage - 1) * entriesPerPage + 1} to {Math.min(currentPage * entriesPerPage, total)} of{" "}
+                {total} results
               </div>
-              <div className="flex items-center space-x-2">
+              <div className="flex gap-2">
                 <button
-                  onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                   disabled={currentPage === 1}
-                  className="px-3 py-2 border border-gray-300 text-gray-500 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                  className="px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Previous
                 </button>
-                <div className="flex space-x-1">
-                  {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-                    const page = i + 1
-                    return (
-                      <button
-                        key={page}
-                        onClick={() => setCurrentPage(page)}
-                        className={`px-3 py-2 border rounded-lg ${
-                          page === currentPage
-                            ? "bg-indigo-600 text-white border-indigo-600"
-                            : "border-gray-300 text-gray-500 hover:bg-gray-50"
-                        }`}
-                      >
-                        {page}
-                      </button>
-                    )
-                  })}
-                </div>
+                <span className="px-3 py-2 text-sm text-gray-700">
+                  Page {currentPage} of {pages}
+                </span>
                 <button
-                  onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
-                  disabled={currentPage === totalPages}
-                  className="px-3 py-2 border border-gray-300 text-gray-500 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={currentPage === pages}
+                  onClick={() => setCurrentPage((p) => Math.min(pages, p + 1))}
+                  className="px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Next
                 </button>
@@ -3186,469 +4305,306 @@ export default function EmployeeList() {
         </div>
       </main>
 
-      {/* Employee Details Modal */}
-      {employeeModalOpen && selectedEmployee && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 ">
-          <div className="flex items-center justify-center min-h-screen p-4">
-            <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-              <div className="p-6 border-b border-gray-200">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-xl font-semibold text-gray-900">Employee Details</h3>
-                  <button onClick={() => setEmployeeModalOpen(false)} className="text-gray-400 hover:text-gray-600">
-                    <X className="w-6 h-6" />
-                  </button>
-                </div>
-              </div>
-              <div className="p-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-4">
-                    <h4 className="text-lg font-semibold text-gray-900 border-b pb-2">Personal Information</h4>
-                    <div className="space-y-3">
-                      <div>
-                        <label className="text-sm font-medium text-gray-500">Full Name</label>
-                        <p className="text-gray-900">{`${selectedEmployee.first_name || ""} ${selectedEmployee.last_name || ""}`}</p>
-                      </div>
-                      <div>
-                        <label className="text-sm font-medium text-gray-500">Email</label>
-                        <p className="text-gray-900">{selectedEmployee.email}</p>
-                      </div>
-                      <div>
-                        <label className="text-sm font-medium text-gray-500">Phone</label>
-                        <p className="text-gray-900">{selectedEmployee.phone}</p>
-                      </div>
-                      <div>
-                        <label className="text-sm font-medium text-gray-500">Address</label>
-                        <p className="text-gray-900">{selectedEmployee.address}</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="space-y-4">
-                    <h4 className="text-lg font-semibold text-gray-900 border-b pb-2">Job Information</h4>
-                    <div className="space-y-3">
-                      <div>
-                        <label className="text-sm font-medium text-gray-500">Department</label>
-                        <p className="text-gray-900">{selectedEmployee.department}</p>
-                      </div>
-                      <div>
-                        <label className="text-sm font-medium text-gray-500">Designation</label>
-                        <p className="text-gray-900">{selectedEmployee.designation}</p>
-                      </div>
-                      <div>
-                        <label className="text-sm font-medium text-gray-500">Join Date</label>
-                        <p className="text-gray-900">
-                          {selectedEmployee.join_date
-                            ? new Date(selectedEmployee.join_date).toLocaleDateString()
-                            : "N/A"}
-                        </p>
-                      </div>
-                      <div>
-                        <label className="text-sm font-medium text-gray-500">Salary</label>
-                        <p className="text-gray-900">
-                          {formatSalary(selectedEmployee.monthly_salary, selectedEmployee.salary_type)}
-                        </p>
-                      </div>
-                      <div>
-                        <label className="text-sm font-medium text-gray-500">Status</label>
-                        <span
-                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                            selectedEmployee.status === "active"
-                              ? "bg-green-100 text-green-800"
-                              : "bg-red-100 text-red-800"
-                          }`}
-                        >
-                          {selectedEmployee.status?.charAt(0).toUpperCase() + selectedEmployee.status?.slice(1)}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="md:col-span-2 space-y-4">
-                    <h4 className="text-lg font-semibold text-gray-900 border-b pb-2">Bank Details</h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="text-sm font-medium text-gray-500">PAN Number</label>
-                        <p className="text-gray-900">{selectedEmployee.pan || "N/A"}</p>
-                      </div>
-                      <div>
-                        <label className="text-sm font-medium text-gray-500">Aadhaar Number</label>
-                        <p className="text-gray-900">{selectedEmployee.aadhaar || "N/A"}</p>
-                      </div>
-                      <div>
-                        <label className="text-sm font-medium text-gray-500">Bank Name</label>
-                        <p className="text-gray-900">{selectedEmployee.bank_name || "N/A"}</p>
-                      </div>
-                      <div>
-                        <label className="text-sm font-medium text-gray-500">IFSC Code</label>
-                        <p className="text-gray-900">{selectedEmployee.ifsc || "N/A"}</p>
-                      </div>
-                      <div className="md:col-span-2">
-                        <label className="text-sm font-medium text-gray-500">Account Number</label>
-                        <p className="text-gray-900">{selectedEmployee.account_number || "N/A"}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-6 flex justify-end space-x-3">
-                  <button
-                    onClick={() => {
-                      setEmployeeModalOpen(false)
-                      openEdit(selectedEmployee)
-                    }}
-                    className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
-                  >
-                    Edit Employee
-                  </button>
-                  <button
-                    onClick={() => setEmployeeModalOpen(false)}
-                    className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
-                  >
-                    Close
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {editModalOpen && editFormData && (
+      {/* View Modal */}
+      {viewModalOpen && selectedEmployee && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30">
-          <div className="flex items-center justify-center min-h-screen p-4 w-full">
-            <div className="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
-              <div className="p-6 border-b border-gray-200 flex items-center justify-between">
-                <h3 className="text-xl font-semibold text-gray-900">Edit Employee</h3>
+          <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6 border-b border-gray-200">
+              <div className="flex items-center justify-between">
+                <h3 className="text-xl font-semibold text-gray-900">Employee Details</h3>
                 <button
-                  onClick={() => setEditModalOpen(false)}
-                  className="text-gray-400 hover:text-gray-600"
-                  aria-label="Close edit dialog"
+                  onClick={() => setViewModalOpen(false)}
+                  className="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100"
                 >
                   <X className="w-6 h-6" />
                 </button>
               </div>
-
-              <form onSubmit={submitEdit} className="p-6 space-y-6">
-                {editError && (
-                  <div className="rounded-lg border border-red-200 bg-red-50 text-red-700 px-3 py-2 text-sm">
-                    {editError}
-                  </div>
-                )}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">First Name</label>
-                    <input
-                      type="text"
-                      name="first_name"
-                      value={editFormData.first_name}
-                      onChange={handleEditChange}
-                      className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Last Name</label>
-                    <input
-                      type="text"
-                      name="last_name"
-                      value={editFormData.last_name}
-                      onChange={handleEditChange}
-                      className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Gender</label>
-                    <select
-                      name="gender"
-                      value={editFormData.gender}
-                      onChange={handleEditChange}
-                      className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    >
-                      <option value="female">Female</option>
-                      <option value="male">Male</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Date of Birth</label>
-                    <input
-                      type="date"
-                      name="dob"
-                      value={editFormData.dob || ""}
-                      onChange={handleEditChange}
-                      className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Phone</label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={editFormData.phone}
-                      onChange={handleEditChange}
-                      className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Personal Email</label>
-                    <input
-                      type="email"
-                      name="personal_email"
-                      value={editFormData.personal_email}
-                      onChange={handleEditChange}
-                      className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    />
-                  </div>
-
-                  <div className="md:col-span-2">
-                    <label className="block text-sm font-medium text-gray-700">Address</label>
-                    <textarea
-                      name="address"
-                      value={editFormData.address}
-                      onChange={handleEditChange}
-                      rows={3}
-                      className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Designation</label>
-                    <input
-                      type="text"
-                      name="designation"
-                      value={editFormData.designation}
-                      onChange={handleEditChange}
-                      className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Department ID</label>
-                    <input
-                      type="number"
-                      name="department_id"
-                      value={editFormData.department_id}
-                      onChange={handleEditChange}
-                      className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                      min="1"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Join Date</label>
-                    <input
-                      type="date"
-                      name="join_date"
-                      value={editFormData.join_date || ""}
-                      onChange={handleEditChange}
-                      className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Salary Type</label>
-                    <select
-                      name="salary_type"
-                      value={editFormData.salary_type}
-                      onChange={handleEditChange}
-                      className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    >
-                      <option value="fixed">Fixed</option>
-                      <option value="hourly">Hourly</option>
-                      <option value="commission">Commission</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Monthly Salary</label>
-                    <input
-                      type="number"
-                      name="monthly_salary"
-                      value={editFormData.monthly_salary}
-                      onChange={handleEditChange}
-                      className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                      min="0"
-                      step="1"
-                    />
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <input
-                      id="create_login"
-                      type="checkbox"
-                      name="create_login"
-                      checked={!!editFormData.create_login}
-                      onChange={handleEditCheckbox}
-                      className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                    />
-                    <label htmlFor="create_login" className="text-sm font-medium text-gray-700">
-                      Create Login
-                    </label>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Role</label>
-                    <select
-                      name="role"
-                      value={editFormData.role}
-                      onChange={handleEditChange}
-                      className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    >
-                      <option value="agent">Agent</option>
-                      <option value="manager">Manager</option>
-                      <option value="admin">Admin</option>
-                    </select>
-                  </div>
-                </div>
-
-                {/* Bank Details Section */}
-                <div className="mt-6 border-t pt-6">
-                  <h3 className="text-base font-medium text-gray-900">Bank Details</h3>
-                  {bankError ? <p className="mt-2 text-sm text-red-600">{bankError}</p> : null}
-
-                  <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="flex flex-col gap-1">
-                      <label className="text-sm text-gray-700">PAN</label>
-                      <input
-                        type="text"
-                        value={bankFormData.pan}
-                        onChange={(e) => setBankFormData({ ...bankFormData, pan: e.target.value })}
-                        className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
-                        placeholder="Enter PAN"
-                      />
+            </div>
+            <div className="p-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-4">
+                  <h4 className="text-lg font-semibold text-gray-900 border-b pb-2">Personal Information</h4>
+                  <div className="space-y-3">
+                    <div>
+                      <label className="text-sm font-medium text-gray-500">Full Name</label>
+                      <p className="text-gray-900">
+                        {`${selectedEmployee.first_name || ""} ${selectedEmployee.last_name || ""}`.trim() || "—"}
+                      </p>
                     </div>
-
-                    <div className="flex flex-col gap-1">
-                      <label className="text-sm text-gray-700">Aadhaar</label>
-                      <input
-                        type="text"
-                        value={bankFormData.aadhaar}
-                        onChange={(e) => setBankFormData({ ...bankFormData, aadhaar: e.target.value })}
-                        className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
-                        placeholder="Enter Aadhaar"
-                      />
+                    <div>
+                      <label className="text-sm font-medium text-gray-500">Email</label>
+                      <p className="text-gray-900">{selectedEmployee.personal_email || "—"}</p>
                     </div>
-
-                    <div className="flex flex-col gap-1">
-                      <label className="text-sm text-gray-700">Bank Name</label>
-                      <input
-                        type="text"
-                        value={bankFormData.bank_name}
-                        onChange={(e) => setBankFormData({ ...bankFormData, bank_name: e.target.value })}
-                        className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
-                        placeholder="Enter Bank Name"
-                      />
+                    <div>
+                      <label className="text-sm font-medium text-gray-500">Phone</label>
+                      <p className="text-gray-900">{selectedEmployee.phone || "—"}</p>
                     </div>
-
-                    <div className="flex flex-col gap-1">
-                      <label className="text-sm text-gray-700">IFSC</label>
-                      <input
-                        type="text"
-                        value={bankFormData.ifsc}
-                        onChange={(e) => setBankFormData({ ...bankFormData, ifsc: e.target.value })}
-                        className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
-                        placeholder="Enter IFSC"
-                      />
-                    </div>
-
-                    <div className="flex flex-col gap-1">
-                      <label className="text-sm text-gray-700">Account Number</label>
-                      <input
-                        type="text"
-                        value={bankFormData.account_number}
-                        onChange={(e) => setBankFormData({ ...bankFormData, account_number: e.target.value })}
-                        className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
-                        placeholder="Enter Account Number"
-                      />
-                    </div>
-
-                    <div className="flex flex-col gap-1">
-                      <label className="text-sm text-gray-700">Account Holder Name</label>
-                      <input
-                        type="text"
-                        value={bankFormData.account_holder_name}
-                        onChange={(e) => setBankFormData({ ...bankFormData, account_holder_name: e.target.value })}
-                        className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
-                        placeholder="Enter Account Holder Name"
-                      />
-                    </div>
-
-                    <div className="md:col-span-2 flex items-center justify-end gap-3 pt-2">
-                      <button
-                        type="button"
-                        onClick={submitBank}
-                        disabled={bankSubmitting}
-                        className="inline-flex items-center rounded-md bg-green-600 px-4 py-2 text-white text-sm hover:bg-green-700 disabled:opacity-60"
-                      >
-                        {bankSubmitting ? "Saving..." : "Save Bank Details"}
-                      </button>
+                    <div>
+                      <label className="text-sm font-medium text-gray-500">Address</label>
+                      <p className="text-gray-900">{selectedEmployee.address || "—"}</p>
                     </div>
                   </div>
                 </div>
-
-                <div className="flex justify-end gap-3">
-                  <button
-                    type="button"
-                    onClick={() => setEditModalOpen(false)}
-                    className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
-                    disabled={editSubmitting}
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    disabled={editSubmitting}
-                    className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50"
-                  >
-                    {editSubmitting ? "Saving..." : "Save Changes"}
-                  </button>
+                <div className="space-y-4">
+                  <h4 className="text-lg font-semibold text-gray-900 border-b pb-2">Job Information</h4>
+                  <div className="space-y-3">
+                    <div>
+                      <label className="text-sm font-medium text-gray-500">Department</label>
+                      <p className="text-gray-900">{selectedEmployee.department || "—"}</p>
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium text-gray-500">Designation</label>
+                      <p className="text-gray-900">{selectedEmployee.designation || "—"}</p>
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium text-gray-500">Status</label>
+                      <p className="text-gray-900">{selectedEmployee.status || "—"}</p>
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium text-gray-500">Join Date</label>
+                      <p className="text-gray-900">
+                        {selectedEmployee.join_date ? new Date(selectedEmployee.join_date).toLocaleDateString() : "—"}
+                      </p>
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium text-gray-500">Salary</label>
+                      <p className="text-gray-900">
+                        {formatSalary(selectedEmployee.monthly_salary, selectedEmployee.salary_type)}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>
       )}
 
-      {/* Delete Confirmation Modal */}
+      {/* Delete Modal */}
       {deleteModalOpen && employeeToDelete && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 ">
-          <div className="flex items-center justify-center min-h-screen p-4">
-            <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full">
-              <div className="p-6">
-                <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
-                    <AlertTriangle className="w-6 h-6 text-red-600" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900">Delete Employee</h3>
-                    <p className="text-sm text-gray-500">This action cannot be undone.</p>
-                  </div>
-                </div>
-                <p className="text-gray-700 mb-6">
-                  Are you sure you want to delete{" "}
-                  <span className="font-semibold">{`${employeeToDelete.first_name || ""} ${employeeToDelete.last_name || ""}`}</span>
-                  ? This will permanently remove their record from the system.
-                </p>
-                <div className="flex justify-end space-x-3">
-                  <button
-                    onClick={() => setDeleteModalOpen(false)}
-                    className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
-                    disabled={deleteEmployeeMutation.isLoading}
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    onClick={confirmDelete}
-                    disabled={deleteEmployeeMutation.isLoading}
-                    className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50"
-                  >
-                    {deleteEmployeeMutation.isLoading ? "Deleting..." : "Delete"}
-                  </button>
-                </div>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full">
+            <div className="p-6">
+              <div className="flex items-center justify-center w-12 h-12 mx-auto mb-4 bg-red-100 rounded-full">
+                <AlertTriangle className="w-6 h-6 text-red-600" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 text-center mb-2">Delete Employee</h3>
+              <p className="text-gray-600 text-center mb-6">
+                Are you sure you want to delete{" "}
+                {`${employeeToDelete.first_name || ""} ${employeeToDelete.last_name || ""}`.trim() || "this employee"}?
+                This action cannot be undone.
+              </p>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setDeleteModalOpen(false)}
+                  className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={confirmDelete}
+                  className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 font-medium"
+                >
+                  Delete
+                </button>
               </div>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Edit Modal */}
+      {editModalOpen && selectedEmployee && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6 border-b border-gray-200">
+              <div className="flex items-center justify-between">
+                <h3 className="text-xl font-semibold text-gray-900">Edit Employee</h3>
+                <button
+                  onClick={() => setEditModalOpen(false)}
+                  className="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+            </div>
+            <form onSubmit={handleEditSubmit} className="p-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="edit-first-name" className="block text-sm font-medium text-gray-700 mb-2">
+                    First Name <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="edit-first-name"
+                    name="first_name"
+                    value={editFormData.first_name}
+                    onChange={handleEditInputChange}
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    placeholder="Enter first name"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="edit-last-name" className="block text-sm font-medium text-gray-700 mb-2">
+                    Last Name <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="edit-last-name"
+                    name="last_name"
+                    value={editFormData.last_name}
+                    onChange={handleEditInputChange}
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    placeholder="Enter last name"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="edit-email" className="block text-sm font-medium text-gray-700 mb-2">
+                    Email <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    id="edit-email"
+                    name="personal_email"
+                    value={editFormData.personal_email}
+                    onChange={handleEditInputChange}
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    placeholder="Enter email"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="edit-phone" className="block text-sm font-medium text-gray-700 mb-2">
+                    Phone
+                  </label>
+                  <input
+                    type="tel"
+                    id="edit-phone"
+                    name="phone"
+                    value={editFormData.phone}
+                    onChange={handleEditInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    placeholder="Enter phone number"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="edit-department" className="block text-sm font-medium text-gray-700 mb-2">
+                    Department
+                  </label>
+                  <input
+                    type="text"
+                    id="edit-department"
+                    name="department"
+                    value={editFormData.department}
+                    onChange={handleEditInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    placeholder="Enter department"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="edit-designation" className="block text-sm font-medium text-gray-700 mb-2">
+                    Designation
+                  </label>
+                  <input
+                    type="text"
+                    id="edit-designation"
+                    name="designation"
+                    value={editFormData.designation}
+                    onChange={handleEditInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    placeholder="Enter designation"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="edit-status" className="block text-sm font-medium text-gray-700 mb-2">
+                    Status <span className="text-red-500">*</span>
+                  </label>
+                  <select
+                    id="edit-status"
+                    name="status"
+                    value={editFormData.status}
+                    onChange={handleEditInputChange}
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  >
+                    <option value="">Select status</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label htmlFor="edit-join-date" className="block text-sm font-medium text-gray-700 mb-2">
+                    Join Date
+                  </label>
+                  <input
+                    type="date"
+                    id="edit-join-date"
+                    name="join_date"
+                    value={editFormData.join_date}
+                    onChange={handleEditInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="edit-salary-type" className="block text-sm font-medium text-gray-700 mb-2">
+                    Salary Type
+                  </label>
+                  <select
+                    id="edit-salary-type"
+                    name="salary_type"
+                    value={editFormData.salary_type}
+                    onChange={handleEditInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  >
+                    <option value="fixed">Fixed</option>
+                    <option value="hourly">Hourly</option>
+                    <option value="commission">Commission</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label htmlFor="edit-monthly-salary" className="block text-sm font-medium text-gray-700 mb-2">
+                    Monthly Salary
+                  </label>
+                  <input
+                    type="number"
+                    id="edit-monthly-salary"
+                    name="monthly_salary"
+                    value={editFormData.monthly_salary}
+                    onChange={handleEditInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    placeholder="Enter salary"
+                  />
+                </div>
+              </div>
+
+              <div className="flex gap-3 mt-6 justify-end">
+                <button
+                  type="button"
+                  onClick={() => setEditModalOpen(false)}
+                  className="px-6 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 font-medium"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={editLoading}
+                  className="px-8 py-3 bg-gradient-to-r from-indigo-600 to-cyan-600 text-white rounded-xl hover:from-indigo-700 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 font-medium shadow-lg hover:shadow-xl transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {editLoading ? "Updating..." : "Update Employee"}
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}
