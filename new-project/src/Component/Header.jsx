@@ -375,8 +375,8 @@ export default function Header({ onMenuClick }) {
                 alt="Profile"
               />
               <div className="hidden md:block text-left">
-                <div className="text-sm font-medium text-gray-900">John Doe</div>
-                <div className="text-xs text-gray-500">john@example.com</div>
+                <div className="text-sm font-medium text-gray-900">Sagar </div>
+                <div className="text-xs text-gray-500">Sagar@Technfest.com</div>
               </div>
               <ChevronDown className="w-4 h-4 text-gray-400" />
             </button>
@@ -392,8 +392,8 @@ export default function Header({ onMenuClick }) {
                       alt="Profile"
                     />
                     <div>
-                      <div className="text-sm font-medium text-gray-900">John Doe</div>
-                      <div className="text-xs text-gray-500">john@example.com</div>
+                      <div className="text-sm font-medium text-gray-900"> Sagar Mohite</div>
+                      <div className="text-xs text-gray-500">Sagar@technfest.com</div>
                     </div>
                   </div>
                 </div>

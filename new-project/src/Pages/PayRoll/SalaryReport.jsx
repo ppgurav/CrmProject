@@ -566,125 +566,141 @@ export default function SalaryReports() {
           </div>
 
           {/* Section 1: Filters */}
-          <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-8">
-            <div className="flex items-center mb-6">
-              <div className="w-8 h-8 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-lg flex items-center justify-center mr-3">
-                <Filter className="w-5 h-5 text-white" />
-              </div>
-              <h2 className="text-xl font-semibold text-gray-900">1. Filters</h2>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              <div>
-                <label htmlFor="monthYear" className="block text-sm font-medium text-gray-700 mb-2">Month & Year <span className="text-red-500">*</span></label>
-                <select
-                  id="monthYear"
-                  name="monthYear"
-                  value={filters.monthYear}
-                  onChange={handleFilterChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
-                >
-                  {months.map((month, index) => (
-                    <option key={index} value={month}>{month}</option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label htmlFor="employeeType" className="block text-sm font-medium text-gray-700 mb-2">Employee Type</label>
-                <select
-                  id="employeeType"
-                  name="employeeType"
-                  value={filters.employeeType}
-                  onChange={handleFilterChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
-                >
-                  {employeeTypes.map((type, index) => (
-                    <option key={index} value={type}>{type}</option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label htmlFor="department" className="block text-sm font-medium text-gray-700 mb-2">Department</label>
-                <select
-                  id="department"
-                  name="department"
-                  value={filters.department}
-                  onChange={handleFilterChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
-                >
-                  {departments.map((dept, index) => (
-                    <option key={index} value={dept}>{dept}</option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label htmlFor="paymentStatus" className="block text-sm font-medium text-gray-700 mb-2">Payment Status</label>
-                <select
-                  id="paymentStatus"
-                  name="paymentStatus"
-                  value={filters.paymentStatus}
-                  onChange={handleFilterChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
-                >
-                  {paymentStatuses.map((status, index) => (
-                    <option key={index} value={status}>{status}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="lg:col-span-2 xl:col-span-1">
-                <label htmlFor="employeeSearch" className="block text-sm font-medium text-gray-700 mb-2">Employee Name / Code</label>
-                <div className="relative">
-                  <input
-                    type="text"
-                    id="employeeSearch"
-                    name="employeeSearch"
-                    value={filters.employeeSearch}
-                    onChange={handleFilterChange}
-                    placeholder="Search by name or code"
-                    className="w-full px-4 py-3 pl-10 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
-                  />
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                </div>
-              </div>
-              <div className="flex items-end gap-4 lg:col-span-2 xl:col-span-2">
-                <div className="flex-1">
-                  <label htmlFor="startDate" className="block text-sm font-medium text-gray-700 mb-2">Date Range (Optional)</label>
-                  <input
-                    type="date"
-                    id="startDate"
-                    name="startDate"
-                    value={filters.startDate}
-                    onChange={handleFilterChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
-                  />
-                </div>
-                <div className="flex-1">
-                  <label htmlFor="endDate" className="block text-sm font-medium text-gray-700 mb-2 sr-only">End Date</label>
-                  <input
-                    type="date"
-                    id="endDate"
-                    name="endDate"
-                    value={filters.endDate}
-                    onChange={handleFilterChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
-                  />
-                </div>
-              </div>
-              <div>
-                <label htmlFor="exportFormat" className="block text-sm font-medium text-gray-700 mb-2">Export Format</label>
-                <select
-                  id="exportFormat"
-                  name="exportFormat"
-                  value={filters.exportFormat}
-                  onChange={handleFilterChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
-                >
-                  {exportFormats.map((format, index) => (
-                    <option key={index} value={format}>{format}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
-          </div>
+          <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-4 sm:p-6 border border-gray-100 mb-8">
+  <div className="flex items-center mb-6">
+    <div className="w-8 h-8 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-lg flex items-center justify-center mr-3">
+      <Filter className="w-5 h-5 text-white" />
+    </div>
+    <h2 className="text-xl font-semibold text-gray-900">1. Filters</h2>
+  </div>
+
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <div>
+      <label htmlFor="monthYear" className="block text-sm font-medium text-gray-700 mb-2">
+        Month & Year <span className="text-red-500">*</span>
+      </label>
+      <select
+        id="monthYear"
+        name="monthYear"
+        value={filters.monthYear}
+        onChange={handleFilterChange}
+        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
+      >
+        {months.map((month, index) => (
+          <option key={index} value={month}>{month}</option>
+        ))}
+      </select>
+    </div>
+
+    <div>
+      <label htmlFor="employeeType" className="block text-sm font-medium text-gray-700 mb-2">Employee Type</label>
+      <select
+        id="employeeType"
+        name="employeeType"
+        value={filters.employeeType}
+        onChange={handleFilterChange}
+        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
+      >
+        {employeeTypes.map((type, index) => (
+          <option key={index} value={type}>{type}</option>
+        ))}
+      </select>
+    </div>
+
+    <div>
+      <label htmlFor="department" className="block text-sm font-medium text-gray-700 mb-2">Department</label>
+      <select
+        id="department"
+        name="department"
+        value={filters.department}
+        onChange={handleFilterChange}
+        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
+      >
+        {departments.map((dept, index) => (
+          <option key={index} value={dept}>{dept}</option>
+        ))}
+      </select>
+    </div>
+
+    <div>
+      <label htmlFor="paymentStatus" className="block text-sm font-medium text-gray-700 mb-2">Payment Status</label>
+      <select
+        id="paymentStatus"
+        name="paymentStatus"
+        value={filters.paymentStatus}
+        onChange={handleFilterChange}
+        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
+      >
+        {paymentStatuses.map((status, index) => (
+          <option key={index} value={status}>{status}</option>
+        ))}
+      </select>
+    </div>
+
+    <div className="lg:col-span-2 xl:col-span-1">
+      <label htmlFor="employeeSearch" className="block text-sm font-medium text-gray-700 mb-2">
+        Employee Name / Code
+      </label>
+      <div className="relative">
+        <input
+          type="text"
+          id="employeeSearch"
+          name="employeeSearch"
+          value={filters.employeeSearch}
+          onChange={handleFilterChange}
+          placeholder="Search by name or code"
+          className="w-full px-4 py-3 pl-10 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
+        />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+      </div>
+    </div>
+
+    <div className="flex flex-col sm:flex-row gap-4 lg:col-span-2 xl:col-span-2">
+      <div className="flex-1">
+        <label htmlFor="startDate" className="block text-sm font-medium text-gray-700 mb-2">
+          Date Range (Optional)
+        </label>
+        <input
+          type="date"
+          id="startDate"
+          name="startDate"
+          value={filters.startDate}
+          onChange={handleFilterChange}
+          className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
+        />
+      </div>
+      <div className="flex-1">
+        <label htmlFor="endDate" className="block text-sm font-medium text-gray-700 mb-2 sm:sr-only">
+          End Date
+        </label>
+        <input
+          type="date"
+          id="endDate"
+          name="endDate"
+          value={filters.endDate}
+          onChange={handleFilterChange}
+          className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
+        />
+      </div>
+    </div>
+
+    <div>
+      <label htmlFor="exportFormat" className="block text-sm font-medium text-gray-700 mb-2">Export Format</label>
+      <select
+        id="exportFormat"
+        name="exportFormat"
+        value={filters.exportFormat}
+        onChange={handleFilterChange}
+        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
+      >
+        {exportFormats.map((format, index) => (
+          <option key={index} value={format}>{format}</option>
+        ))}
+      </select>
+    </div>
+  </div>
+</div>
+
 
           {/* Section 2: Report Table */}
           <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-8">

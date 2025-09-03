@@ -519,39 +519,40 @@ export default function AssignTicket() {
             </span>
           </div>
 
-          <div className="flex items-center space-x-3">
-            {/* View Toggle */}
-            <div className="flex items-center bg-gray-100 rounded-lg p-1">
-              <button
-                onClick={() => setCurrentView("kanban")}
-                className={`px-3 py-1 text-sm font-medium rounded-md transition-all duration-200  ${
-                  currentView === "kanban" ? "text-white bg-indigo-600" : "text-gray-600 hover:text-gray-900"
-                }`}
-              >
-                Kanban
-              </button>
-              <button
-                onClick={() => setCurrentView("list")}
-                className={`px-3 py-1 text-sm font-medium rounded-md transition-all duration-200 ${
-                  currentView === "list" ? "text-white bg-indigo-600" : "text-gray-600 hover:text-gray-900"
-                }`}
-              >
-                List
-              </button>
-            </div>
+          <div className="flex flex-col md:flex-row md:items-center md:space-x-3 space-y-3 md:space-y-0">
+  {/* View Toggle */}
+  <div className="flex items-center bg-gray-100 rounded-lg p-1 w-full md:w-auto">
+    <button
+      onClick={() => setCurrentView("kanban")}
+      className={`flex-1 md:flex-none px-3 py-1 text-sm font-medium rounded-md transition-all duration-200 ${
+        currentView === "kanban" ? "text-white bg-indigo-600" : "text-gray-600 hover:text-gray-900"
+      }`}
+    >
+      Kanban
+    </button>
+    <button
+      onClick={() => setCurrentView("list")}
+      className={`flex-1 md:flex-none px-3 py-1 text-sm font-medium rounded-md transition-all duration-200 ${
+        currentView === "list" ? "text-white bg-indigo-600" : "text-gray-600 hover:text-gray-900"
+      }`}
+    >
+      List
+    </button>
+  </div>
 
-            <select
-              className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-              onChange={(e) => bulkAssignTickets(e.target.value)}
-              value=""
-            >
-              <option value="">Assign to...</option>
-              <option value="ankita">Ankita - Technical Support</option>
-              <option value="rahul">Rahul - Billing Support</option>
-              <option value="priya">Priya - General Support</option>
-              <option value="unassigned">Unassign</option>
-            </select>
-          </div>
+  <select
+    className="w-full md:w-auto px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+    onChange={(e) => bulkAssignTickets(e.target.value)}
+    value=""
+  >
+    <option value="">Assign to...</option>
+    <option value="ankita">Ankita - Technical Support</option>
+    <option value="rahul">Rahul - Billing Support</option>
+    <option value="priya">Priya - General Support</option>
+    <option value="unassigned">Unassign</option>
+  </select>
+</div>
+
         </div>
       </div>
 

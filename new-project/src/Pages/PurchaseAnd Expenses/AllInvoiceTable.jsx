@@ -666,127 +666,122 @@ export default function AllInvoiceTable() {
           </div>
         </div>
         {/* Filters and Actions */}
-        <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-3">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-            {/* Search and Filters */}
-            <div className="flex flex-col sm:flex-row gap-4 flex-1 flex-wrap">
-              {/* Search */}
-              <div className="relative flex-1 max-w-md min-w-[200px]">
-                <input
-                  type="text"
-                  placeholder="Search Invoice No., Vendor, Reference..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                />
-                <Search className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
-              </div>
-              {/* Date Range */}
-              <div className="flex gap-2">
-                <input
-                  type="date"
-                  value={fromDate}
-                  onChange={(e) => setFromDate(e.target.value)}
-                  className="px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                  aria-label="From Date"
-                />
-                <input
-                  type="date"
-                  value={toDate}
-                  onChange={(e) => setToDate(e.target.value)}
-                  className="px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                  aria-label="To Date"
-                />
-              </div>
-              {/* Vendor Filter */}
-              <select
-                value={vendorFilter}
-                onChange={(e) => setVendorFilter(e.target.value)}
-                className="px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                aria-label="Filter by Vendor"
-              >
-                <option value="">All Vendors</option>
-                {uniqueVendors.map((vendor) => (
-                  <option key={vendor} value={vendor}>
-                    {vendor || "N/A"}
-                  </option>
-                ))}
-              </select>
-              {/* Bill Type Filter */}
-              <select
-                value={billTypeFilter}
-                onChange={(e) => setBillTypeFilter(e.target.value)}
-                className="px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                aria-label="Filter by Bill Type"
-              >
-                <option value="">All Bill Types</option>
-                <option value="Goods">Goods</option>
-                <option value="Services">Services</option>
-              </select>
-              {/* Payment Status Filter */}
-              <select
-                value={paymentStatusFilter}
-                onChange={(e) => setPaymentStatusFilter(e.target.value)}
-                className="px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                aria-label="Filter by Payment Status"
-              >
-                <option value="">All Status</option>
-                <option value="Paid">Paid</option>
-                <option value="Unpaid">Unpaid</option>
-                <option value="Partial">Partial</option>
-              </select>
-            </div>
-            {/* Actions */}
-            <div className="flex gap-3 flex-wrap">
-              {selectedInvoices.length > 0 && (
-                <>
-                  <button
-                    onClick={handleMarkPaid}
-                    className="px-4 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 font-medium"
-                  >
-                    Mark Paid
-                  </button>
-                  <button
-                    onClick={handleBulkDelete}
-                    className="px-4 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 font-medium"
-                  >
-                    Delete Selected
-                  </button>
-                </>
-              )}
-              {/* <button
-                onClick={exportInvoices}
-                className="px-4 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 font-medium"
-              >
-                <Download className="inline-block w-5 h-5 mr-2" /> Export
-              </button>
-              <button
-              onClick={handleAddInvoice}
-                // onClick={() => alert("Add Invoice functionality not implemented in this demo.")}
-                className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-cyan-600 text-white rounded-xl hover:from-indigo-700 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 font-medium shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
-              >
-                <Plus className="inline-block w-5 h-5 mr-2" /> Add Invoice
-              </button> */}
-               <div className="flex justify-end items-center mb-3 w-full space-x-4 mt-3">
-  <button
-    onClick={exportInvoices}
-    className="px-4 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 font-medium"
-  >
-    <Download className="inline-block w-5 h-5 mr-2" /> Export
-  </button>
-  
-  <button
-    onClick={handleAddInvoice}
-    className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-cyan-600 text-white rounded-xl hover:from-indigo-700 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 font-medium shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
-  >
-    <Plus className="inline-block w-5 h-5 mr-2" /> Add Invoice
-  </button>
+        <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-4 sm:p-6 border border-gray-100 mb-3">
+  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+
+    {/* Search and Filters */}
+    <div className="flex flex-col sm:flex-row flex-wrap gap-4 flex-1">
+      
+      {/* Search */}
+      <div className="relative w-full sm:max-w-md min-w-[200px]">
+        <input
+          type="text"
+          placeholder="Search Invoice No., Vendor, Reference..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+        />
+        <Search className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
+      </div>
+
+      {/* Date Range */}
+      <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+        <input
+          type="date"
+          value={fromDate}
+          onChange={(e) => setFromDate(e.target.value)}
+          className="w-full sm:w-auto px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+          aria-label="From Date"
+        />
+        <input
+          type="date"
+          value={toDate}
+          onChange={(e) => setToDate(e.target.value)}
+          className="w-full sm:w-auto px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+          aria-label="To Date"
+        />
+      </div>
+
+      {/* Vendor Filter */}
+      <select
+        value={vendorFilter}
+        onChange={(e) => setVendorFilter(e.target.value)}
+        className="w-full sm:w-auto px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+        aria-label="Filter by Vendor"
+      >
+        <option value="">All Vendors</option>
+        {uniqueVendors.map((vendor) => (
+          <option key={vendor} value={vendor}>
+            {vendor || "N/A"}
+          </option>
+        ))}
+      </select>
+
+      {/* Bill Type Filter */}
+      <select
+        value={billTypeFilter}
+        onChange={(e) => setBillTypeFilter(e.target.value)}
+        className="w-full sm:w-auto px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+        aria-label="Filter by Bill Type"
+      >
+        <option value="">All Bill Types</option>
+        <option value="Goods">Goods</option>
+        <option value="Services">Services</option>
+      </select>
+
+      {/* Payment Status Filter */}
+      <select
+        value={paymentStatusFilter}
+        onChange={(e) => setPaymentStatusFilter(e.target.value)}
+        className="w-full sm:w-auto px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+        aria-label="Filter by Payment Status"
+      >
+        <option value="">All Status</option>
+        <option value="Paid">Paid</option>
+        <option value="Unpaid">Unpaid</option>
+        <option value="Partial">Partial</option>
+      </select>
+    </div>
+
+    {/* Actions */}
+    <div className="flex flex-col sm:flex-row gap-3 flex-wrap w-full lg:w-auto mt-4 lg:mt-0">
+      {selectedInvoices.length > 0 && (
+        <>
+          <button
+            onClick={handleMarkPaid}
+            className="w-full sm:w-auto px-4 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 font-medium"
+          >
+            Mark Paid
+          </button>
+          <button
+            onClick={handleBulkDelete}
+            className="w-full sm:w-auto px-4 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 font-medium"
+          >
+            Delete Selected
+          </button>
+        </>
+      )}
+
+      {/* Export and Add Invoice */}
+      <div className="flex flex-col sm:flex-row justify-end items-center w-full sm:w-auto gap-3">
+        <button
+          onClick={exportInvoices}
+          className="w-full sm:w-auto px-4 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 font-medium"
+        >
+          <Download className="inline-block w-5 h-5 mr-2" /> Export
+        </button>
+
+        <button
+          onClick={handleAddInvoice}
+          className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-indigo-600 to-cyan-600 text-white rounded-xl hover:from-indigo-700 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 font-medium shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
+        >
+          <Plus className="inline-block w-5 h-5 mr-2" /> Add Invoice
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
-            </div>
-            
-          </div>
-         
-        </div>
+
         
       
         {/* Invoice Table */}

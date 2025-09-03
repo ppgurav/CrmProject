@@ -141,7 +141,7 @@ export default function Sidebar({ isOpen, onClose }) {
           <span className="text-xl font-bold text-gray-900">Dashboard</span>
         </div>
         <button onClick={onClose} className="lg:hidden p-1 rounded-lg hover:bg-gray-100">
-          <X className="w-6 h-6 text-gray-600" />
+          <Menu className="w-6 h-6 text-gray-600" />
         </button>
       </div>
 

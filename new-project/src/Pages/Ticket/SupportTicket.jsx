@@ -1320,7 +1320,7 @@ export default function SupportTickets() {
                 {sortedTickets.length} tickets
               </span>
             </div>
-            <div className="flex items-center space-x-2">
+            {/* <div className="flex items-center space-x-2">
               <label className="text-sm text-gray-600">Show:</label>
               <select
                 value={entriesPerPage}
@@ -1336,7 +1336,25 @@ export default function SupportTickets() {
                 <option value="100">100</option>
               </select>
               <span className="text-sm text-gray-600">entries</span>
-            </div>
+            </div> */}
+            <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2 space-y-2 sm:space-y-0">
+  <label className="text-sm text-gray-600">Show:</label>
+  <select
+    value={entriesPerPage}
+    onChange={(e) => {
+      setEntriesPerPage(Number.parseInt(e.target.value))
+      setCurrentPage(1)
+    }}
+    className="px-3 py-1 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+  >
+    <option value="10">10</option>
+    <option value="25">25</option>
+    <option value="50">50</option>
+    <option value="100">100</option>
+  </select>
+  <span className="text-sm text-gray-600">entries</span>
+</div>
+
           </div>
         </div>
 

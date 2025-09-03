@@ -269,7 +269,7 @@ export default function Report() {
         </div>
 
         {/* Employee Info Card */}
-        <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-8">
+        {/* <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-8">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
@@ -287,7 +287,27 @@ export default function Report() {
               <div className="text-sm text-gray-500">31 days total</div>
             </div>
           </div>
-        </div>
+        </div> */}
+        <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-8">
+  <div className="flex flex-col md:flex-row items-center md:items-start justify-between space-y-4 md:space-y-0 md:space-x-4">
+    <div className="flex items-center space-x-4">
+      <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
+        A
+      </div>
+      <div className="text-center md:text-left">
+        <h2 className="text-2xl font-bold text-gray-900">Anjali Sharma</h2>
+        <p className="text-gray-600">Design Team • Employee ID: EMP001</p>
+        <p className="text-sm text-gray-500">anjali.sharma@company.com</p>
+      </div>
+    </div>
+    <div className="text-center md:text-right">
+      <div className="text-sm text-gray-600">Report Period</div>
+      <div className="text-lg font-semibold text-gray-900">August 2024</div>
+      <div className="text-sm text-gray-500">31 days total</div>
+    </div>
+  </div>
+</div>
+
 
         {/* Summary Cards */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 mb-8">
@@ -360,113 +380,118 @@ export default function Report() {
         </div>
 
         {/* Calendar View */}
-        <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-8">
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 flex items-center">
-                <Calendar className="w-5 h-5 mr-2" />
-                Calendar View
-              </h3>
-              <p className="text-sm text-gray-600 mt-1">Color-coded attendance for August 2024</p>
-            </div>
-            <div className="flex items-center space-x-4 text-xs">
-              <div className="flex items-center space-x-1">
-                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                <span>Present</span>
-              </div>
-              <div className="flex items-center space-x-1">
-                <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-                <span>WFH</span>
-              </div>
-              <div className="flex items-center space-x-1">
-                <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                <span>Absent</span>
-              </div>
-              <div className="flex items-center space-x-1">
-                <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                <span>Leave</span>
-              </div>
-              <div className="flex items-center space-x-1">
-                <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
-                <span>Half-day</span>
-              </div>
-            </div>
-          </div>
+        <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-4 sm:p-6 border border-gray-100 mb-8">
+  {/* Header + Legend */}
+  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 space-y-4 sm:space-y-0">
+    <div>
+      <h3 className="text-lg font-semibold text-gray-900 flex items-center">
+        <Calendar className="w-5 h-5 mr-2" />
+        Calendar View
+      </h3>
+      <p className="text-sm text-gray-600 mt-1">Color-coded attendance for August 2024</p>
+    </div>
 
-          {/* Calendar Grid */}
-          <div className="grid grid-cols-7 gap-2">
-            {/* Calendar Headers */}
-            {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
-              <div key={day} className="text-center text-sm font-medium text-gray-500 py-2">
-                {day}
-              </div>
-            ))}
+    {/* Legend */}
+    <div className="flex flex-wrap items-center gap-3 text-xs">
+      <div className="flex items-center space-x-1">
+        <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+        <span>Present</span>
+      </div>
+      <div className="flex items-center space-x-1">
+        <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
+        <span>WFH</span>
+      </div>
+      <div className="flex items-center space-x-1">
+        <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+        <span>Absent</span>
+      </div>
+      <div className="flex items-center space-x-1">
+        <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+        <span>Leave</span>
+      </div>
+      <div className="flex items-center space-x-1">
+        <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
+        <span>Half-day</span>
+      </div>
+    </div>
+  </div>
 
-            {/* Calendar Days */}
-            {/* Week 1 */}
-            <div className="text-center text-sm text-gray-400 py-3"></div>
-            <div className="text-center text-sm text-gray-400 py-3"></div>
-            <div className="text-center text-sm text-gray-400 py-3"></div>
-            <div className="text-center text-sm text-gray-400 py-3"></div>
-            {[1, 2, 3].map((day) => (
-              <div
-                key={day}
-                onClick={() => openDayDetails(day, calendarData[day])}
-                className={`text-center text-sm py-3 text-white rounded-lg cursor-pointer transition-colors duration-200 font-medium ${getStatusColor(calendarData[day])}`}
-              >
-                {day}
-              </div>
-            ))}
-
-            {/* Week 2 */}
-            <div className="text-center text-sm py-3 bg-gray-100 text-gray-400 rounded-lg">4</div>
-            {[5, 6, 7, 8, 9, 10].map((day) => (
-              <div
-                key={day}
-                onClick={() => openDayDetails(day, calendarData[day])}
-                className={`text-center text-sm py-3 text-white rounded-lg cursor-pointer transition-colors duration-200 font-medium ${getStatusColor(calendarData[day])}`}
-              >
-                {day}
-              </div>
-            ))}
-
-            {/* Week 3 */}
-            <div className="text-center text-sm py-3 bg-gray-100 text-gray-400 rounded-lg">11</div>
-            {[12, 13, 14, 15, 16, 17].map((day) => (
-              <div
-                key={day}
-                onClick={() => openDayDetails(day, calendarData[day])}
-                className={`text-center text-sm py-3 text-white rounded-lg cursor-pointer transition-colors duration-200 font-medium ${getStatusColor(calendarData[day])}`}
-              >
-                {day}
-              </div>
-            ))}
-
-            {/* Week 4 */}
-            <div className="text-center text-sm py-3 bg-gray-100 text-gray-400 rounded-lg">18</div>
-            {[19, 20, 21, 22, 23, 24].map((day) => (
-              <div
-                key={day}
-                onClick={() => openDayDetails(day, calendarData[day])}
-                className={`text-center text-sm py-3 text-white rounded-lg cursor-pointer transition-colors duration-200 font-medium ${getStatusColor(calendarData[day])}`}
-              >
-                {day}
-              </div>
-            ))}
-
-            {/* Week 5 */}
-            <div className="text-center text-sm py-3 bg-gray-100 text-gray-400 rounded-lg">25</div>
-            {[26, 27, 28, 29, 30, 31].map((day) => (
-              <div
-                key={day}
-                onClick={() => openDayDetails(day, calendarData[day])}
-                className={`text-center text-sm py-3 text-white rounded-lg cursor-pointer transition-colors duration-200 font-medium ${getStatusColor(calendarData[day])}`}
-              >
-                {day}
-              </div>
-            ))}
-          </div>
+  {/* Calendar Grid Wrapper */}
+  <div className="overflow-x-auto">
+    <div className="grid grid-cols-7 min-w-[560px] gap-2">
+      {/* Calendar Headers */}
+      {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
+        <div key={day} className="text-center text-sm font-medium text-gray-500 py-2">
+          {day}
         </div>
+      ))}
+
+      {/* Week 1 (empty + 1-3) */}
+      <div className="text-center text-sm text-gray-400 py-3"></div>
+      <div className="text-center text-sm text-gray-400 py-3"></div>
+      <div className="text-center text-sm text-gray-400 py-3"></div>
+      <div className="text-center text-sm text-gray-400 py-3"></div>
+      {[1, 2, 3].map((day) => (
+        <div
+          key={day}
+          onClick={() => openDayDetails(day, calendarData[day])}
+          className={`text-center text-sm py-3 text-white rounded-lg cursor-pointer transition-colors duration-200 font-medium ${getStatusColor(calendarData[day])}`}
+        >
+          {day}
+        </div>
+      ))}
+
+      {/* Week 2 */}
+      <div className="text-center text-sm py-3 bg-gray-100 text-gray-400 rounded-lg">4</div>
+      {[5, 6, 7, 8, 9, 10].map((day) => (
+        <div
+          key={day}
+          onClick={() => openDayDetails(day, calendarData[day])}
+          className={`text-center text-sm py-3 text-white rounded-lg cursor-pointer transition-colors duration-200 font-medium ${getStatusColor(calendarData[day])}`}
+        >
+          {day}
+        </div>
+      ))}
+
+      {/* Week 3 */}
+      <div className="text-center text-sm py-3 bg-gray-100 text-gray-400 rounded-lg">11</div>
+      {[12, 13, 14, 15, 16, 17].map((day) => (
+        <div
+          key={day}
+          onClick={() => openDayDetails(day, calendarData[day])}
+          className={`text-center text-sm py-3 text-white rounded-lg cursor-pointer transition-colors duration-200 font-medium ${getStatusColor(calendarData[day])}`}
+        >
+          {day}
+        </div>
+      ))}
+
+      {/* Week 4 */}
+      <div className="text-center text-sm py-3 bg-gray-100 text-gray-400 rounded-lg">18</div>
+      {[19, 20, 21, 22, 23, 24].map((day) => (
+        <div
+          key={day}
+          onClick={() => openDayDetails(day, calendarData[day])}
+          className={`text-center text-sm py-3 text-white rounded-lg cursor-pointer transition-colors duration-200 font-medium ${getStatusColor(calendarData[day])}`}
+        >
+          {day}
+        </div>
+      ))}
+
+      {/* Week 5 */}
+      <div className="text-center text-sm py-3 bg-gray-100 text-gray-400 rounded-lg">25</div>
+      {[26, 27, 28, 29, 30, 31].map((day) => (
+        <div
+          key={day}
+          onClick={() => openDayDetails(day, calendarData[day])}
+          className={`text-center text-sm py-3 text-white rounded-lg cursor-pointer transition-colors duration-200 font-medium ${getStatusColor(calendarData[day])}`}
+        >
+          {day}
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
 
         {/* Daily Log Table */}
         <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 border border-gray-100">
@@ -550,7 +575,7 @@ export default function Report() {
           </div>
 
           {/* Pagination */}
-          <div className="px-6 py-4 border-t border-gray-200">
+          {/* <div className="px-6 py-4 border-t border-gray-200">
             <div className="flex items-center justify-between">
               <div className="text-sm text-gray-700">
                 Showing <span className="font-medium">1</span> to <span className="font-medium">8</span> of{" "}
@@ -579,7 +604,28 @@ export default function Report() {
                 </button>
               </div>
             </div>
-          </div>
+          </div> */}
+          <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100 mb-8">
+  <div className="flex flex-col md:flex-row items-center md:items-start justify-between space-y-4 md:space-y-0 md:space-x-4">
+    <div className="flex items-center space-x-4">
+      <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
+        A
+      </div>
+      <div className="text-center md:text-left">
+        <h2 className="text-2xl font-bold text-gray-900">Anjali Sharma</h2>
+        <p className="text-gray-600">Design Team • Employee ID: EMP001</p>
+        <p className="text-sm text-gray-500">anjali.sharma@company.com</p>
+      </div>
+    </div>
+    <div className="text-center md:text-right">
+      <div className="text-sm text-gray-600">Report Period</div>
+      <div className="text-lg font-semibold text-gray-900">August 2024</div>
+      <div className="text-sm text-gray-500">31 days total</div>
+    </div>
+  </div>
+</div>
+
+
         </div>
       </main>
 
@@ -597,7 +643,7 @@ export default function Report() {
                 </button>
               </div>
             </div>
-            <div className="p-6">
+            <div className="p-6 sm:p-6">
               <div className="space-y-4">
                 <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
                   <span className="text-sm font-medium text-gray-700">Status</span>

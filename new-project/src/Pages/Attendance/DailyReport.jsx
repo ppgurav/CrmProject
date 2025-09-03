@@ -337,62 +337,72 @@ export default function DailyReport() {
           </div>
         </div>
 
-        <div className="flex justify-between items-center mt-6">
-          <div className="flex items-center space-x-4">
-            <button
-              onClick={applyFilters}
-              className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-cyan-600 text-white rounded-xl hover:from-indigo-700 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 font-medium"
-            >
-              Apply Filters
-            </button>
-            <button
-              onClick={clearFilters}
-              className="px-6 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 font-medium"
-            >
-              Clear All
-            </button>
-          </div>
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mt-6 space-y-4 sm:space-y-0">
+  {/* Left Side: Filter Buttons */}
+  <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-3 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
+    <button
+      onClick={applyFilters}
+      className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-indigo-600 to-cyan-600 text-white rounded-xl hover:from-indigo-700 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 font-medium"
+    >
+      Apply Filters
+    </button>
+    <button
+      onClick={clearFilters}
+      className="w-full sm:w-auto px-6 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 font-medium"
+    >
+      Clear All
+    </button>
+  </div>
 
-          <div className="flex items-center space-x-3">
-            <span className="text-sm text-gray-600">{selectedEmployees.size} selected</span>
-            <button
-              onClick={bulkMarkLeave}
-              disabled={selectedEmployees.size === 0}
-              className="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-all duration-200 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Mark Leave
-            </button>
-          </div>
-        </div>
+  {/* Right Side: Bulk Action */}
+  <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-3 sm:space-y-0 sm:space-x-3 w-full sm:w-auto">
+    <span className="text-sm text-gray-600 text-center sm:text-left">
+      {selectedEmployees.size} selected
+    </span>
+    <button
+      onClick={bulkMarkLeave}
+      disabled={selectedEmployees.size === 0}
+      className="w-full sm:w-auto px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-all duration-200 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      Mark Leave
+    </button>
+  </div>
+</div>
+
       </div>
 
       {/* Attendance Table */}
       <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 border border-gray-100  ml-4 mr-4">
         <div className="p-6 border-b border-gray-100">
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900">Daily Attendance Records</h3>
-              <p className="text-sm text-gray-600 mt-1">January 8, 2024 - Total: 150 employees</p>
-            </div>
-            <div className="flex items-center space-x-4">
-              <button
-                onClick={toggleSelectAll}
-                className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 text-sm"
-              >
-                {selectedEmployees.size === employees.length ? "Deselect All" : "Select All"}
-              </button>
-              <div className="flex items-center space-x-4 text-sm text-gray-600">
-                <div className="flex items-center space-x-2">
-                  <span className="w-3 h-3 bg-green-500 rounded-full"></span>
-                  <span>Present: 132</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <span className="w-3 h-3 bg-red-500 rounded-full"></span>
-                  <span>Absent: 18</span>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+  {/* Title and Subtitle */}
+  <div>
+    <h3 className="text-lg font-semibold text-gray-900">Daily Attendance Records</h3>
+    <p className="text-sm text-gray-600 mt-1">January 8, 2024 - Total: 150 employees</p>
+  </div>
+
+  {/* Buttons and Status */}
+  <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 gap-3 sm:gap-0">
+    <button
+      onClick={toggleSelectAll}
+      className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 text-sm"
+    >
+      {selectedEmployees.size === employees.length ? "Deselect All" : "Select All"}
+    </button>
+
+    <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 gap-2 sm:gap-0 text-sm text-gray-600">
+      <div className="flex items-center space-x-2">
+        <span className="w-3 h-3 bg-green-500 rounded-full"></span>
+        <span>Present: 132</span>
+      </div>
+      <div className="flex items-center space-x-2">
+        <span className="w-3 h-3 bg-red-500 rounded-full"></span>
+        <span>Absent: 18</span>
+      </div>
+    </div>
+  </div>
+</div>
+
         </div>
 
         <div className="overflow-x-auto">
@@ -517,7 +527,7 @@ export default function DailyReport() {
         </div>
 
         {/* Pagination */}
-        <div className="px-6 py-4 border-t border-gray-200">
+        {/* <div className="px-6 py-4 border-t border-gray-200">
           <div className="flex items-center justify-between">
             <div className="text-sm text-gray-700">
               Showing <span className="font-medium">1</span> to <span className="font-medium">5</span> of{" "}
@@ -546,7 +556,42 @@ export default function DailyReport() {
               </button>
             </div>
           </div>
-        </div>
+        </div> */}
+        <div className="px-4 sm:px-6 py-4 border-t border-gray-200">
+  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
+    
+    {/* Pagination Info */}
+    <div className="text-sm text-gray-700 text-center sm:text-left">
+      Showing <span className="font-medium">1</span> to <span className="font-medium">5</span> of{" "}
+      <span className="font-medium">150</span> results
+    </div>
+
+    {/* Pagination Buttons */}
+    <div className="flex flex-wrap justify-center sm:justify-end items-center gap-2">
+      <button
+        className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 flex items-center space-x-1"
+        disabled
+      >
+        <ChevronLeft className="w-4 h-4" />
+        <span>Previous</span>
+      </button>
+      <button className="px-3 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+        1
+      </button>
+      <button className="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+        2
+      </button>
+      <button className="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+        3
+      </button>
+      <button className="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 flex items-center space-x-1">
+        <span>Next</span>
+        <ChevronRight className="w-4 h-4" />
+      </button>
+    </div>
+  </div>
+</div>
+
       </div>
 
       {/* Attendance Modal */}

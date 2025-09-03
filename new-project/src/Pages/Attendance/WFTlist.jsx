@@ -337,37 +337,40 @@ export default function WFTlist() {
           </div>
         </div>
 
-        <div className="flex justify-between items-center mt-6">
-          <div className="flex items-center space-x-4">
-            <button
-              onClick={applyFilters}
-              className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-cyan-600 text-white rounded-xl hover:from-indigo-700 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 font-medium"
-            >
-              Apply Filters
-            </button>
-            <button
-              onClick={clearFilters}
-              className="px-6 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 font-medium"
-            >
-              Clear All
-            </button>
-          </div>
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mt-6 space-y-4 sm:space-y-0">
+  {/* Left Buttons (Apply + Clear) */}
+  <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-3 sm:space-y-0 sm:space-x-4">
+    <button
+      onClick={applyFilters}
+      className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-indigo-600 to-cyan-600 text-white rounded-xl hover:from-indigo-700 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 font-medium"
+    >
+      Apply Filters
+    </button>
+    <button
+      onClick={clearFilters}
+      className="w-full sm:w-auto px-6 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 font-medium"
+    >
+      Clear All
+    </button>
+  </div>
 
-          <div className="flex items-center space-x-3">
-            <button
-              onClick={bulkApprove}
-              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all duration-200 font-medium"
-            >
-              Bulk Approve
-            </button>
-            <button
-              onClick={bulkReject}
-              className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-200 font-medium"
-            >
-              Bulk Reject
-            </button>
-          </div>
-        </div>
+  {/* Right Buttons (Bulk Approve + Reject) */}
+  <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-3 sm:space-y-0 sm:space-x-3">
+    <button
+      onClick={bulkApprove}
+      className="w-full sm:w-auto px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all duration-200 font-medium"
+    >
+      Bulk Approve
+    </button>
+    <button
+      onClick={bulkReject}
+      className="w-full sm:w-auto px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-200 font-medium"
+    >
+      Bulk Reject
+    </button>
+  </div>
+</div>
+
       </div>
 
       {/* WFH Requests Table */}
@@ -529,33 +532,38 @@ export default function WFTlist() {
         </div>
 
         {/* Pagination */}
-        <div className="px-6 py-4 border-t border-gray-200">
-          <div className="flex items-center justify-between">
-            <div className="text-sm text-gray-700">
-              Showing <span className="font-medium">1</span> to <span className="font-medium">5</span> of{" "}
-              <span className="font-medium">17</span> results
-            </div>
-            <div className="flex items-center space-x-2">
-              <button
-                className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 flex items-center space-x-1"
-                disabled
-              >
-                <ChevronLeft className="w-4 h-4" />
-                <span>Previous</span>
-              </button>
-              <button className="px-3 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                1
-              </button>
-              <button className="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                2
-              </button>
-              <button className="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 flex items-center space-x-1">
-                <span>Next</span>
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-        </div>
+        <div className="px-4 sm:px-6 py-4 border-t border-gray-200">
+  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
+    
+    {/* Pagination Info */}
+    <div className="text-sm text-gray-700 text-center sm:text-left">
+      Showing <span className="font-medium">1</span> to <span className="font-medium">5</span> of{" "}
+      <span className="font-medium">17</span> results
+    </div>
+
+    {/* Pagination Buttons */}
+    <div className="flex flex-wrap justify-center sm:justify-end items-center space-x-2">
+      <button
+        className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 flex items-center space-x-1"
+        disabled
+      >
+        <ChevronLeft className="w-4 h-4" />
+        <span>Previous</span>
+      </button>
+      <button className="px-3 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+        1
+      </button>
+      <button className="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+        2
+      </button>
+      <button className="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 flex items-center space-x-1">
+        <span>Next</span>
+        <ChevronRight className="w-4 h-4" />
+      </button>
+    </div>
+  </div>
+</div>
+
       </div>
 
       {/* Selfie Modal */}
