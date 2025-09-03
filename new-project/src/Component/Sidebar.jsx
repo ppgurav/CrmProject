@@ -103,6 +103,16 @@ export default function Sidebar({ isOpen, onClose }) {
         { name: "Salary Reports", icon: FileText, href: "/payroll/reports" },
       ],
     },
+    {
+      title: "📞 CRM Follow-Up",
+      items: [
+        { name: "FollowUpForm", icon: ClipboardList, href: "/followupform" },
+        // { name: "Monthly Salary Sheet", icon: Files, href: "/payroll/monthly-salary" },
+        // { name: "Generate Salary", icon: CircleDollarSign, href: "/payroll/generate-salary" },
+        // { name: "Salary Reports", icon: FileText, href: "/payroll/reports" },
+      ],
+    },
+    
   ]
 
   useEffect(() => {

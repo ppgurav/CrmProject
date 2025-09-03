@@ -167,6 +167,8 @@ import Expenses from './Pages/PurchaseAnd Expenses/Expenses';
 import AllInvoiceTable from './Pages/PurchaseAnd Expenses/AllInvoiceTable';
 import UserList from './Pages/User/UserList';
 import AddUser from './Pages/User/AddUser';
+import FollowupForm from './Pages/CRM Follow-Up/FollowupForm';
+import AddFollowUp from './Pages/CRM Follow-Up/AddFollowUp';
 
 function App() {
   return (
@@ -237,6 +239,8 @@ function App() {
               <Route path="/payroll/reports" element={<SalaryReport />} />
              
 
+              <Route path="/followupform" element={<FollowupForm />} />
+              <Route path="/addfollowupform" element={<AddFollowUp />} />
             </Route>
           </Route>
         </Routes>

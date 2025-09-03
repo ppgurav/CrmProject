@@ -2379,7 +2379,6 @@ const deleteEmployee = async (id) => {
   return response.json()
 }
 
-
 const employeeSchema = z.object({
   id: z.number(),
   name: z.string().min(1, "Name is required"),
@@ -2699,6 +2698,38 @@ export default function EmployeeList() {
       })
       if (!res.ok) throw new Error("Failed to update employee bank details")
       await res.json()
+
+      queryClient.invalidateQueries(["employees"])
+
+      const patch = {
+        ...payload,
+        bank: {
+          pan: payload.pan,
+          aadhaar: payload.aadhaar,
+          bank_name: payload.bank_name,
+          ifsc: payload.ifsc,
+          account_number: payload.account_number,
+          account_holder_name: payload.account_holder_name,
+        },
+      }
+      queryClient.setQueryData(["employees", currentPage, entriesPerPage, searchTerm], (prev) => {
+        if (!prev) return prev
+        // handle different API shapes: {rows: []}, {data: []}, or []
+        const updateArray = (arr) =>
+          Array.isArray(arr) ? arr.map((emp) => (emp.id === editFormData.id ? { ...emp, ...patch } : emp)) : arr
+
+        if (Array.isArray(prev)) {
+          return updateArray(prev)
+        } else if (Array.isArray(prev.rows)) {
+          return { ...prev, rows: updateArray(prev.rows) }
+        } else if (Array.isArray(prev.data)) {
+          return { ...prev, data: updateArray(prev.data) }
+        }
+        return prev
+      })
+
+      setEditFormData((prev) => (prev && prev.id === editFormData.id ? { ...prev, ...patch } : prev))
+      setSelectedEmployee?.((prev) => (prev && prev.id === editFormData.id ? { ...prev, ...patch } : prev))
 
       setBankSubmitting(false)
     } catch (err) {
