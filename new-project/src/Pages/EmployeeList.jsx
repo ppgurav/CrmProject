@@ -2379,7 +2379,7 @@ const deleteEmployee = async (id) => {
   return response.json()
 }
 
-// Zod schema for employee validation
+
 const employeeSchema = z.object({
   id: z.number(),
   name: z.string().min(1, "Name is required"),

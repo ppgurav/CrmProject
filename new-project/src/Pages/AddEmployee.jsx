@@ -3051,7 +3051,7 @@ export default function AddEmployee() {
               {/* Connector */}
               <div className={`w-16 h-1 rounded ${currentStep > 1 ? "bg-green-500" : "bg-gray-200"}`}></div>
 
-              {/* Step 2 */}
+              {/* Step 2 ---- */}
               <div className="flex items-center">
                 <StepIndicator step={2} isActive={currentStep === 2} isCompleted={currentStep > 2} />
                 <div className="ml-3 hidden sm:block">
