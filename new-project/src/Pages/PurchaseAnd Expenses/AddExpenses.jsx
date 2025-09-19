@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import { z } from "zod";
 import { Plus, Trash2, Save, Paperclip, Tag, Calendar, Banknote, Wallet, List, Filter, TrendingUp, Edit, Eye, XCircle, MessageCircle, DollarSign } from 'lucide-react';
 
-// Zod schema for expense validation
+
 const expenseCategoryOptions = ["Utilities", "Travel", "Office Supplies", "Salary Advance", "Maintenance", "Marketing", "Miscellaneous"];
 const paymentModeOptions = ["Cash", "Bank Transfer", "UPI", "Card"];
 const paymentStatusOptions = ["Paid", "Unpaid", "Partial"];
