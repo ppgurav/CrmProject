@@ -169,6 +169,9 @@ import UserList from './Pages/User/UserList';
 import AddUser from './Pages/User/AddUser';
 import FollowupForm from './Pages/CRM Follow-Up/FollowupForm';
 import AddFollowUp from './Pages/CRM Follow-Up/AddFollowUp';
+import ReportAnaly from './Pages/Report&Analytics/ReportAnaly';
+import CustomerDetail from './Pages/Customerss/CustomerDetail';
+import AddExpenses from './Pages/PurchaseAnd Expenses/AddExpenses';
 
 function App() {
   return (
@@ -188,7 +191,8 @@ function App() {
 
               <Route path="/customersList/customers" element={<Customers />} />
               <Route path="/customerslist" element={<CustomersList />} />
-
+              
+              <Route path="/customers" element={<CustomerDetail />} />
               <Route path="/userList" element={<UserList />} />
               <Route path="/adduser" element={<AddUser />} />
 
@@ -232,7 +236,7 @@ function App() {
               <Route path="/purchase/invoices/allinvoictable" element={<AllInvoiceTable />} />
               <Route path="/purchase/expenses" element={<Expenses />} />
 
-
+              <Route path="/purchase/addexpenses" element={<AddExpenses />} />
               <Route path="/payroll/salary-structure" element={<SalaryStrucuture />} />
               <Route path="/payroll/monthly-salary" element={<MonthlySalary />} />
               <Route path="/payroll/generate-salary" element={<GenerateSalary />} />
@@ -241,6 +245,8 @@ function App() {
 
               <Route path="/followupform" element={<FollowupForm />} />
               <Route path="/addfollowupform" element={<AddFollowUp />} />
+
+              <Route path="/reportAnalytics" element={<ReportAnaly />} />
             </Route>
           </Route>
         </Routes>

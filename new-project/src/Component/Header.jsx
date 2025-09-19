@@ -263,10 +263,14 @@ export default function Header({ onMenuClick }) {
       //  pageSubtitle: 'Manage and track your incoming invoices',
       },
       '/purchase/expenses': {
+        title: 'Expenses ',
+      //  pageSubtitle: 'Enter details for your expense records',
+      },
+      
+      '/purchase/addexpenses': {
         title: 'Add New Expenses ',
        pageSubtitle: 'Enter details for your expense records',
       },
-
       '/payroll/salary-structure': {
         title: 'Salary Structure',
       //  pageSubtitle: 'Manage and track your incoming invoices',
