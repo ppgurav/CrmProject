@@ -245,7 +245,7 @@ export default function AddExpenses() {
       <main className="p-6 ml-4 mr-4">
         <div className="max-w-full mx-auto">
           {/* Page Title */}
-          <div className="mb-8">
+          <div className="mb-1">
             {/* <h1 className="text-4xl font-bold text-gray-900 mb-2">{isEditing ? "Edit Expense" : "Add New Expense"}</h1> */}
             {/* <p className="text-gray-600">Enter details for your expense records</p> */}
           </div>
