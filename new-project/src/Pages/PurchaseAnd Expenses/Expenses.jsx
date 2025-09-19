@@ -1024,7 +1024,7 @@ export default function ExpenseTable() {
     setDeleteModalOpen(true)
   }
   const navigate = useNavigate()
-
+// addExpenses
   const handleAddExpress = () => {
     navigate("/purchase/addexpenses")
   }
