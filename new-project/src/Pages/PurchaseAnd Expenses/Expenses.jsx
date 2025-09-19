@@ -1028,7 +1028,7 @@ export default function ExpenseTable() {
   const handleAddExpress = () => {
     navigate("/purchase/addexpenses")
   }
-  // Calculate stats
+
   const totalExpenses = expenses.length
   const paidExpenses = expenses.filter((exp) => exp.status === "Paid").length
   const pendingExpenses = expenses.filter((exp) => exp.status === "Pending").length
