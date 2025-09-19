@@ -170,7 +170,7 @@ import AddUser from './Pages/User/AddUser';
 import FollowupForm from './Pages/CRM Follow-Up/FollowupForm';
 import AddFollowUp from './Pages/CRM Follow-Up/AddFollowUp';
 import ReportAnaly from './Pages/Report&Analytics/ReportAnaly';
-import CustomerDetail from './Pages/Customerss/CustomerDetail';
+// import CustomerDetail from './Pages/Customerss/CustomerDetail';
 import AddExpenses from './Pages/PurchaseAnd Expenses/AddExpenses';
 
 function App() {
@@ -192,7 +192,7 @@ function App() {
               <Route path="/customersList/customers" element={<Customers />} />
               <Route path="/customerslist" element={<CustomersList />} />
               
-              <Route path="/customers" element={<CustomerDetail />} />
+              {/* <Route path="/customers" element={<CustomerDetail />} /> */}
               <Route path="/userList" element={<UserList />} />
               <Route path="/adduser" element={<AddUser />} />
 
