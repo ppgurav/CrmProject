@@ -86,6 +86,12 @@ export default function Header({ onMenuClick }) {
       iconColor: 'stroke-pink-200',
     },
     '/sale/product-service': {
+      title: 'Product Management',
+      buttonTextColor: 'text-purple-100',
+      iconColor: 'stroke-purple-100',
+      // pageSubtitle:"Fill in the details to add a new product to your inventory"
+    },
+    '/sale/addproduct': {
       title: 'Add New Product',
       buttonTextColor: 'text-purple-100',
       iconColor: 'stroke-purple-100',

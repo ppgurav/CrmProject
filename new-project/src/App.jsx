@@ -172,6 +172,7 @@ import AddFollowUp from './Pages/CRM Follow-Up/AddFollowUp';
 import ReportAnaly from './Pages/Report&Analytics/ReportAnaly';
 // import CustomerDetail from './Pages/Customerss/CustomerDetail';
 import AddExpenses from './Pages/PurchaseAnd Expenses/AddExpenses';
+import AddProduct from './Pages/AddProduct';
 
 function App() {
   return (
@@ -203,7 +204,7 @@ function App() {
               <Route path="/vendorlist" element={<VendorList />} />
 
               <Route path="/sale/product-service" element={<ProductService />} />
-
+              <Route path="/sale/addproduct" element={<AddProduct />} />
 
 
               <Route path="/sale/invoice" element={<Invoice />} />
