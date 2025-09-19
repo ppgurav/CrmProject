@@ -229,7 +229,7 @@ function App() {
               <Route path="/attendance/wfh-report" element={<WFTlist />} />
               <Route path="/attendance/attendance-entry" element={<AttendanceEntry />} />
 
-{/* PURCHASES */}
+
               <Route path="/purchase/purchase-order" element={<PurchaseOrder />} />
               <Route path="/purchase/purchasetable" element={<PurchaseTable />} />
               <Route path="/purchase/invoices/all" element={<AllInvoices />} />
