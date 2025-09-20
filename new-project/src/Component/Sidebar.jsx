@@ -44,6 +44,13 @@ export default function Sidebar({ isOpen, onClose }) {
       ],
     },
     {
+      title: "📁 Master Field",
+      items: [
+        { name: "Departments", icon: Users, href: "/department" },
+        { name: "Categories", icon: Users, href: "/categories" },
+      ],
+    },
+    {
       title: "💰 Sales",
       items: [{ name: "Invoice", icon: FileText, href: "/sale/invoice" }],
     },

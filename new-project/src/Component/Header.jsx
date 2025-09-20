@@ -97,6 +97,20 @@ export default function Header({ onMenuClick }) {
       iconColor: 'stroke-purple-100',
       pageSubtitle:"Fill in the details to add a new product to your inventory"
     },
+
+
+    '/department': {
+      title: 'Department Management',
+      buttonTextColor: 'text-purple-100',
+      iconColor: 'stroke-purple-100',
+      // pageSubtitle:"Fill in the details to add a new product to your inventory"
+    },
+    '/categories': {
+      title: 'Product Categories ',
+      buttonTextColor: 'text-purple-100',
+      iconColor: 'stroke-purple-100',
+      pageSubtitle:"Manage your product categories and their settings"
+    },
     '/sale/invoice': {
       title: 'Invoice',
       pageSubtitle: 'Saturday, August 2, 2025 at 05:29 PM',
