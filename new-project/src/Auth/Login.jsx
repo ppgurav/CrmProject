@@ -369,8 +369,8 @@ const loginSchema = z.object({
 });
 
 
-const API_BASE_URL = "https://erpapi.technfest.com/";
-
+// const API_BASE_URL = "https://erpapi.technfest.com/";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const Login = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
