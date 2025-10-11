@@ -1,5 +1,5 @@
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { z } from "zod"
 import {  Plus,  Search,  Filter,  Phone,  MessageSquare,  Edit, Eye,  RefreshCw,  User,  FileText,  History,  Mail,  RotateCcw,  CheckCircle,  Clock,  X,} from "lucide-react"
 import { useNavigate } from "react-router-dom"
@@ -164,6 +164,20 @@ export default function LeadForm() {
     }
   }
 
+  const reminders = [
+    {
+      assignedTo: "Priya",
+      dateTime: "2 Aug, 2:30 PM",
+      message: "Initial contact made. Client interested in e-commerce solution.",
+    },
+    {
+      assignedTo: "Priya",
+      dateTime: "1 Aug, 4:15 PM",
+      message: "Sent initial proposal. Waiting for feedback.",
+    },
+  ];
+  
+
   const handleSubmit = (e) => {
     e.preventDefault()
 
@@ -218,6 +232,77 @@ export default function LeadForm() {
     }
     return colors[status] || "bg-gray-100 text-gray-800"
   }
+
+  // async function handleSendPaymentLink(reminder) {
+  //   try {
+  //     // Example: get lead info
+  //     const phoneNumber = reminder.phone || leadDetails?.phone; // E.g. "+919876543210"
+  //     const amount = reminder.amount || 500; // Customize per reminder or lead
+  
+  //     // Call backend API to generate & send WhatsApp message
+  //     const response = await fetch("/api/payment/send-whatsapp-link", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({
+  //         leadId: leadDetails?.id,
+  //         phoneNumber,
+  //         amount,
+  //       }),
+  //     });
+  
+  //     if (response.ok) {
+  //       alert(`WhatsApp payment link sent to ${phoneNumber}`);
+  //     } else {
+  //       alert("Failed to send WhatsApp payment link");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error sending WhatsApp payment link:", error);
+  //   }
+  // }
+  
+  /* --- Optional auto-send logic --- */
+  // useEffect(() => {
+  //   const now = new Date();
+  
+  //   reminders?.forEach((reminder) => {
+  //     const reminderTime = new Date(reminder.dateTime);
+  //     const isDue = reminderTime <= now;
+  
+  //     // Auto-send if due and marked for auto send
+  //     if (isDue && reminder.autoSend && !reminder.linkSent) {
+  //       handleSendPaymentLink(reminder);
+  //       reminder.linkSent = true; // avoid duplicates
+  //     }
+  //   });
+  // }, [reminders]);
+
+
+
+
+  const handleSendPaymentLink = (reminder) => {
+    const phone = lead.phone.replace("+", "").trim(); // format phone
+    const leadName = lead.name;
+  
+    const messageLines = [
+      `Hello ${leadName},`,
+      ``,
+      `Here’s your payment quote based on our reminder:`,
+      `"${reminder.message}"`,
+      ``,
+      ...reminder.quote.items.map(item => `${item.name}: $${item.price}`),
+      ``,
+      `Total: $${reminder.quote.total}`,
+      ``,
+      `Please complete the payment at: https://yourpaymentlink.com/lead/${lead.id}`
+    ];
+  
+    const encodedMsg = encodeURIComponent(messageLines.join("\n"));
+    const whatsappURL = `https://wa.me/${phone}?text=${encodedMsg}`;
+  
+    window.open(whatsappURL, "_blank");
+  };
+  
+
   const navigate = useNavigate();
 
 
@@ -497,6 +582,7 @@ export default function LeadForm() {
                 {[
                   { id: "info", label: "🔹 Lead Info", icon: User },
                   { id: "notes", label: "📝 Notes & Comments", icon: FileText },
+                  { id: "Details", label: " Quatation", icon: User },
                   { id: "followup", label: "📞 Follow-up History", icon: History },
                   { id: "logs", label: "📤 WhatsApp & Email Logs", icon: Mail },
                   { id: "conversion", label: "🔁 Conversion History", icon: RotateCcw },
@@ -629,6 +715,99 @@ export default function LeadForm() {
                   </div>
                 </div>
               )}
+
+
+
+{/* {leadDetailTab === "Details" && (
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <h3 className="text-lg font-medium text-gray-900"> </h3>
+                    <button className="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700">
+                    Select Remainder
+                    </button>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="bg-gray-50 p-4 rounded">
+                      <div className="flex justify-between items-start mb-2">
+                        <span className="font-medium text-sm text-gray-900">Priya</span>
+                        <span className="text-xs text-gray-500">2 Aug, 2:30 PM</span>
+                      </div>
+                      <p className="text-sm text-gray-700">
+                        Initial contact made. Client interested in e-commerce solution.
+                      </p>
+                    </div>
+                    <div className="bg-gray-50 p-4 rounded">
+                      <div className="flex justify-between items-start mb-2">
+                        <span className="font-medium text-sm text-gray-900">Priya</span>
+                        <span className="text-xs text-gray-500">1 Aug, 4:15 PM</span>
+                      </div>
+                      <p className="text-sm text-gray-700">Sent initial proposal. Waiting for feedback.</p>
+                    </div>
+                  </div>
+                </div>
+              )} */}
+{leadDetailTab === "Details" && (
+  <div className="space-y-4">
+    {/* Header */}
+    <div className="flex justify-between items-center">
+      <h3 className="text-lg font-medium text-gray-900">Reminders</h3>
+      <button className="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700">
+        Select Reminder
+      </button>
+    </div>
+
+    {/* Reminder List */}
+    <div className="space-y-3">
+      {reminders && reminders.length > 0 ? (
+        reminders.map((reminder, index) => (
+          <div key={index} className="bg-gray-50 p-4 rounded shadow-sm space-y-3">
+            {/* Reminder Info */}
+            <div className="flex justify-between items-start">
+              <span className="font-medium text-sm text-gray-900">{reminder.assignedTo}</span>
+              <span className="text-xs text-gray-500">{reminder.dateTime}</span>
+            </div>
+            <p className="text-sm text-gray-700">{reminder.message}</p>
+
+            {/* Quote Section */}
+            {reminder.quote && (
+              <div className="bg-white border border-gray-200 rounded p-3">
+                <h4 className="text-sm font-semibold text-gray-800 mb-2">Quote Details</h4>
+                <div className="space-y-1 text-sm text-gray-700">
+                  {reminder.quote.items.map((item, idx) => (
+                    <div key={idx} className="flex justify-between">
+                      <span>{item.name}</span>
+                      <span>${item.price}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex justify-between border-t pt-2 mt-2 font-medium text-indigo-600">
+                  <span>Total</span>
+                  <span>${reminder.quote.total}</span>
+                </div>
+              </div>
+            )}
+
+            {/* Send WhatsApp Payment Link Button */}
+            <div className="flex justify-end">
+              <button
+                onClick={() => handleSendPaymentLink(reminder)}
+                className="bg-green-600 text-white px-3 py-1 rounded text-sm hover:bg-green-700"
+              >
+                Send WhatsApp Payment Link
+              </button>
+            </div>
+          </div>
+        ))
+      ) : (
+        <p className="text-sm text-gray-500 italic">No reminders yet.</p>
+      )}
+    </div>
+  </div>
+)}
+
+
+
+
 
               {leadDetailTab === "followup" && (
                 <div className="space-y-4">

@@ -13,6 +13,7 @@ import {
   Power,
   Calendar,
 } from "lucide-react"
+import { useNavigate } from "react-router-dom"
 
 // Mock data based on API structure
 const mockCategories = [
@@ -201,7 +202,11 @@ export default function CategoriesPage() {
     setShowAddForm(false)
     setEditingCategory(null)
   }
+  const navigate = useNavigate()
 
+  const handleAddCategories = () => {
+    navigate("/addcategories")
+  }
   const editCategory = (category) => {
     setEditingCategory(category)
     setFormData({
@@ -408,7 +413,7 @@ export default function CategoriesPage() {
             {/* Actions */}
             <div className="flex gap-3">
               <button
-                onClick={() => setShowAddForm(true)}
+                onClick={handleAddCategories}
                 className="flex items-center gap-2 px-6 py-3 bg-indigo-500 text-white rounded-xl hover:bg-indigo-600 transition-colors duration-200 font-medium"
               >
                 <Plus className="w-5 h-5" />

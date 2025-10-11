@@ -103,7 +103,13 @@ export default function Header({ onMenuClick }) {
       title: 'Department Management',
       buttonTextColor: 'text-purple-100',
       iconColor: 'stroke-purple-100',
-      // pageSubtitle:"Fill in the details to add a new product to your inventory"
+      pageSubtitle:"Manage your organization departments and their settings"
+    },
+    '/adddepartment': {
+      title: 'Department Management',
+      buttonTextColor: 'text-purple-100',
+      iconColor: 'stroke-purple-100',
+      pageSubtitle:"Create a new employee-Department"
     },
     '/categories': {
       title: 'Product Categories ',
@@ -111,6 +117,13 @@ export default function Header({ onMenuClick }) {
       iconColor: 'stroke-purple-100',
       pageSubtitle:"Manage your product categories and their settings"
     },
+    '/addcategories': {
+      title: 'Add New Categories ',
+      buttonTextColor: 'text-purple-100',
+      iconColor: 'stroke-purple-100',
+      pageSubtitle:"Create a new product or service category"
+    },
+
     '/sale/invoice': {
       title: 'Invoice',
       pageSubtitle: 'Saturday, August 2, 2025 at 05:29 PM',

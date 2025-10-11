@@ -317,81 +317,104 @@ export default function AddLead() {
 
           {/* 3. Assignment & Follow-up */}
           <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100">
-            <div className="flex items-center mb-6">
-              <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mr-3">
-                <Calendar className="w-5 h-5 text-white" />
-              </div>
-              <h2 className="text-xl font-semibold text-gray-900">Assignment & Follow-up</h2>
-            </div>
+  <div className="flex items-center mb-6">
+    <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mr-3">
+      <Calendar className="w-5 h-5 text-white" />
+    </div>
+    <h2 className="text-xl font-semibold text-gray-900">Assignment & Follow-up</h2>
+  </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Assigned To */}
-              <div>
-                <label htmlFor="assignedTo" className="block text-sm font-medium text-gray-700 mb-2">
-                  Assigned To <span className="text-red-500">*</span>
-                </label>
-                <select
-                  id="assignedTo"
-                  name="assignedTo"
-                  value={formData.assignedTo}
-                  onChange={handleInputChange}
-                  className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 ${
-                    errors.assignedTo ? "border-red-500" : "border-gray-300"
-                  }`}
-                >
-                  <option value="">Select team member</option>
-                  {employees.map((employee) => (
-                    <option key={employee} value={employee}>
-                      {employee}
-                    </option>
-                  ))}
-                </select>
-                {errors.assignedTo && <p className="mt-1 text-sm text-red-600">{errors.assignedTo}</p>}
-              </div>
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {/* Assigned To */}
+    <div>
+      <label htmlFor="assignedTo" className="block text-sm font-medium text-gray-700 mb-2">
+        Assigned To <span className="text-red-500">*</span>
+      </label>
+      <select
+        id="assignedTo"
+        name="assignedTo"
+        value={formData.assignedTo}
+        onChange={handleInputChange}
+        className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 ${
+          errors.assignedTo ? "border-red-500" : "border-gray-300"
+        }`}
+      >
+        <option value="">Select team member</option>
+        {employees.map((employee) => (
+          <option key={employee} value={employee}>
+            {employee}
+          </option>
+        ))}
+      </select>
+      {errors.assignedTo && <p className="mt-1 text-sm text-red-600">{errors.assignedTo}</p>}
+    </div>
 
-              {/* Next Follow-up */}
-              <div>
-                <label htmlFor="nextFollowup" className="block text-sm font-medium text-gray-700 mb-2">
-                  Next Follow-up Date <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="date"
-                  id="nextFollowup"
-                  name="nextFollowup"
-                  value={formData.nextFollowup}
-                  onChange={handleInputChange}
-                  className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 ${
-                    errors.nextFollowup ? "border-red-500" : "border-gray-300"
-                  }`}
-                />
-                {errors.nextFollowup && <p className="mt-1 text-sm text-red-600">{errors.nextFollowup}</p>}
-              </div>
+    {/* Next Follow-up */}
+    <div>
+      <label htmlFor="nextFollowup" className="block text-sm font-medium text-gray-700 mb-2">
+        Next Follow-up Date <span className="text-red-500">*</span>
+      </label>
+      <input
+        type="date"
+        id="nextFollowup"
+        name="nextFollowup"
+        value={formData.nextFollowup}
+        onChange={handleInputChange}
+        className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 ${
+          errors.nextFollowup ? "border-red-500" : "border-gray-300"
+        }`}
+      />
+      {errors.nextFollowup && <p className="mt-1 text-sm text-red-600">{errors.nextFollowup}</p>}
+    </div>
 
-              {/* Priority */}
-              <div className="md:col-span-2">
-                <label htmlFor="priority" className="block text-sm font-medium text-gray-700 mb-2">
-                  Priority <span className="text-red-500">*</span>
-                </label>
-                <select
-                  id="priority"
-                  name="priority"
-                  value={formData.priority}
-                  onChange={handleInputChange}
-                  className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 ${
-                    errors.priority ? "border-red-500" : "border-gray-300"
-                  }`}
-                >
-                  <option value="">Select priority level</option>
-                  {priorities.map((priority) => (
-                    <option key={priority} value={priority}>
-                      {priority}
-                    </option>
-                  ))}
-                </select>
-                {errors.priority && <p className="mt-1 text-sm text-red-600">{errors.priority}</p>}
-              </div>
-            </div>
-          </div>
+    {/* Status */}
+    <div>
+      <label htmlFor="status" className="block text-sm font-medium text-gray-700 mb-2">
+        Status <span className="text-red-500">*</span>
+      </label>
+      <select
+        id="status"
+        name="status"
+        value={formData.status}
+        onChange={handleInputChange}
+        className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 ${
+          errors.status ? "border-red-500" : "border-gray-300"
+        }`}
+      >
+        <option value="">Select status</option>
+        <option value="Pending">Follow-up</option>
+        <option value="In Progress">Contacted</option>
+        <option value="Completed">New</option>
+      </select>
+      {errors.status && <p className="mt-1 text-sm text-red-600">{errors.status}</p>}
+    </div>
+
+    {/* Priority */}
+    <div>
+      <label htmlFor="priority" className="block text-sm font-medium text-gray-700 mb-2">
+        Priority <span className="text-red-500">*</span>
+      </label>
+      <select
+        id="priority"
+        name="priority"
+        value={formData.priority}
+        onChange={handleInputChange}
+        className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 ${
+          errors.priority ? "border-red-500" : "border-gray-300"
+        }`}
+      >
+        <option value="">Select priority level</option>
+        {priorities.map((priority) => (
+          <option key={priority} value={priority}>
+            {priority}
+          </option>
+        ))}
+      </select>
+      {errors.priority && <p className="mt-1 text-sm text-red-600">{errors.priority}</p>}
+    </div>
+  </div>
+</div>
+
 
           {/* 4. Notes */}
           <div className="bg-white rounded-2xl shadow-lg shadow-indigo-500/5 p-6 border border-gray-100">
