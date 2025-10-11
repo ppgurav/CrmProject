@@ -226,7 +226,7 @@ function App() {
                <Route path="/sale/product-service" element={<ProductService />} />
                <Route path="/sale/addproduct" element={<AddProduct />} />
 
-{/* Master Fiels */}
+
 <Route path="/department" element={<Departments />} />
   <Route path="/adddepartment" element={<AddDepartment />} />
 <Route path="/categories" element={<Categories />} />

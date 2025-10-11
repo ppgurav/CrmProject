@@ -368,7 +368,7 @@ const loginSchema = z.object({
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
-// Base API URL
+
 const API_BASE_URL = "https://erpapi.technfest.com/";
 
 const Login = () => {

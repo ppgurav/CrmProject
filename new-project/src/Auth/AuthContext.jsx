@@ -135,7 +135,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-// ✅ API base URL (ensure this is defined in your .env file, e.g. VITE_API_BASE_URL="http://erpapi.technfest.com/")
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://erpapi.technfest.com/';
 
 const AuthContext = createContext();
